@@ -75,9 +75,9 @@ function ValueOfDayCard({ product }: { product: ProductItem }) {
     `${product.name} is a popular choice and enjoys a significant following with seasoned enthusiasts who enjoy quality products.`;
 
   return (
-    <div className="group/card relative bg-white rounded-xl border-2 border-[#185699] overflow-visible flex flex-col py-6 px-5 text-center">
-      {/* Default card – same as before, stays in flow */}
-      <div className="overflow-hidden rounded-xl">
+    <div className="group/card relative bg-white rounded-xl border-2 border-[#185699] overflow-visible flex flex-col py-6 px-5 text-center min-h-[340px]">
+      {/* Default card – button always at bottom for same alignment across cards */}
+      <div className="overflow-hidden rounded-xl flex flex-col flex-1 min-h-0">
         <h3 className="text-[#555] font-semibold text-base sm:text-lg uppercase tracking-wide">
           {product.name}
         </h3>
@@ -91,7 +91,7 @@ function ValueOfDayCard({ product }: { product: ProductItem }) {
               alt={product.name}
               width={400}
               height={220}
-              className="object-contain w-full max-h-48 "
+              className="object-contain w-full max-h-48"
             />
           ) : (
             <span className="text-gray-300 text-xs">Add image</span>
@@ -104,14 +104,17 @@ function ValueOfDayCard({ product }: { product: ProductItem }) {
               {original.minor ? `.${original.minor}` : ''}
             </span>
           )}
-          <p className="text-[#555] font-semibold text-lg sm:text-xl">
+          <p className="text-[#555] font-semibold text-lg sm:text-xl mb-2">
             {price.currency || 'AED'} {price.major}
             {price.minor ? <span className="text-base">.{price.minor}</span> : ''}
           </p>
         </div>
         <button
           type="button"
-          className="mt-5 w-full max-w-[180px] mx-auto py-2.5 rounded-full border-2 border-[#185699] text-[#123a55] font-medium text-sm uppercase tracking-wide bg-transparent hover:bg-[#faa3a3] hover:border-[#faa3a3] transition-colors"
+          className="mt-auto  w-full max-w-[180px] mx-auto py-2.5 rounded-full border-0 text-white font-medium text-sm uppercase tracking-wide transition-colors hover:opacity-95"
+          style={{
+            background: 'linear-gradient(90deg, rgba(4, 29, 61, 1) 54%, rgba(156, 3, 3, 1) 100%)',
+          }}
         >
           Buy Now
         </button>
