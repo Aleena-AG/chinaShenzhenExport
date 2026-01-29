@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 // Product shape – imageSrc = default, imageSrcHover = hover pe dikhega
 export type ProductItem = {
@@ -109,15 +110,15 @@ function ValueOfDayCard({ product }: { product: ProductItem }) {
             {price.minor ? <span className="text-base">.{price.minor}</span> : ''}
           </p>
         </div>
-        <button
-          type="button"
-          className="mt-auto  w-full max-w-[180px] mx-auto py-2.5 rounded-full border-0 text-white font-medium text-sm uppercase tracking-wide transition-colors hover:opacity-95"
+        <Link
+          href={`/product/${product.id}`}
+          className="mt-auto w-full max-w-[180px] mx-auto py-2.5 rounded-full border-0 text-white font-medium text-sm uppercase tracking-wide transition-colors hover:opacity-95 flex items-center justify-center"
           style={{
             background: 'linear-gradient(90deg, rgba(4, 29, 61, 1) 54%, rgba(156, 3, 3, 1) 100%)',
           }}
         >
           Buy Now
-        </button>
+        </Link>
       </div>
 
       {/* Hover overlay – detailed UI like the image (golden strip, description, info box, button) */}
@@ -163,12 +164,12 @@ function ValueOfDayCard({ product }: { product: ProductItem }) {
               <span className="text-[#555] font-medium">{product.alcohol || '18w'}</span>
             </div>
           </div>
-          <button
-            type="button"
-            className="mt-4 w-full py-2.5 rounded-lg border border-[#1658a1] bg-[#dae3ef] text-[#1658a1] font-medium text-sm uppercase tracking-wide hover:bg-[#dae3ef] transition-colors"
+          <Link
+            href={`/product/${product.id}`}
+            className="mt-4 w-full py-2.5 rounded-lg border border-[#1658a1] bg-[#dae3ef] text-[#1658a1] font-medium text-sm uppercase tracking-wide hover:opacity-90 transition-colors text-center block"
           >
             Buy Now
-          </button>
+          </Link>
         </div>
       </div>
     </div>

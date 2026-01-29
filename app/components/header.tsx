@@ -1,11 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { getCartCount, getCartTotal, CART_UPDATED_EVENT } from '../lib/cart';
 
 export default function Header() {
-  const [cartCount] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
+  const [cartTotal, setCartTotal] = useState('0.00');
   const [compareCount] = useState(0);
+
+  const refreshCart = () => {
+    if (typeof window !== 'undefined') {
+      setCartCount(getCartCount());
+      setCartTotal(getCartTotal());
+    }
+  };
+
+  useEffect(() => {
+    refreshCart();
+    window.addEventListener(CART_UPDATED_EVENT, refreshCart);
+    return () => window.removeEventListener(CART_UPDATED_EVENT, refreshCart);
+  }, []);
 
   return (
     <header className="w-full text-[#1658a1]">
@@ -40,14 +56,12 @@ export default function Header() {
             </div>
 
             {/* Center: Navigation Menu */}
-            <nav className="hidden lg:flex items-center gap-6">
-              <button className="flex items-center gap-1 text-[#1658a1] hover:opacity-90 transition-colors">
-                <HamburgerIcon />
-              </button>
-              <NavLink text="Home" hasDropdown />
+            <nav className="hidden lg:flex items-center gap-6 hover:text-[#1658a1] transition-colors">
+           
+              <NavLink text="Home"  />
               <NavLink text="About Us" />
-              <NavLink text="Blog" hasDropdown />
-              <NavLink text="Pages" hasDropdown />
+              <NavLink text="Blog"  />
+             
               <NavLink text="Features" />
               <NavLink text="Contact Us" />
             </nav>
@@ -57,12 +71,12 @@ export default function Header() {
               <IconButton icon="refresh" badge={compareCount} variant="blue" />
               <IconButton icon="heart" variant="blue" />
               <IconButton icon="user" variant="blue" />
-              <div className="flex items-center gap-2">
+              <Link href="/cart" className="flex items-center gap-2">
                 <IconButton icon="cart" badge={cartCount} variant="blue" />
                 <span className="hidden sm:inline text-sm text-[#1658a1] font-medium">
-                  ${cartCount.toFixed(2)}
+                  ${cartTotal}
                 </span>
-              </div>
+              </Link>
             </div>
           </div>
         </div>

@@ -84,7 +84,7 @@ export default function HeroSection() {
                 placeholder="Search products..."
                 className="flex-1 bg-transparent border-2 border-white rounded-lg px-4 py-3 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-[#db1f26] focus:border-[#db1f26]"
               />
-              <button className="bg-[#123a55] text-white px-6 py-3 rounded-lg hover:bg-[#123a55] transition-colors flex items-center justify-center">
+              <button className="bg-white text-[#1658a1] px-6 py-3 rounded-lg transition-colors flex items-center justify-center">
                 <svg
                   className="w-5 h-5"
                   fill="none"
