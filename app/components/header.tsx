@@ -48,21 +48,19 @@ export default function Header() {
 
       {/* Main Navigation Bar - white bg, red text */}
       <div className="bg-white border-b border-gray-200">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-8">
           <div className="flex items-center justify-between h-20 text-[#1658a1]">
             {/* Left: Logo */}
             <div className="flex items-center">
-           <Image src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1769430712/ece77608-1576-4cc6-9ba6-b8193cd4b90f-removebg-preview_1_c2qehx.png" alt="Logo" width={250} height={100} />
+           <Image src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1769773702/161d8737-4a02-4882-8ddd-5363a1b95eb8-removebg-preview_4_uzklux.png" alt="Logo" width={250} height={100} />
             </div>
 
             {/* Center: Navigation Menu */}
-            <nav className="hidden lg:flex items-center gap-6 hover:text-[#1658a1] transition-colors">
-           
-              <NavLink text="Home"  />
+            <nav className="hidden font-semibold text-base lg:flex items-center gap-10 hover:text-[#1658a1] transition-colors">
+              <NavLink text="Home" href="/" />
               <NavLink text="About Us" />
-              <NavLink text="Blog"  />
-             
-              <NavLink text="Features" />
+              
+              <NavLink text="Shop" />
               <NavLink text="Contact Us" />
             </nav>
 
@@ -106,11 +104,11 @@ function Divider({ isLight }: { isLight?: boolean }) {
 }
 
 // Navigation Link Component
-function NavLink({ text, hasDropdown = false }: { text: string; hasDropdown?: boolean }) {
+function NavLink({ text, hasDropdown = false, href = '#' }: { text: string; hasDropdown?: boolean; href?: string }) {
   return (
-    <a
-      href="#"
-      className="flex items-center gap-1 text-sm hover:text-[#1658a1] transition-colors"
+    <Link
+      href={href}
+      className="flex items-center gap-1 text-base font-semibold hover:text-[#1658a1] transition-colors"
     >
       {text}
       {hasDropdown && (
@@ -128,7 +126,7 @@ function NavLink({ text, hasDropdown = false }: { text: string; hasDropdown?: bo
           />
         </svg>
       )}
-    </a>
+    </Link>
   );
 }
 

@@ -1,0 +1,1876 @@
+[
+    {
+      "slug": "gps-trackers",
+      "label": "GPS Trackers",
+      "products": [
+        {
+          "id": 1,
+          "name": "YG-T92",
+          "description": "Compact real-time GPS tracker for vehicles, assets, and personnel.",
+          "fullDescription": "Our GPS Tracker Hardware offers precise real-time location tracking for vehicles, assets, and personnel. Equipped with high-sensitivity GPS modules and GSM connectivity, this device ensures continuous monitoring and geofencing capabilities anywhere worldwide. Compact and durable, it is ideal for fleet management, logistics, personal safety, and asset security.",
+        
+          "specs": {
+            "connectivity": "4G LTE",
+            "positioning": "GPS, GLONASS, Beidou",
+            "battery": "Built-in rechargeable battery",
+            "dimensions": "Compact design",
+            "applications": [
+              "Vehicle tracking",
+              "Asset monitoring",
+              "Personnel safety",
+              "Fleet management"
+            ],
+            "features": [
+              "Real-time GPS tracking",
+              "Advanced I/O support",
+              "GNSS positioning",
+              "4G LTE connectivity",
+              "Data logging",
+              "Sensor integration",
+              "Geofencing",
+              "Speed monitoring"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$169.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/yg-t92.jpg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/yg-t92.jpg",
+            "/wp-content/themes/gcec/assets/images/products/yg-t92-1.jpg",
+            "/wp-content/themes/gcec/assets/images/products/yg-t92-2.jpg"
+          ],
+          "badge": {
+            "text": "Popular",
+            "type": "popular"
+          },
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 2,
+          "name": "YG-D3 GPS Tracker",
+          "description": "4G CAT1 wireless rechargeable GPS tracker with GPS, Beidou, WiFi, and LBS positioning.",
+          "fullDescription": "The YG-D3 is an advanced 4G CAT1 wireless GPS tracking device featuring multiple positioning technologies including GPS, Beidou, WiFi, and LBS. Equipped with a rechargeable battery for flexible installation options. Perfect for comprehensive location tracking with enhanced accuracy through multiple positioning systems.",
+          "specs": {
+            "connectivity": "4G CAT1",
+            "positioning": "GPS, Beidou, WiFi, LBS",
+            "battery": "Rechargeable battery",
+            "wireless": "Yes",
+            "applications": [
+              "Vehicle tracking",
+              "Asset monitoring",
+              "Real-time location services",
+              "Multi-technology positioning"
+            ],
+            "features": [
+              "Real-time GPS tracking",
+              "Advanced I/O support",
+              "GNSS positioning",
+              "4G LTE connectivity",
+              "Data logging",
+              "Sensor integration",
+              "Geofencing",
+              "Speed monitoring"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/YG-D3.jpg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/YG-D3-1.png",
+            "/wp-content/themes/gcec/assets/images/products/YG-D3-3.png",
+            "/wp-content/themes/gcec/assets/images/products/YG-D3-2.jpg",
+            "/wp-content/themes/gcec/assets/images/products/YG-D3-4.jpg",
+            "/wp-content/themes/gcec/assets/images/products/YG-D3-5.jpg"
+            
+          ],
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 3,
+          "name": "Teltonika FMC130",
+          "description": "4G LTE GPS tracker with advanced I/O and GNSS support.",
+          "fullDescription": "The Teltonika FMC130 is a professional-grade 4G LTE GPS tracking device with advanced I/O capabilities and comprehensive GNSS support. Designed for demanding applications requiring precise tracking, data logging, and integration with various sensors and peripherals. Ideal for commercial fleet management and advanced telematics solutions.",
+          "specs": {
+            "connectivity": "4G LTE",
+            "positioning": "GNSS (GPS, GLONASS, Galileo, Beidou)",
+            "io": "Advanced I/O support",
+            "input_voltage": "9 - 30 V DC",
+            "operating_temperature": "-40°C to +85°C",
+            "operating_humidity": "Max 95% non-condensing",
+            "dimensions": "Compact design",
+            "weight": "Lightweight",
+            "features": [
+              "Real-time GPS tracking",
+              "Advanced I/O support",
+              "GNSS positioning",
+              "4G LTE connectivity",
+              "Data logging",
+              "Sensor integration",
+              "Geofencing",
+              "Speed monitoring"
+            ],
+            "note": "Features may vary based on configuration and firmware version.",
+            "applications": [
+              "Commercial fleet management",
+              "Advanced telematics",
+              "Sensor integration",
+              "Professional tracking solutions",
+              "Vehicle monitoring",
+              "Asset tracking"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$210.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/130.png",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/130-1.png",
+            "/wp-content/themes/gcec/assets/images/products/130-2.webp"
+          ],
+          "badge": {
+            "text": "Pro Series",
+            "type": "pro"
+          },
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 4,
+          "name": "Teltonika FMC150",
+          "description": "4G LTE GPS tracker with advanced I/O and GNSS support.",
+          "fullDescription": "The Teltonika FMC150 is a professional-grade 4G LTE GPS tracking device with advanced I/O capabilities and comprehensive GNSS support. Designed for demanding applications requiring precise tracking, data logging, and integration with various sensors and peripherals. Ideal for commercial fleet management and advanced telematics solutions.",
+          "specs": {
+            "connectivity": "4G LTE",
+            "positioning": "GNSS (GPS, GLONASS, Galileo, Beidou)",
+            "io": "Advanced I/O support",
+            "input_voltage": "9 - 30 V DC",
+            "operating_temperature": "-40°C to +85°C",
+            "operating_humidity": "Max 95% non-condensing",
+            "dimensions": "Compact design",
+            "weight": "Lightweight",
+            "features": [
+              "Real-time GPS tracking",
+              "Advanced I/O support",
+              "GNSS positioning",
+              "4G LTE connectivity",
+              "Data logging",
+              "Sensor integration",
+              "Geofencing",
+              "Speed monitoring",
+              "Route history",
+              "Fleet management",
+              "And more advanced features"
+            ],
+            "note": "Features may vary based on configuration and firmware version.",
+            "applications": [
+              "Commercial fleet management",
+              "Advanced telematics",
+              "Sensor integration",
+              "Professional tracking solutions",
+              "Vehicle monitoring",
+              "Asset tracking"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$210.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/150-2.jpeg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/150-1.jpg"
+          
+          ],
+          "badge": {
+            "text": "Pro Series",
+            "type": "pro"
+          },
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 5,
+          "name": "Teltonika ALL-CAN300",
+          "description": "CAN bus adapter designed to acquire data from special transport, agriculture, construction, light vehicles, vans, trucks and buses.",
+          "fullDescription": "ALL-CAN300 is designed to acquire data from special transport, agriculture and construction, transport, light vehicles, vans, trucks and buses. With ALL-CAN300 you can easily get basic and additional 100 parameters from on-board computer such as door status, AdBlue level, Oil pressure/level, engine lifetime, airbag. Supported by FMB1YX, FMU1YX, FMC1YX, FMM1YX, FM36YX, FM63YX, FMB64X, FMC64X, FMM64X series.",
+          "specs": {
+            "input_voltage": "9 - 63.5 V DC",
+            "power_consumption_12v_standby": "< 0.4 mA (Standby)",
+            "power_consumption_12v_working": "< 23.5 mA (Working)",
+            "power_consumption_24v_standby": "< 0.33 mA (Standby)",
+            "power_consumption_24v_working": "< 11.5 mA (Working)",
+            "operating_temperature": "-40°C to +85°C",
+            "operating_humidity": "Max 85% non-condensing",
+            "led_indication": "1 status LED light",
+            "dimensions": "41 x 33 x 14.5 mm",
+            "weight": "55 g"
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$210.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/150-2.jpeg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/150-1.jpg"
+          
+          ],
+          "badge": {
+            "text": "Pro Series",
+            "type": "pro"
+          },
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 5,
+          "name": "Teltonika CAN-200",
+          "description": "CAN bus adapter designed to acquire data from special transport, agriculture, construction, light vehicles, vans, trucks and buses.",
+          "fullDescription": "LV-CAN200 is designed to acquire data from light vehicles, vans, trucks, buses. With LV-CAN200 you can easily get basic parameters such as mileage, fuel level, fuel consumption, RPM, coolant temperature from on-board computer",
+          "specs": {
+            "input_voltage": "12 - 24 V DC",
+            "power_consumption": "< 0.33 mA (Standby)",
+            "operating_temperature": "-40°C to +85°C",
+            "operating_humidity": "Max 85% non-condensing",
+            "dimensions": "41 x 33 x 14.5 mm",
+            "weight": "55 g",
+            "features": [
+              "Real-time GPS tracking",
+              "Advanced I/O support",
+              "GNSS positioning",
+              "4G LTE connectivity",
+              "Data logging",
+              "Sensor integration"
+            ]
+          },
+          "manufacturer": {
+            "company": "China ShenzhenTeltonika Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$210.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/200.png",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/200-avif"
+          
+          ],
+          "badge": {
+            "text": "Pro Series",
+            "type": "pro"
+          },
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 5,
+          "name": "Teltonika FMM 640",
+          "description": "CAN bus adapter designed to acquire data from special transport, agriculture, construction, light vehicles, vans, trucks and buses.",
+          "fullDescription": "FMM640 is designed to acquire data from medium and heavy vehicles. With FMM640 you can easily get basic parameters such as mileage, fuel level, fuel consumption, RPM, coolant temperature from on-board computer",
+          "specs": {
+            "input_voltage": "12 - 24 V DC",
+            "power_consumption": "< 0.33 mA (Standby)",
+            "operating_temperature": "-40°C to +85°C",
+            "operating_humidity": "Max 85% non-condensing"
+          },
+          "manufacturer": {
+            "company": "China ShenzhenTeltonika Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$210.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/fmm640.png",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/fmm640.jpg"
+          
+          ],
+          "badge": {
+            "text": "Pro Series",
+            "type": "pro"
+          },
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        }
+      ]
+    },
+    {
+      "slug": "cable-lugs",
+      "label": "Cable Lugs",
+      "products": [
+        {
+          "id": 31,
+          "name": "DBV2-10 (Red copper)",
+          "description": "High-quality red copper cable lug for automotive and wire connection applications with excellent conductivity and corrosion resistance.",
+          "fullDescription": "The DBV2-10 is a premium red copper cable lug designed for automotive and wire connection applications. Manufactured from high-quality red copper material with PVC insulation, this cable lug provides excellent conductivity, corrosion resistance, and reliable wire termination. Certified with ISO9001, CE, and RoHS standards for quality assurance.",
+          "awg_ratings": [
+            "22-16",
+            "16-14",
+            "12-10"
+          ],
+          "specs": {
+            "type": "DBV2-10 Cable Lug",
+            "material": "Red Copper/PVC/Brass",
+            "application": "Automotive and Wire Connection and Protecting",
+            "cable_size": "0.5~400mm2",
+            "awg": "22-16 / 16-14 / 12-10",
+            "features": [
+              "Corrosion resistance",
+              "Good Insulation",
+              "Excellent conductivity",
+              "Red copper material",
+              "PVC insulation",
+              "Reliable wire termination"
+            ],
+            "certificate": "ISO9001, CE/RoHS"
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/DBV2-10.png",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 32,
+          "name": "MDD1.25-250",
+          "description": "Professional cable lug for automotive and wire connection applications with corrosion resistance and good insulation.",
+          "fullDescription": "The MDD1.25-250 is a professional-grade cable lug designed for automotive and wire connection applications. Manufactured from high-quality copper/PVC/brass materials, this cable lug provides excellent corrosion resistance and good insulation properties. Suitable for cable sizes from 0.5 to 400mm2 with AWG ratings of 22-16, 16-14, or 12-10.",
+          "awg_ratings": [
+            "22-16",
+            "16-14",
+            "12-10"
+          ],
+          "specs": {
+            "type": "MDD1.25-250 Cable Lug",
+            "material": "Copper/PVC/Brass",
+            "application": "Automotive and Wire Connection and Protecting",
+            "cable_size": "0.5~400mm2",
+            "awg": "22-16 / 16-14 / 12-10",
+            "features": [
+              "Corrosion resistance",
+              "Good Insulation",
+              "High-quality materials",
+              "Reliable connection"
+            ],
+            "certificate": "ISO9001, CE/RoHS"
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/MDD1.25-250.png",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 33,
+          "name": "MDD2-250",
+          "description": "Professional cable lug for automotive and wire connection applications with corrosion resistance and good insulation.",
+          "fullDescription": "The MDD2-250 is a professional-grade cable lug designed for automotive and wire connection applications. Manufactured from high-quality copper/PVC/brass materials, this cable lug provides excellent corrosion resistance and good insulation properties. Suitable for cable sizes from 0.5 to 400mm2 with AWG ratings of 22-16, 16-14, or 12-10.",
+          "awg_ratings": [
+            "22-16",
+            "16-14",
+            "12-10"
+          ],
+          "specs": {
+            "type": "MDD2-250 Cable Lug",
+            "material": "Copper/PVC/Brass",
+            "application": "Automotive and Wire Connection and Protecting",
+            "cable_size": "0.5~400mm2",
+            "awg": "22-16 / 16-14 / 12-10",
+            "features": [
+              "Corrosion resistance",
+              "Good Insulation",
+              "High-quality materials",
+              "Reliable connection"
+            ],
+            "certificate": "ISO9001, CE/RoHS"
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/MDD2-250.png",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 34,
+          "name": "RV1.25-10",
+          "description": "Professional cable lug for automotive and wire connection applications with corrosion resistance and good insulation.",
+          "fullDescription": "The RV1.25-10 is a professional-grade cable lug designed for automotive and wire connection applications. Manufactured from high-quality copper/PVC/brass materials, this cable lug provides excellent corrosion resistance and good insulation properties. Suitable for cable sizes from 0.5 to 400mm2 with AWG ratings of 22-16, 16-14, or 12-10.",
+          "awg_ratings": [
+            "22-16",
+            "16-14",
+            "12-10"
+          ],
+          "specs": {
+            "type": "RV1.25-10 Cable Lug",
+            "material": "Copper/PVC/Brass",
+            "application": "Automotive and Wire Connection and Protecting",
+            "cable_size": "0.5~400mm2",
+            "awg": "22-16 / 16-14 / 12-10",
+            "features": [
+              "Corrosion resistance",
+              "Good Insulation",
+              "High-quality materials",
+              "Reliable connection"
+            ],
+            "certificate": "ISO9001, CE/RoHS"
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/RV1.25-10.png",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 35,
+          "name": "DBV 1.25-14",
+          "description": "Professional cable lug for automotive and wire connection applications with corrosion resistance and good insulation.",
+          "fullDescription": "The DBV 1.25-14 is a professional-grade cable lug designed for automotive and wire connection applications. Manufactured from high-quality copper/PVC/brass materials, this cable lug provides excellent corrosion resistance and good insulation properties. Suitable for cable sizes from 0.5 to 400mm2 with AWG ratings of 22-16, 16-14, or 12-10.",
+          "awg_ratings": [
+            "22-16",
+            "16-14",
+            "12-10"
+          ],
+          "specs": {
+            "type": "DBV 1.25-14 Cable Lug",
+            "material": "Copper/PVC/Brass",
+            "application": "Automotive and Wire Connection and Protecting",
+            "cable_size": "0.5~400mm2",
+            "awg": "22-16 / 16-14 / 12-10",
+            "features": [
+              "Corrosion resistance",
+              "Good Insulation",
+              "High-quality materials",
+              "Reliable connection"
+            ],
+            "certificate": "ISO9001, CE/RoHS"
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/DBV 1.25-14.png",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 36,
+          "name": "FDD2-250",
+          "description": "Professional cable lug for automotive and wire connection applications with corrosion resistance and good insulation.",
+          "fullDescription": "The FDD2-250 is a professional-grade cable lug designed for automotive and wire connection applications. Manufactured from high-quality copper/PVC/brass materials, this cable lug provides excellent corrosion resistance and good insulation properties. Suitable for cable sizes from 0.5 to 400mm2 with AWG ratings of 22-16, 16-14, or 12-10.",
+          "awg_ratings": [
+            "22-16",
+            "16-14",
+            "12-10"
+          ],
+          "specs": {
+            "type": "FDD2-250 Cable Lug",
+            "material": "Copper/PVC/Brass",
+            "application": "Automotive and Wire Connection and Protecting",
+            "cable_size": "0.5~400mm2",
+            "awg": "22-16 / 16-14 / 12-10",
+            "features": [
+              "Corrosion resistance",
+              "Good Insulation",
+              "High-quality materials",
+              "Reliable connection"
+            ],
+            "certificate": "ISO9001, CE/RoHS"
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/FDD2-250.png",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 37,
+          "name": "FDD1.25-250",
+          "description": "Professional cable lug for automotive and wire connection applications with corrosion resistance and good insulation.",
+          "fullDescription": "The FDD1.25-250 is a professional-grade cable lug designed for automotive and wire connection applications. Manufactured from high-quality copper/PVC/brass materials, this cable lug provides excellent corrosion resistance and good insulation properties. Suitable for cable sizes from 0.5 to 400mm2 with AWG ratings of 22-16, 16-14, or 12-10.",
+          "awg_ratings": [
+            "22-16",
+            "16-14",
+            "12-10"
+          ],
+          "specs": {
+            "type": "FDD1.25-250 Cable Lug",
+            "material": "Copper/PVC/Brass",
+            "application": "Automotive and Wire Connection and Protecting",
+            "cable_size": "0.5~400mm2",
+            "awg": "22-16 / 16-14 / 12-10",
+            "features": [
+              "Corrosion resistance",
+              "Good Insulation",
+              "High-quality materials",
+              "Reliable connection"
+            ],
+            "certificate": "ISO9001, CE/RoHS"
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/FDD1.25-250.png",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 38,
+          "name": "FDD1.25-110",
+          "description": "Professional cable lug for automotive and wire connection applications with corrosion resistance and good insulation.",
+          "fullDescription": "The FDD1.25-110 is a professional-grade cable lug designed for automotive and wire connection applications. Manufactured from high-quality copper/PVC/brass materials, this cable lug provides excellent corrosion resistance and good insulation properties. Suitable for cable sizes from 0.5 to 400mm2 with AWG ratings of 22-16, 16-14, or 12-10.",
+          "awg_ratings": [
+            "22-16",
+            "16-14",
+            "12-10"
+          ],
+          "specs": {
+            "type": "FDD1.25-110 Cable Lug",
+            "material": "Copper/PVC/Brass",
+            "application": "Automotive and Wire Connection and Protecting",
+            "cable_size": "0.5~400mm2",
+            "awg": "22-16 / 16-14 / 12-10",
+            "features": [
+              "Corrosion resistance",
+              "Good Insulation",
+              "High-quality materials",
+              "Reliable connection"
+            ],
+            "certificate": "ISO9001, CE/RoHS"
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/FDD1.25-110.png",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        }
+      ]
+    },
+    {
+      "slug": "fuse-adapters",
+      "label": "Fuse Adapter & Fuse Holder",
+      "products": [
+        {
+          "id": 1,
+          "name": "Mini Pin Fuse Adapter",
+          "code": "CZY105P",
+          "price":"$15.99",
+          "description": "Add a protected circuit without cutting wires. Perfect for dash cams, GPS units, and phone chargers.",
+          "fullDescription": "Easily power aftermarket accessories without cutting or splicing wires using this Micro2 Fuse Tap Adapter. Designed for vehicles with Micro2 fuse types, this compact and reliable solution allows you to safely add a new circuit while maintaining protection for the original one.",
+          "specs": {
+            "type": "Mini Pin Fuse Adapter (Add-a-Circuit)",
+            "material": "High-quality ABS plastic housing with pure copper connectors",
+            "voltage_rating": "12V– 14V DC",
+            "current_rating": "Supports up to 10A (with appropriate fuse)",
+            "design": "Dual-slot for protecting both original and new circuits",
+            "features": [
+              "Dual-circuit design lets you piggyback a new accessory circuit alongside an existing one, both protected by their own fuses",
+              "Compatible with Mini fuses in modern vehicles",
+              "Plug-and-play installation for easy setup without damaging factory wiring",
+              "Secure fuse holders for safe connection"
+            ]
+          },
+          "image":"/wp-content/themes/gcec/assets/images/products/miniFA.jpg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/miniFA1.avif",
+            "/wp-content/themes/gcec/assets/images/products/miniFA2.webp",
+            "/wp-content/themes/gcec/assets/images/products/miniFA.jpg",
+            "/wp-content/themes/gcec/assets/images/products/miniFA3.jpg"
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Mini 3 pin Fuse Tap",
+          "code": "CZY103P",
+          "price":"$15.99",
+          "description": "Add a protected circuit without wire splicing. Ideal for dash cams, GPS units, and LED lights.",
+          "fullDescription": "The Mini Fuse Adapter is a convenient solution for adding an additional protected circuit to your vehicle's fuse box without splicing wires. Designed for mini blade fuse slots, it allows you to power aftermarket accessories such as dash cams, GPS units, radar detectors, and LED lights while maintaining protection for the original circuit.",
+          "specs": {
+            "type": "Mini 3 pin Fuse Tap (Add-a-Circuit)",
+            "material": "Heat-resistant ABS housing with premium copper terminals",
+            "voltage_rating": "12V – 24V DC",
+            "current_rating": "Supports up to 10A (based on fuse used)",
+            "design": "Dual fuse slots to protect both original and new circuits",
+            "features": [
+              "Dual-circuit design lets you piggyback a new accessory circuit alongside an existing one, both protected by their own fuses",
+              "Compatible with Mini fuses in modern vehicles",
+              "Plug-and-play installation for easy setup without damaging factory wiring",
+              "Secure fuse holders for safe connection"
+            ],
+            "Features": [
+              "Dual-circuit design lets you piggyback a new accessory circuit alongside an existing one, both protected by their own fuses",
+              "Compatible with Mini fuses in modern vehicles",
+              "Plug-and-play installation for easy setup without damaging factory wiring",
+              "Secure fuse holders for safe connection"
+            ]
+          },
+          "image":"/wp-content/themes/gcec/assets/images/products/mini3pin.avif",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/mini3pin2.avif",
+            "/wp-content/themes/gcec/assets/images/products/mini3pin3.avif",
+            "/wp-content/themes/gcec/assets/images/products/mini3pin.avif",
+            "/wp-content/themes/gcec/assets/images/products/mini3pin4.webp"
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Standard Fuse Tap",
+          "price":"$15.99",
+          "code": "CZY102",
+          "description": "Add a protected circuit without cutting wires. Perfect for dash cams, GPS trackers, and LED lights.",
+          "fullDescription": "Upgrade your vehicle's electrical system easily with this ATC/ATO Standard Fuse Tap Adapter. Designed to fit into standard blade fuse slots, this add-a-circuit fuse holder lets you tap into existing circuits without cutting or splicing wires. Ideal for installing dash cams, GPS trackers, LED lights, or any 12V accessory.",
+          "specs": {
+            "type": "ATC/ATO Standard Blade Fuse Tap",
+            "material": "High-quality ABS plastic and copper for durability and conductivity",
+            "voltage_rating": "12V–24V DC",
+            "current_rating": "Up to 10A (with appropriate fuse)",
+            "design": "Dual-slot design protects both existing and new circuits",
+            "features": [
+              "Dual-circuit design lets you piggyback a new accessory circuit alongside an existing one, both protected by their own fuses",
+              "Compatible with Mini fuses in modern vehicles",
+              "Plug-and-play installation for easy setup without damaging factory wiring",
+              "Secure fuse holders for safe connection"
+            ]
+          },
+          "image":"/wp-content/themes/gcec/assets/images/products/LPFA.jpg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/LPFA!.jpg",
+            "/wp-content/themes/gcec/assets/images/products/LPFA.jpg",
+            "/wp-content/themes/gcec/assets/images/products/LPFA2.jpg"
+  
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Micro Pin Fuse Tap",
+          "price":"$15.99",
+          "description": "Add a protected circuit without wire cutting. Ideal for dash cams, GPS units, and radar detectors.",
+          "fullDescription": "The Micro Fuse Tap—also known as an 'Add-a-Circuit'—is a convenient adapter that allows you to add an additional protected circuit to your vehicle’s fuse box without splicing or cutting wires. Designed for use with Micro3 blade fuses, it’s ideal for safely powering aftermarket accessories such as dash cams, GPS units, radar detectors, or phone chargers.",
+          "specs": {
+            "type": "Micro Pin Fuse Tap (Add-a-Circuit)",
+            "features": [
+              "Dual-circuit design lets you piggyback a new accessory circuit alongside an existing one, both protected by their own fuses",
+              "Compatible with Micro3 fuses in modern vehicles",
+              "Plug-and-play installation for easy setup without damaging factory wiring",
+              "Secure fuse holders for safe connection"
+            ],
+            "Features": [
+              "Dual-circuit design lets you piggyback a new accessory circuit alongside an existing one, both protected by their own fuses",
+              "Compatible with Micro3 fuses in modern vehicles",
+              "Plug-and-play installation for easy setup without damaging factory wiring",
+              "Secure fuse holders for safe connection"
+            ]
+          },
+          "image":"/wp-content/themes/gcec/assets/images/products/MFA1.jpg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/MFA2.jpg",
+            "/wp-content/themes/gcec/assets/images/products/MFA3.jpg",
+            "/wp-content/themes/gcec/assets/images/products/MFA4.avif"
+          ]
+        },
+        
+          {
+            "id": 5,
+            "name": "Inline Waterproof RATC Fuse Holder",
+            "code": "CZY112",
+            "price":"$15.99",
+            "fullDescription": "The Inline Waterproof ATC Fuse Holder is a durable inline waterproof ATC fuse holder designed for reliable power protection in automotive and electronic applications. Ideal for cars, motorcycles, ATVs, boats, and off-road electronics.",
+            "description": "Durable inline waterproof ATC fuse holder designed for reliable power protection in automotive and electronic applications. Ideal for cars, motorcycles, ATVs, boats, and off-road electronics.",
+            "specs": {
+              "type": "Inline Waterproof ATC Fuse Holder",
+              "material": "High-quality ABS plastic housing with pure copper connectors/terminals",
+              "voltage_rating": "12V-24V DC",
+              "current_rating": "Supports up to 10A (with appropriate fuse)",
+              "design": "Dual-slot design for protecting both original and new circuits",
+              "features": [
+                "Dual-circuit design lets you piggyback a new accessory circuit alongside an existing one, both protected by their own fuses",
+                "Compatible with Mini fuses in modern vehicles",
+                "Plug-and-play installation for easy setup without damaging factory wiring",
+                "Secure fuse holders for safe connection"
+              ]
+            },
+              "application": "Suitable for vehicles, motorcycles, ATVs, boats, RVs, and off-road electronics",
+         
+         
+            "image":"/wp-content/themes/gcec/assets/images/products/fuseholder.webp",
+            "gallery": [
+              "/wp-content/themes/gcec/assets/images/products/fuseholder1.webp",
+              "/wp-content/themes/gcec/assets/images/products/fuseholder2.webp",
+              "/wp-content/themes/gcec/assets/images/products/fuseholder.webp"
+            ]
+          },
+        {
+          "id": 6,
+            "name": "Inline Waterproof ATM Fuse Holder",
+            "code": "CZY111",
+            "price":"$15.99"  ,
+            "description": "Waterproof mini blade (ATM) fuse holder designed for secure power distribution in harsh environments. Ideal for cars, motorcycles, ATVs, boats, and RVs.",
+          "specs": {
+              "type": "Inline Waterproof ATM Fuse Holder",
+            "material": "High-quality ABS plastic housing with pure copper connectors/terminals",
+            "voltage_rating": "12V-24V DC",
+            "current_rating": "Supports up to 10A (with appropriate fuse)",
+            "design": "Dual-slot design for protecting both original and new circuits",
+            "features": [
+                "Dual-circuit design lets you piggyback a new accessory circuit alongside an existing one, both protected by their own fuses",
+                "Compatible with Mini fuses in modern vehicles",
+                "Plug-and-play installation for easy setup without damaging factory wiring",
+                "Secure fuse holders for safe connection"
+              ]
+            },
+            "application": "Great for cars, motorcycles, ATVs, boats, RVs, and off-road electronics",
+         
+         
+            "image":"/wp-content/themes/gcec/assets/images/products/ATMfholder.avif",
+            "gallery": [
+              "/wp-content/themes/gcec/assets/images/products/ATMfholder.jpg",
+              "/wp-content/themes/gcec/assets/images/products/ATMfholder1.jpg",
+              "/wp-content/themes/gcec/assets/images/products/ATMfholder.avif"
+            ]
+          },
+          {
+            "id": 7,
+            "name": "Inline Waterproof MAXI Fuse Holder",
+            "code": "CZY114",
+            "price":"$15.99", 
+            "description": "Heavy-duty inline waterproof MAXI fuse holder designed for high-current applications such as amplifiers, winches, cooling fans, marine and RV power systems.",
+            "specs": {
+              "type": "Inline Waterproof MAXI Fuse Holder",
+              "material": "High-quality ABS plastic housing with pure copper connectors/terminals",
+              "voltage_rating": "12V-24V DC",
+              "current_rating": "Supports up to 10A (with appropriate fuse)",
+              "design": "Dual-slot design for protecting both original and new circuits",
+              "features": [
+                "Dual-circuit design lets you piggyback a new accessory circuit alongside an existing one, both protected by their own fuses",
+                "Compatible with Mini fuses in modern vehicles",
+                "Plug-and-play installation for easy setup without damaging factory wiring",
+                "Secure fuse holders for safe connection"
+              ]
+            },
+            "application": "Suitable for amplifiers, winches, cooling fans, marine systems, RV power distribution, and off-road accessories",
+            "image":"/wp-content/themes/gcec/assets/images/products/MAXIfuseholder.png",
+            "gallery": [
+              "/wp-content/themes/gcec/assets/images/products/MAXIfuseholder1.jpeg",
+              "/wp-content/themes/gcec/assets/images/products/MAXIfuseholder2.webp",
+              "/wp-content/themes/gcec/assets/images/products/MAXIfuseholder.png"
+            ]
+          },
+          {
+            "id": 8,
+            "name": "Inline Waterproof ATC Fuse Holder",
+            "code": "CZY113",
+            "price":"$15.99", 
+             "fullDescription": "The Inline Waterproof ATC Fuse Holder With Fuse is a reliable inline waterproof ATC fuse holder with optional ATC blade fuse. Ideal for automotive, marine, RV, and off-road electrical installations.", 
+             "Features": [
+              "Dual-circuit design lets you piggyback a new accessory circuit alongside an existing one, both protected by their own fuses",
+              "Compatible with Mini fuses in modern vehicles",
+              "Plug-and-play installation for easy setup without damaging factory wiring",
+              "Secure fuse holders for safe connection"
+            ],
+         
+            "description": "Reliable inline waterproof ATC fuse holder with optional ATC blade fuse. Ideal for automotive, marine, RV, and off-road electrical installations.",
+            "specs": {
+              "type": "Inline Waterproof ATC Fuse Holder With Fuse", 
+              "features": [
+                "Dual-circuit design lets you piggyback a new accessory circuit alongside an existing one, both protected by their own fuses",
+                "Compatible with Mini fuses in modern vehicles",
+                "Plug-and-play installation for easy setup without damaging factory wiring",
+                "Secure fuse holders for safe connection"
+              ]
+            },
+            "application": "Ideal for automotive, marine, RV, and off-road electrical installations",
+            "image":"/wp-content/themes/gcec/assets/images/products/ATC.avif",
+            "gallery": [ 
+              "/wp-content/themes/gcec/assets/images/products/ATC1.jpg",
+              "/wp-content/themes/gcec/assets/images/products/Inline Waterproof ATC Fuse Holder With Fuse 2.jpg",
+              "/wp-content/themes/gcec/assets/images/products/Inline Waterproof ATC Fuse Holder With Fuse 3.jpg"
+            ]
+          }
+        
+        
+      ]
+    },
+    {
+      "slug": "tapes",
+      "label": "Tapes",
+      "products": [
+        {
+          "id": 6,
+          "name": "Pet Cloth Automotive Tape",
+          "description": "Professional-grade automotive tape for securing wires, cables, and automotive components with strong adhesion and weather resistance.",
+          "fullDescription": "Pet Cloth Automotive Tape is a professional-grade tape designed for automotive applications. It is ideal for securing wires, cables, and other automotive components. It is made of high-quality materials and has a durable design.",
+          "specs": {
+            "type": "Automotive Cloth Tape",
+            "material": "High-quality cloth backing with strong adhesive",
+            "features": [
+              "Durable cloth backing for long-lasting performance",
+              "Strong adhesive for secure wire and cable bundling",
+              "Weather-resistant and UV-resistant construction",
+              "Easy to tear by hand without tools",
+              "Heat-resistant up to 200°F for engine bay use",
+              "Waterproof and moisture-resistant protection",
+              "Flexible and conforms to irregular surfaces and shapes",
+              "Excellent abrasion resistance for harsh environments",
+              "Professional-grade quality for automotive applications",
+              "Leaves minimal residue when removed"
+            ]
+          },
+          "price": "$15.99",
+          "image": "/wp-content/themes/gcec/assets/images/products/tape.jpg",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 7,
+          "name": "PVC Insulation Tape",
+          "description": "Professional-grade PVC insulation tape for securing wires, cables, and automotive components with strong adhesion and weather resistance.",
+          "fullDescription": "PVC Insulation Tape is a professional-grade tape designed for automotive applications. It is ideal for securing wires, cables, and other automotive components. It is made of high-quality materials and has a durable design.",
+          "specs": {
+            "type": "PVC Insulation Tape",
+            "material": "High-quality PVC backing with strong adhesive",
+            "features": [
+              "Excellent electrical insulation properties",
+              "Strong adhesive for secure wire and cable bundling",
+              "Weather-resistant and UV-resistant PVC material",
+              "Easy to tear by hand without cutting tools",
+              "Heat-resistant for automotive and electrical applications",
+              "Waterproof and moisture-resistant protection",
+              "Flexible PVC stretches and conforms to irregular surfaces",
+              "High dielectric strength for electrical safety",
+              "Professional-grade quality for automotive and electrical use",
+              "Clean removal with minimal adhesive residue"
+            ]
+          },
+          "price": "$15.99",
+          "image": "/wp-content/themes/gcec/assets/images/products/tape1.jpg",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        }
+      ]
+    },
+    {
+      "slug": "temp-data-logger",
+      "label": "Temp Data Logger",
+      "products": [
+        {
+          "id": 15,
+          "name": "ULOGS 3",
+          "description": "USB temperature data logger for accurate temperature monitoring and data logging applications.",
+          "fullDescription": "ULOGS 3 is a compact USB temperature data logger designed for accurate and reliable temperature measurement and data logging. Perfect for monitoring temperature in various applications including transportation, storage, and industrial processes. Features easy USB connectivity and automatic data reporting capabilities.",
+          "specs": {
+            "temperature_range": "-30°C to +70°C",
+            "logging_duration": "Extended logging capability",
+            "interface": "USB-A connector",
+            "data_output": "Automatic PDF report via USB",
+            "indicators": "LED status indicators",
+            "control": "Start/Stop button",
+            "features": [
+              "USB connectivity",
+              "Automatic PDF report generation",
+              "LED status indicators",
+              "Start/Stop control",
+              "Compact design",
+              "Easy data retrieval",
+              "Transport monitoring",
+              "Storage monitoring"
+            ],
+            "applications": [
+              "Transportation monitoring",
+              "Storage facilities",
+              "Cold chain logistics",
+              "Food storage",
+              "Pharmaceutical storage",
+              "Industrial processes",
+              "Quality control",
+              "Environmental monitoring"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/Ulogs3.png",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 16,
+          "name": "ULOGS 4",
+          "description": "USB temperature data logger for accurate temperature monitoring and data logging applications.",
+          "fullDescription": "ULOGS 4 is a compact USB temperature data logger designed for accurate and reliable temperature measurement and data logging. Perfect for monitoring temperature in various applications including transportation, storage, and industrial processes. Features easy USB connectivity and automatic data reporting capabilities.",
+          "specs": {
+            "temperature_range": "-30°C to +70°C",
+            "logging_duration": "Extended logging capability",
+            "interface": "USB-A connector",
+            "data_output": "Automatic PDF report via USB",
+            "indicators": "LED status indicators",
+            "control": "Start/Stop button",
+            "features": [
+              "USB connectivity",
+              "Automatic PDF report generation",
+              "LED status indicators",
+              "Start/Stop control",
+              "Compact design",
+              "Easy data retrieval",
+              "Transport monitoring",
+              "Storage monitoring"
+            ],
+            "applications": [
+              "Transportation monitoring",
+              "Storage facilities",
+              "Cold chain logistics",
+              "Food storage",
+              "Pharmaceutical storage",
+              "Industrial processes",
+              "Quality control",
+              "Environmental monitoring"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/Ulogs4.jpg",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 17,
+          "name": "ULOGS 5",
+          "description": "USB temperature data logger for accurate temperature monitoring and data logging applications.",
+          "fullDescription": "ULOGS 5 is a compact USB temperature data logger designed for accurate and reliable temperature measurement and data logging. Perfect for monitoring temperature in various applications including transportation, storage, and industrial processes. Features easy USB connectivity and automatic data reporting capabilities.",
+          "specs": {
+            "temperature_range": "-30°C to +70°C",
+            "logging_duration": "Extended logging capability",
+            "interface": "USB-A connector",
+            "data_output": "Automatic PDF report via USB",
+            "indicators": "LED status indicators",
+            "control": "Start/Stop button",
+            "features": [
+              "USB connectivity",
+              "Automatic PDF report generation",
+              "LED status indicators",
+              "Start/Stop control",
+              "Compact design",
+              "Easy data retrieval",
+              "Transport monitoring",
+              "Storage monitoring"
+            ],
+            "applications": [
+              "Transportation monitoring",
+              "Storage facilities",
+              "Cold chain logistics",
+              "Food storage",
+              "Pharmaceutical storage",
+              "Industrial processes",
+              "Quality control",
+              "Environmental monitoring"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/Ulogs5.png",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 18,
+          "name": "ULOGS 6",
+          "description": "USB temperature data logger with 90 days logging duration for extended temperature monitoring.",
+          "fullDescription": "ULOGS 6 is a compact USB temperature data logger designed for accurate and reliable temperature measurement and data logging. Features 90 days of continuous logging capability, perfect for long-term monitoring in transportation, storage, and industrial processes. Includes easy USB connectivity and automatic PDF report generation.",
+          "specs": {
+            "temperature_range": "-30°C to +70°C",
+            "logging_duration": "90 Days",
+            "interface": "USB-A connector",
+            "data_output": "USB-Automatic PDF report",
+            "indicators": "LED status indicators (Red/Green)",
+            "control": "Start/Stop button with power symbol",
+            "dimensions": "Compact USB drive design",
+            "features": [
+              "90 days logging duration",
+              "USB connectivity",
+              "Automatic PDF report generation",
+              "LED status indicators",
+              "Start/Stop control",
+              "Compact design",
+              "Easy data retrieval",
+              "Transport monitoring",
+              "Long-term data logging"
+            ],
+            "applications": [
+              "Transportation monitoring",
+              "Storage facilities",
+              "Cold chain logistics",
+              "Food storage",
+              "Pharmaceutical storage",
+              "Industrial processes",
+              "Quality control",
+              "Environmental monitoring",
+              "Long-term temperature tracking"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/Ulogs6.jpg",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        }
+      ]
+    },
+    {
+      "slug": "fuses",
+      "label": "Fuses",
+      "products": [
+        {
+          "id": 19,
+          "name": "Micro Low Profile Fuse",
+          "description": "Compact, space-saving automotive fuse featuring two fuse elements in a single package for dual-circuit protection.",
+          "fullDescription": "An impressive selection of Low Profile, Micro 2 and Micro 3 blade fuses. Low Profile fuses have a smaller size which allows for more space and weight saving. Micro Blade Fuses (with 2 or 3 prongs) are the smallest blade fuses around.Each tray contains a Plan-O-Graph indicating part numbers and product information for easy and quick reordering.Compartments are designed so products can easily be scooped out.Assortments come with locking hinge and handle for easy portability between workstations.",
+          "amperage_ratings": [
+            "5amp",
+            "10amp",
+            "15amp",
+            "20amp",
+            "30amp"
+          ],
+          "specs": {
+            "type": "Micro Low Profile Fuse",
+            "design": "Dual Circuit Protection - Contains two fuse elements in one body to protect two separate circuits",
+            "size": "Compact Design - Space-saving footprint for modern vehicle fuse boxes",
+            "color_coding": "Standardized Color Coding - Available in industry-standard amperages with matching color identification",
+         
+            "features": [
+              "Dual circuit protection",
+              "Compact design",
+              "Space-saving footprint",
+              "Standardized color coding",
+              "Industry-standard amperages",
+              "High-density fuse box compatible"
+            ],
+            "applications": [
+              "Passenger cars",
+              "Commercial vehicles",
+              "Trucks",
+              "Modern vehicle electrical systems",
+              "High-density fuse boxes"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/Micro Low Profile Fuse 1.jpg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/Micro Low Profile Fuse.jpg",
+            "/wp-content/themes/gcec/assets/images/products/Micro Low Profile Fuse 1.jpg",
+            "/wp-content/themes/gcec/assets/images/products/MLPF2.avif",
+            "/wp-content/themes/gcec/assets/images/products/MLPF1.avif"
+          ],
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 20,
+          "name": "Standard Fuse",
+          "description": "Widely used automotive fuse type (ATO/ATC) designed to protect electrical circuits in vehicles.",
+          "fullDescription": "The Standard Blade Fuse—also known as ATO or ATC fuse—is a widely used automotive fuse type designed to protect electrical circuits in vehicles. With a simple plug-in blade design, it provides reliable overcurrent protection for components like lights, radios, and central locking systems. These fuses are color-coded by amperage rating and are easy to identify and replace.",
+          "amperage_ratings": [
+            "5amp",
+            "10amp",
+            "15amp",
+            "20amp",
+            "30amp"
+          ],
+          "specs": {
+            "type": "Standard Fuse (ATO/ATC)",
+            "design": "Simple plug-in blade design",
+            "protection": "Reliable overcurrent protection",
+            "color_coding": "Color-coded by amperage rating for easy identification",
+            "amperage_ratings": [
+              "5amp",
+              "10amp",
+              "15amp",
+              "20amp",
+              "30amp"
+            ],
+            "features": [
+              "Simple plug-in blade design",
+              "Reliable overcurrent protection",
+              "Color-coded by amperage",
+              "Easy identification",
+              "Easy replacement",
+              "Widely compatible"
+            ],
+            "applications": [
+              "Vehicle lights",
+              "Radios",
+              "Central locking systems",
+              "Automotive electrical circuits",
+              "General vehicle protection"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/Low Profile Standard Fuse.jpg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/Low Profile Standard Fuse.jpg",
+            "/wp-content/themes/gcec/assets/images/products/4Low_Profile_Standard_Fuse_4-removebg-preview.png",
+            "/wp-content/themes/gcec/assets/images/products/Low Profile Standard Fuse 2.jpg",
+            "/wp-content/themes/gcec/assets/images/products/Low Profile Standard Fuse 3.jpg"
+          ],
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 21,
+          "name": "Micro 2-Fuse",
+          "description": "Low-profile, miniaturized automotive blade fuse designed to protect modern vehicle electrical systems.",
+          "fullDescription": "The Micro2 Fuse is a low-profile, miniaturized automotive blade fuse designed to protect modern vehicle electrical systems. With its compact size and efficient design, it is ideal for newer vehicles that require space-saving components. Micro2 fuses provide reliable circuit protection and are used in various low-voltage applications across cars, trucks, and motorcycles.",
+          "amperage_ratings": [
+            "5amp",
+            "10amp",
+            "15amp",
+            "20amp",
+            "30amp"
+          ],
+          "specs": {
+            "type": "Micro 2-Fuse",
+            "size": "Compact Size - Smaller than standard and mini blade fuses, ideal for high-density fuse boxes in modern vehicles",
+            "design": "Blade-Type Design - Easy plug-in installation with solid and stable connection",
+            "color_coding": "Color-Coded by Amperage - Available in multiple ratings (5A to 30A), each with standard color coding for quick identification",
+            "amperage_ratings": [
+              "5amp",
+              "10amp",
+              "15amp",
+              "20amp",
+              "30amp"
+            ],
+            "features": [
+              "Compact Size: Smaller than standard and mini blade fuses—ideal for high-density fuse boxes in modern vehicles",
+              "Blade-Type Design: Easy plug-in installation with solid and stable connection",
+              "Color-Coded by Amperage: Available in multiple ratings (5A to 30A), each with standard color coding for quick identification"
+            ],
+            "applications": [
+              "Modern vehicles",
+              "Cars",
+              "Trucks",
+              "Motorcycles",
+              "Low-voltage applications",
+              "High-density fuse boxes"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/Micro2.jpg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/Micro2.jpg",
+            "/wp-content/themes/gcec/assets/images/products/Micro2-1.jpg",
+            "/wp-content/themes/gcec/assets/images/products/Micro2 Fuse 2.avif",
+            "/wp-content/themes/gcec/assets/images/products/Micro2 Fuse 3.avif"
+          ],
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 22,
+          "name": "Mini Fuse",
+          "description": "32V MINI Auto Blade Fuses provide reliable circuit protection for automotive and electronic applications.",
+          "fullDescription": "These 32V MINI Auto Blade Fuses provide reliable circuit protection for automotive and electronic applications. Compact and easy to install, they are designed to protect wiring and electrical equipment from overcurrent in 12V or 24V systems. Compatible with most modern vehicles, these fuses are ideal for replacement or OEM use.",
+          "amperage_ratings": [
+            "5amp",
+            "10amp",
+            "15amp",
+            "20amp",
+            "30amp"
+          ],
+          "specs": {
+            "type": "MINI Blade Auto Fuse",
+            "material": "High-quality zinc alloy blades and transparent plastic housing",
+            "voltage_rating": "Up to 32V DC",
+            "current_range": [
+              "2A",
+              "5A",
+              "7.5A",
+              "10A",
+              "15A",
+              "20A",
+              "25A",
+              "30A"
+            ],
+            "standard_compliance": "SAE J2077 / ISO 8820",
+         
+            "features": [
+              "32V DC voltage rating",
+              "High-quality zinc alloy blades",
+              "Transparent plastic housing",
+              "Compact and easy to install",
+              "Reliable circuit protection",
+              "12V or 24V system compatible",
+              "Standard compliant (SAE J2077 / ISO 8820)",
+              "OEM compatible"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$10.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/s-l1600 (3).webp",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/s-1600 (1).webp",
+            "/wp-content/themes/gcec/assets/images/products/s-l1600 (2).webp",
+            "/wp-content/themes/gcec/assets/images/products/s-l1600 (3).webp",
+            "/wp-content/themes/gcec/assets/images/products/s-l1600 (4).webp"
+          ],
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 23,
+          "name": "Mini 3-pin Fuse",
+          "price": "$10.00",
+          "description": "Mini 3-pin Fuse provide reliable circuit protection for automotive and electronic applications.",
+          "fullDescription": "These 32V MINI Auto Blade Fuses provide reliable circuit protection for automotive and electronic applications. They are compact and easy to install, designed to protect wiring and electrical equipment from overcurrent in 12V or 24V systems. Compatible with most modern vehicles, ideal for replacement or OEM use.",
+          "amperage_ratings": [
+            "5amp",
+            "10amp",
+            "15amp",
+            "20amp",
+            "30amp"
+          ],
+          "specs": {
+            "type": "Mini 3-pin Fuse",
+            "material": "High-quality zinc alloy blades and transparent plastic housing",
+            "voltage_rating": "Up to 32V DC",
+            "current_range": [
+              "2A",
+              "5A",
+              "7.5A",
+              "10A",
+              "15A",
+              "20A",
+              "25A",
+              "30A"
+            ],
+            "standard_compliance": "SAE J2077 / ISO 8820",
+         
+            "features": [
+              "32V DC voltage rating",
+              "High-quality zinc alloy blades",
+              "Transparent plastic housing",
+              "Compact and easy to install",
+              "Reliable circuit protection",
+              "12V or 24V system compatible",
+              "Standard compliant (SAE J2077 / ISO 8820)",
+              "OEM compatible"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+       
+      
+          "image": "/wp-content/themes/gcec/assets/images/products/mini3pin.jpg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/mini3pin.jpg",
+            "/wp-content/themes/gcec/assets/images/products/mini3-1.jpg",
+            "/wp-content/themes/gcec/assets/images/products/mini3-2.jpg",
+            "/wp-content/themes/gcec/assets/images/products/mini3-3.avif"
+           
+          ],
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        }
+      ]
+    },
+    {
+      "slug": "rfid-reader",
+      "label": "RFID Reader",
+      "products": [
+        {
+          "id": 24,
+          "name": "Drexia 1W-H0-04P 13.56mhz RFID Reader",
+          "description": "High-frequency 13.56MHz RFID reader designed for contactless identification and access control applications.",
+          "fullDescription": "The Drexia 1W-H0-04P is a professional 13.56MHz RFID reader designed for reliable contactless identification and access control systems. Operating at the standard 13.56MHz frequency, it provides fast and secure reading of RFID tags and cards. Ideal for access control, attendance tracking, and secure authentication solutions in various commercial and industrial applications.",
+          "specs": {
+            "type": "13.56MHz RFID Reader",
+            "frequency": "13.56MHz",
+            "read_range": "Contactless reading capability",
+            "interface": "Standard communication interface",
+            "features": [
+              "13.56MHz high-frequency operation",
+              "Contactless RFID reading",
+              "Fast and reliable tag identification",
+              "Secure authentication capability",
+              "Easy installation and integration",
+              "Durable construction for industrial use",
+              "Compatible with standard RFID tags and cards",
+              "Access control and attendance tracking ready"
+            ],
+            "applications": [
+              "Access control systems",
+              "Attendance tracking",
+              "Secure authentication",
+              "Employee identification",
+              "Door entry systems",
+              "Time and attendance management",
+              "RFID-based security solutions"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/rfid.jpg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/rfid.jpg",
+            "/wp-content/themes/gcec/assets/images/products/rfid3.jpg",
+            "/wp-content/themes/gcec/assets/images/products/rfid2.jpg"
+         
+          ],
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 25,
+          "name": "I BUTTON CC READER",
+          "description": "Contact-based data reader designed to interface with iButton devices via a simple and durable touch-contact mechanism.",
+          "fullDescription": "The iButton CC Reader is a contact-based data reader designed to interface with iButton devices, such as the DS1990A, via a simple and durable touch-contact mechanism. It is commonly used in access control systems, attendance tracking, vending machines, and secure authentication solutions. The reader's circular contact surface allows quick and reliable reading of iButton data when the key is touched to the reader head. Compact, rugged, and easy to install, it supports reliable one-wire communication and long service life.",
+          "specs": {
+            "type": "iButton Contact Reader",
+            "interface": "One-wire communication",
+            "compatibility": "DS1990A and compatible iButton devices",
+            "design": "Circular contact surface for touch-contact reading",
+            "features": [
+              "Contact-based reading mechanism",
+              "One-wire communication protocol",
+              "Circular contact surface design",
+              "Quick and reliable data reading",
+              "Compact and rugged construction",
+              "Easy installation",
+              "Long service life",
+              "Durable touch-contact mechanism"
+            ],
+            "applications": [
+              "Access control systems",
+              "Attendance tracking",
+              "Vending machines",
+              "Secure authentication solutions",
+              "Employee identification",
+              "Time and attendance management",
+              "Key-based access systems"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/reader.jpg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/reader.jpg",
+            "/wp-content/themes/gcec/assets/images/products/reader1.jpg"
+          ],
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 26,
+          "name": "Teltonika: iButton Reader",
+          "description": "Compact and reliable identification accessory designed for use with Teltonika GPS tracking devices for secure driver authentication.",
+          "fullDescription": "The Teltonika iButton Reader is a compact and reliable identification accessory designed for use with Teltonika GPS tracking devices. It allows for secure driver authentication by reading unique codes from iButton keys (Dallas keys), making it an ideal solution for fleet management, access control, and vehicle authorization. The reader is easy to install, durable, and provides a fast and contact-based method for driver recognition.",
+          "specs": {
+            "type": "Teltonika iButton Reader",
+            "compatibility": "Teltonika GPS tracking devices",
+            "authentication": "Driver authentication via iButton keys",
+            "interface": "Contact-based reading",
+            "features": [
+              "Designed for Teltonika GPS devices",
+              "Secure driver authentication",
+              "iButton key (Dallas key) compatible",
+              "Fast contact-based reading",
+              "Compact and durable design",
+              "Easy installation",
+              "Fleet management ready",
+              "Vehicle authorization capability"
+            ],
+            "applications": [
+              "Fleet management systems",
+              "Driver authentication",
+              "Vehicle authorization",
+              "Access control",
+              "GPS tracking integration",
+              "Teltonika device compatibility",
+              "Commercial vehicle management"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/RFDreader.jpeg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/RFDreader.jpeg",
+            "/wp-content/themes/gcec/assets/images/products/RFDreader1.jpg",
+            "/wp-content/themes/gcec/assets/images/products/RFDreader2.jpg"
+          ],
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        }
+      ]
+    },
+    {
+      "slug": "relay-harness",
+      "label": "Relay & Harness",
+      "products": [
+        {
+          "id": 27,
+          "name": "Arkangel R-1701 /12V",
+          "description": "Standard 5-pin relay commonly used in automotive electrical systems. Allows a low-current circuit to control a high-current load.",
+          "fullDescription": "The Arkangel R-1701 /12V is a standard 5-pin relay commonly used in automotive electrical systems. It allows a low-current circuit (like a control switch) to control a high-current load (like headlights, fuel pumps, etc.). This reliable relay is designed for 12V automotive applications and provides safe and efficient switching of high-current circuits.",
+          "specs": {
+            "type": "5-Pin Automotive Relay",
+            "voltage": "12V DC",
+            "pin_configuration": "5-pin (SPDT - Single Pole Double Throw)",
+            "features": [
+              "Standard 5-pin relay design",
+              "12V DC operation",
+              "Low-current control circuit",
+              "High-current load switching",
+              "Reliable automotive-grade construction",
+              "SPDT (Single Pole Double Throw) configuration",
+              "Suitable for headlights, fuel pumps, and accessories",
+              "Easy installation"
+            ],
+            "applications": [
+              "Automotive headlights",
+              "Fuel pump control",
+              "High-current accessory circuits",
+              "Automotive electrical systems",
+              "Vehicle lighting control",
+              "Power distribution"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/12v.jpeg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/12v.jpeg",
+            "/wp-content/themes/gcec/assets/images/products/12v1.jpeg",
+            "/wp-content/themes/gcec/assets/images/products/12v2.jpeg"
+          ],
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 28,
+          "name": "Arkangel R-1701 /24V",
+          "description": "Standard 5-pin relay commonly used in automotive electrical systems. Allows a low-current circuit to control a high-current load.",
+          "fullDescription": "The Arkangel R-1701 /24V is a standard 5-pin relay commonly used in automotive electrical systems. It allows a low-current circuit (like a control switch) to control a high-current load (like headlights, fuel pumps, etc.). This reliable relay is designed for 24V automotive applications, making it ideal for commercial vehicles, trucks, and heavy-duty applications.",
+          "specs": {
+            "type": "5-Pin Automotive Relay",
+            "voltage": "24V DC",
+            "pin_configuration": "5-pin (SPDT - Single Pole Double Throw)",
+            "features": [
+              "Standard 5-pin relay design",
+              "24V DC operation",
+              "Low-current control circuit",
+              "High-current load switching",
+              "Reliable automotive-grade construction",
+              "SPDT (Single Pole Double Throw) configuration",
+              "Suitable for commercial vehicles and trucks",
+              "Heavy-duty applications",
+              "Easy installation"
+            ],
+            "applications": [
+              "Commercial vehicle headlights",
+              "Truck electrical systems",
+              "Heavy-duty fuel pump control",
+              "24V automotive systems",
+              "Commercial vehicle lighting",
+              "Industrial vehicle applications"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/relay.jpeg",
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 29,
+          "name": "Universal 5-Pin Automotive Relay Harness",
+          "description": "Universal 5-pin relay socket pre-wired with color-coded leads for quick and secure connections in automotive installations.",
+          "fullDescription": "Simplify your automotive or electronic installations with this universal 5-pin relay socket. Designed to fit standard SPDT (Single Pole Double Throw) relays, this durable socket comes pre-wired with color-coded leads for quick and secure connections. Ideal for use with 12V 40/30A relays in vehicle lighting, security systems, or accessory circuits, it provides a clean and professional wiring solution.",
+          "specs": {
+            "type": "5-Pin Relay Socket Harness",
+            "compatibility": "Standard SPDT (Single Pole Double Throw) relays",
+            "relay_rating": "12V 40/30A compatible",
+            "wiring": "Pre-wired with color-coded leads",
+            "features": [
+              "Universal 5-pin relay socket",
+              "Pre-wired with color-coded leads",
+              "Quick and secure connections",
+              "Durable construction",
+              "SPDT relay compatible",
+              "12V 40/30A relay support",
+              "Clean and professional wiring solution",
+              "Easy installation"
+            ],
+            "applications": [
+              "Vehicle lighting systems",
+              "Security systems",
+              "Accessory circuits",
+              "Automotive electrical installations",
+              "Aftermarket accessory wiring",
+              "Professional automotive wiring"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/5pin.jpeg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/5pin.jpeg",
+            "/wp-content/themes/gcec/assets/images/products/5pin1.jpg",
+            "/wp-content/themes/gcec/assets/images/products/5pin3.avif"
+          ],
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        },
+        {
+          "id": 30,
+          "name": "Universal 4-Pin Automotive Relay Harness",
+          "description": "Universal 4-pin relay socket pre-wired with color-coded leads for quick and secure connections in automotive installations.",
+          "fullDescription": "Simplify your automotive or electronic installations with this universal 4-pin relay socket. Designed to fit standard SPST (Single Pole Single Throw) relays, this durable socket comes pre-wired with color-coded leads for quick and secure connections. Ideal for use with 12V 40/30A relays in vehicle lighting, security systems, or accessory circuits, it provides a clean and professional wiring solution.",
+          "specs": {
+            "type": "4-Pin Relay Socket Harness",
+            "compatibility": "Standard SPST (Single Pole Single Throw) relays",
+            "relay_rating": "12V 40/30A compatible",
+            "wiring": "Pre-wired with color-coded leads",
+            "features": [
+              "Universal 4-pin relay socket",
+              "Pre-wired with color-coded leads",
+              "Quick and secure connections",
+              "Durable construction",
+              "SPST relay compatible",
+              "12V 40/30A relay support",
+              "Clean and professional wiring solution",
+              "Easy installation"
+            ],
+            "applications": [
+              "Vehicle lighting systems",
+              "Security systems",
+              "Accessory circuits",
+              "Automotive electrical installations",
+              "Aftermarket accessory wiring",
+              "Professional automotive wiring"
+            ]
+          },
+          "manufacturer": {
+            "company": "China Shenzhen Exports Ltd",
+            "location": "Hong Kong – China",
+            "email": "createwealth@chinashenzhenexports.com"
+          },
+          "distributor": {
+            "company": "OPM Exec Ltd",
+            "location": "London, United Kingdom",
+            "email": "online@opmexec.com",
+            "whatsapp": "+44 7901 000 690"
+          },
+          "price": "$0.00",
+          "image": "/wp-content/themes/gcec/assets/images/products/4pin.jpg",
+          "gallery": [
+            "/wp-content/themes/gcec/assets/images/products/4pin.jpg",
+            "/wp-content/themes/gcec/assets/images/products/4pin1.webp",
+            "/wp-content/themes/gcec/assets/images/products/4pin2.jpeg"
+          ],
+          "badge": null,
+          "viewDetailsUrl": "#",
+          "addToCartUrl": "#"
+        }
+      ]
+    }
+  ]

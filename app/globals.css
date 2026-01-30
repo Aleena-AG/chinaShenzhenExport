@@ -17,3 +17,36 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Similar products swiper – improved UI */
+.similar-products-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+.similar-products-swiper .swiper-slide {
+  height: auto;
+}
+
+/* Custom pagination bullets */
+.similar-products-swiper-pagination .similar-swiper-bullet {
+  width: 10px;
+  height: 10px;
+  margin: 0 4px;
+  background: #cbd5e1;
+  border-radius: 50%;
+  opacity: 1;
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.similar-products-swiper-pagination .similar-swiper-bullet:hover {
+  background: #94a3b8;
+}
+.similar-products-swiper-pagination .similar-swiper-bullet-active {
+  background: #1658a1;
+  transform: scale(1.2);
+}
+
+/* Hide default nav if present (we use custom buttons) */
+.similar-products-swiper .swiper-button-next,
+.similar-products-swiper .swiper-button-prev {
+  display: none;
+}

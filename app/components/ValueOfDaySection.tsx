@@ -1,7 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getGpsSubCategories } from '../lib/gps-products';
 
 // Product shape – imageSrc = default, imageSrcHover = hover pe dikhega
 export type ProductItem = {
@@ -21,38 +23,86 @@ export type ProductItem = {
 // Sample data – replace imageSrc with your image URLs
 export const valueOfDayProducts: ProductItem[] = [
   { id: '1', category: 'Vape & E-Cig', name: 'Adalya A3000', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769682398/H4d960869f5244d26933c735613b9b02cy_nberyf.avif', imageSrcHover: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681886/s-l1600-removebg-preview_ravsai.png', price: 'AED 1,347.00', originalPrice: 'AED 1,599.00' },
-  { id: '2', category: 'Cable Lugs111', name: 'Cable Lugs1111', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', imageSrcHover: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', price: 'AED 62.10', originalPrice: 'AED 69.00' },
+  { id: '2', category: 'Cable Lugs', name: 'Cable Lugs', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', imageSrcHover: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', price: 'AED 62.10', originalPrice: 'AED 69.00' },
   { id: '3', category: 'GPS & Tracking', name: 'GPS Tracker GF-07 Vehicle', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769509025/GPS-locater-1024x990_tomp2p.webp' ,imageSrcHover: "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769683820/fmc150-removebg-preview_cooin6.png", price: 'AED 59.00', originalPrice: 'AED 79.00' },
   { id: '4', category: 'GPS & Tracking', name: 'GPS Tracker Module with USB', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769596823/1w-h0-kbrd-rfid-reader-1356-mhz-emulating-keyboard_jcjzvf.jpg' ,imageSrcHover: "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769683872/1w-h3u-kbrd-rfid-reader-125khz-emulating-usb-keyboard__2_-removebg-preview_ts79q5.png", price: '$799.00' },
   { id: '1', category: 'Vape & E-Cig', name: 'Adalya A3000', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769682398/H4d960869f5244d26933c735613b9b02cy_nberyf.avif', imageSrcHover: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681886/s-l1600-removebg-preview_ravsai.png', price: 'AED 1,347.00', originalPrice: 'AED 1,599.00' },
-  { id: '2', category: 'Cable Lugs111', name: 'Cable Lugs1111', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', imageSrcHover: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', price: 'AED 62.10', originalPrice: 'AED 69.00' },
+  { id: '2', category: 'Cable Lugs', name: 'Cable Lugs', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', imageSrcHover: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', price: 'AED 62.10', originalPrice: 'AED 69.00' },
   { id: '3', category: 'GPS & Tracking', name: 'GPS Tracker GF-07 Vehicle', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769509025/GPS-locater-1024x990_tomp2p.webp' ,imageSrcHover: "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769683820/fmc150-removebg-preview_cooin6.png", price: 'AED 59.00', originalPrice: 'AED 79.00' },
   { id: '4', category: 'GPS & Tracking', name: 'GPS Tracker Module with USB', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769596823/1w-h0-kbrd-rfid-reader-1356-mhz-emulating-keyboard_jcjzvf.jpg' ,imageSrcHover: "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769683872/1w-h3u-kbrd-rfid-reader-125khz-emulating-usb-keyboard__2_-removebg-preview_ts79q5.png", price: '$799.00' },
   { id: '1', category: 'Vape & E-Cig', name: 'Adalya A3000', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769682398/H4d960869f5244d26933c735613b9b02cy_nberyf.avif', imageSrcHover: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681886/s-l1600-removebg-preview_ravsai.png', price: 'AED 1,347.00', originalPrice: 'AED 1,599.00' },
-  { id: '2', category: 'Cable Lugs111', name: 'Cable Lugs1111', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', imageSrcHover: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', price: 'AED 62.10', originalPrice: 'AED 69.00' },
+  { id: '2', category: 'Cable Lugs', name: 'Cable Lugs', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', imageSrcHover: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', price: 'AED 62.10', originalPrice: 'AED 69.00' },
   { id: '3', category: 'GPS & Tracking', name: 'GPS Tracker GF-07 Vehicle', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769509025/GPS-locater-1024x990_tomp2p.webp' ,imageSrcHover: "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769683820/fmc150-removebg-preview_cooin6.png", price: 'AED 59.00', originalPrice: 'AED 79.00' },
   { id: '4', category: 'GPS & Tracking', name: 'GPS Tracker Module with USB', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769596823/1w-h0-kbrd-rfid-reader-1356-mhz-emulating-keyboard_jcjzvf.jpg' ,imageSrcHover: "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769683872/1w-h3u-kbrd-rfid-reader-125khz-emulating-usb-keyboard__2_-removebg-preview_ts79q5.png", price: '$799.00' },
   { id: '1', category: 'Vape & E-Cig', name: 'Adalya A3000', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769682398/H4d960869f5244d26933c735613b9b02cy_nberyf.avif', imageSrcHover: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681886/s-l1600-removebg-preview_ravsai.png', price: 'AED 1,347.00', originalPrice: 'AED 1,599.00' },
-  { id: '2', category: 'Cable Lugs111', name: 'Cable Lugs1111', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', imageSrcHover: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', price: 'AED 62.10', originalPrice: 'AED 69.00' },
+  { id: '2', category: 'Cable Lugs', name: 'Cable Lugs', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', imageSrcHover: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769681958/lugs-removebg-preview_wljys5.png', price: 'AED 62.10', originalPrice: 'AED 69.00' },
   { id: '3', category: 'GPS & Tracking', name: 'GPS Tracker GF-07 Vehicle', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769509025/GPS-locater-1024x990_tomp2p.webp' ,imageSrcHover: "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769683820/fmc150-removebg-preview_cooin6.png", price: 'AED 59.00', originalPrice: 'AED 79.00' },
   { id: '4', category: 'GPS & Tracking', name: 'GPS Tracker Module with USB', imageSrc: 'https://res.cloudinary.com/dstnwi5iq/image/upload/v1769596823/1w-h0-kbrd-rfid-reader-1356-mhz-emulating-keyboard_jcjzvf.jpg' ,imageSrcHover: "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769683872/1w-h3u-kbrd-rfid-reader-125khz-emulating-usb-keyboard__2_-removebg-preview_ts79q5.png", price: '$799.00' },
  
 ];
 
-const categoryLinks = [
-  'Computers & Accessories',
-  'Cameras, Audio & Video',
-  'Mobiles & Tablets',
-  'Movies, Music & Video Games',
-  'Watches & Eyewear',
-  'Car, Motorbike & Industrial',
-  'TV & Audio',
+type CategoryWithSubTypes = { title: string; subTypes: string[] };
+
+const categoryLinks: CategoryWithSubTypes[] = [
+  {
+    title: 'Gps Tracker & Accessories',
+    
+    subTypes: ['GPS Trackers', 'Cable Lugs', 'Relay & Harness', 'Fuse Adapter & Fuse Holder', 'Tapes', 'Fuses', 'Temp Data Logger', 'RFID Reader'],
+  },
+  {
+    title: 'Cameras, Audio & Video',
+    subTypes: ['Cameras', 'Audio', 'Video', 'Lenses', 'Tripods'],
+  },
+  {
+    title: 'Mobiles & Tablets',
+    subTypes: ['Smartphones', 'Tablets', 'Cases', 'Chargers', 'Screen Protectors'],
+  },
+  {
+    title: 'Movies, Music & Video Games',
+    subTypes: ['Movies', 'Music', 'Video Games', 'Consoles', 'Accessories'],
+  },
+  {
+    title: 'Watches & Eyewear',
+    subTypes: ['Smartwatches', 'Watches', 'Sunglasses', 'Eyewear Accessories'],
+  },
+  {
+    title: 'Car, Motorbike & Industrial',
+    subTypes: ['Car Accessories', 'Motorbike', 'Industrial', 'Tools'],
+  },
+  {
+    title: 'TV & Audio',
+    subTypes: ['TVs', 'Speakers', 'Soundbars', 'Audio Cables', 'Mounts'],
+  },
 ];
+
+/** Slug for URL: lowercase, spaces/special -> hyphens */
+export function slugify(str: string): string {
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9-]/g, '');
+}
+
+/** Product URL path: /product/[category]/[slug] */
+export function getProductUrl(product: ProductItem): string {
+  const categorySlug = slugify(product.category);
+  const productSlug = `${slugify(product.name)}-${product.id}`;
+  return `/product/${categorySlug}/${productSlug}`;
+}
+
+/** Find product by URL category + slug */
+export function getProductByCategorySlug(categorySlug: string, productSlug: string): ProductItem | undefined {
+  return valueOfDayProducts.find(
+    (p) => slugify(p.category) === categorySlug && `${slugify(p.name)}-${p.id}` === productSlug
+  );
+}
 
 function parseMoney(input: string) {
   const raw = (input ?? '').trim();
   const currencyMatch = raw.match(/^(AED|\$|€|£)\s*/i);
-  const currency = currencyMatch?.[1]?.toUpperCase() ?? '';
+  const currency = currencyMatch?.[1]??'';
   const amount = raw
     .replace(/^(AED|\$|€|£)\s*/i, '')
     .replace(/[^\d.,]/g, '')
@@ -76,10 +126,10 @@ function ValueOfDayCard({ product }: { product: ProductItem }) {
     `${product.name} is a popular choice and enjoys a significant following with seasoned enthusiasts who enjoy quality products.`;
 
   return (
-    <div className="group/card relative bg-white rounded-xl border-2 border-[#185699] overflow-visible flex flex-col py-6 px-5 text-center min-h-[340px]">
+    <div className="group/card relative bg-white rounded-xl border-2 border-gray-200 overflow-visible flex flex-col py-6 px-5 text-center min-h-[340px]">
       {/* Default card – button always at bottom for same alignment across cards */}
       <div className="overflow-hidden rounded-xl flex flex-col flex-1 min-h-0">
-        <h3 className="text-[#555] font-semibold text-base sm:text-lg uppercase tracking-wide">
+        <h3 className="text-[#555] font-semibold text-base sm:text-lg tracking-wide">
           {product.name}
         </h3>
         <p className="text-[#999] text-xs sm:text-sm uppercase tracking-wide mt-1">
@@ -111,19 +161,21 @@ function ValueOfDayCard({ product }: { product: ProductItem }) {
           </p>
         </div>
         <Link
-          href={`/product/${product.id}`}
-          className="mt-auto w-full max-w-[180px] mx-auto py-2.5 rounded-full border-0 text-white font-medium text-sm uppercase tracking-wide transition-colors hover:opacity-95 flex items-center justify-center"
+          href={getProductUrl(product)}
+          className="mt-auto w-full max-w-[180px] mx-auto py-2.5 rounded-full border-0 text-white font-semibold text-md uppercase tracking-wide transition-colors hover:opacity-95 flex items-center justify-center"
           style={{
-            background: 'linear-gradient(90deg, rgba(4, 29, 61, 1) 54%, rgba(156, 3, 3, 1) 100%)',
+            background: 'linear-gradient(90deg,rgba(0, 58, 145, 1) 24%, rgba(156, 3, 3, 1) 100%)',
           }}
         >
           Buy Now
         </Link>
       </div>
 
-      {/* Hover overlay – detailed UI like the image (golden strip, description, info box, button) */}
-      <div className="absolute inset-0 flex flex-col opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 z-10 bg-gray-100 rounded-xl py-0 overflow-visible pointer-events-none group-hover/card:pointer-events-auto">
-        {/* Image thora card se bahar – upar extend */}
+      {/* Hover overlay – pura card click pe product page */}
+      <Link
+        href={getProductUrl(product)}
+        className="absolute inset-0 flex flex-col opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 z-10 bg-gray-100 rounded-xl py-0 overflow-visible pointer-events-none group-hover/card:pointer-events-auto"
+      >
         <div className="w-full flex items-end justify-center min-h-[140px] sm:min-h-[160px] pt-0 pb-2 -mt-[40px] shrink-0 relative">
           {product.imageSrc && (
             <Image
@@ -136,7 +188,7 @@ function ValueOfDayCard({ product }: { product: ProductItem }) {
           )}
         </div>
         <div className="flex-1 flex flex-col py-4 px-4 text-center overflow-hidden">
-          <h3 className="text-[#555] font-semibold text-lg uppercase tracking-wide">
+          <h3 className="text-[#555] font-semibold text-lg tracking-wide">
             {product.name}
           </h3>
           <p className="text-[#999] text-xs uppercase tracking-wide mt-0.5">
@@ -149,7 +201,6 @@ function ValueOfDayCard({ product }: { product: ProductItem }) {
           <p className="text-[#888] text-xs leading-snug mt-2 line-clamp-3">
             {description}
           </p>
-          {/* Info box – Origin, Wine Type, Alcohol style */}
           <div className="mt-3 rounded-lg border border-[#e5e5e5] bg-white/60 py-2.5 px-3 text-left">
             <div className="flex justify-between text-xs">
               <span className="text-[#999]">Origin</span>
@@ -164,36 +215,75 @@ function ValueOfDayCard({ product }: { product: ProductItem }) {
               <span className="text-[#555] font-medium">{product.alcohol || '18w'}</span>
             </div>
           </div>
-          <Link
-            href={`/product/${product.id}`}
-            className="mt-4 w-full py-2.5 rounded-lg border border-[#1658a1] bg-[#dae3ef] text-[#1658a1] font-medium text-sm uppercase tracking-wide hover:opacity-90 transition-colors text-center block"
-          >
+          <span className="mt-4 w-full py-2.5 rounded-lg border border-[#1658a1] bg-[#dae3ef] text-[#1658a1] font-medium text-sm uppercase tracking-wide text-center block">
             Buy Now
-          </Link>
+          </span>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }
 
+const PARENT_SLUG_GPS = 'gps-tracker-accessories';
+
 export default function ValueOfDaySection() {
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const gpsSubCategories = getGpsSubCategories();
+
+  const toggleCategory = (title: string) => {
+    setOpenCategory((prev) => (prev === title ? null : title));
+  };
+
   return (
     <section className="bg-white min-h-[60vh]">
       <div className="container mx-auto px-4 pt-24 pb-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Left: Assortment sidebar */}
+          {/* Left: Assortment sidebar – click to open/close dropdown */}
           <aside className="lg:w-56 shrink-0">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">Assortment</h2>
+            <h2 className="text-lg font-semibold text-[#1658a1] mb-4">Categories</h2>
             
-            <ul className="space-y-2 mb-8">
+            <ul className="space-y-1 mb-8">
               {categoryLinks.map((cat) => (
-                <li key={cat}>
-                  <a href="#" className="text-sm text-gray-600 hover:text-gray-900 flex items-center justify-between group">
-                    <span>{cat}</span>
-                    <svg className="w-4 h-4 text-gray-400 group-hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </a>
+                <li key={cat.title}>
+                  <button
+                    type="button"
+                    onClick={() => toggleCategory(cat.title)}
+                    className="w-full text-left text-sm font-medium text-[#1658a1] hover:underline flex items-center justify-between py-1.5"
+                  >
+                    <span>{cat.title}</span>
+                    {cat.subTypes.length > 0 && (
+                      <svg
+                        className={`w-4 h-4 shrink-0 transition-transform ${openCategory === cat.title ? 'rotate-180' : ''}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    )}
+                  </button>
+                  {cat.subTypes.length > 0 && openCategory === cat.title && (
+                    <ul className="mt-1 ml-3 space-y-1 border-l border-gray-200 pl-3 pb-2">
+                      {cat.title === 'Gps Tracker & Accessories'
+                        ? gpsSubCategories.map((sub) => (
+                            <li key={sub.slug}>
+                              <Link
+                                href={`/category/${PARENT_SLUG_GPS}/${sub.slug}`}
+                                className="text-xs text-gray-600 hover:text-[#1658a1] block py-0.5"
+                              >
+                                {sub.label}
+                              </Link>
+                            </li>
+                          ))
+                        : cat.subTypes.map((sub) => (
+                            <li key={sub}>
+                              <a href="#" className="text-xs text-gray-600 hover:text-[#1658a1] block py-0.5">
+                                {sub}
+                              </a>
+                            </li>
+                          ))}
+                    </ul>
+                  )}
                 </li>
               ))}
             </ul>
@@ -203,7 +293,7 @@ export default function ValueOfDaySection() {
           {/* Right: Value of the Day grid */}
           <div className="flex-1 min-w-0">
             <h2 className="text-lg font-semibold text-gray-800 pb-2 border-b-2 border-[#db1f26] w-fit mb-6">
-              Value of the Day
+                Products
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {valueOfDayProducts.map((product, idx) => (
