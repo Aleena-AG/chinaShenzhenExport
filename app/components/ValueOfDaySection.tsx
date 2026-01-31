@@ -126,29 +126,29 @@ function ValueOfDayCard({ product }: { product: ProductItem }) {
     `${product.name} is a popular choice and enjoys a significant following with seasoned enthusiasts who enjoy quality products.`;
 
   return (
-    <div className="group/card relative bg-white rounded-xl border-2 border-gray-200 overflow-visible flex flex-col py-6 px-5 text-center min-h-[340px]">
-      {/* Default card – button always at bottom for same alignment across cards */}
-      <div className="overflow-hidden rounded-xl flex flex-col flex-1 min-h-0">
-        <h3 className="text-[#555] font-semibold text-base sm:text-lg tracking-wide">
+    <div className="group/card relative bg-white rounded-xl border-2 border-gray-200 overflow-visible flex flex-col py-5 px-5 text-center h-[420px] min-w-0">
+      {/* Fixed height – card height never increases, button at bottom */}
+      <div className="overflow-hidden rounded-xl flex flex-col flex-1 min-h-0 min-w-0">
+        <h3 className="text-[#555] font-semibold text-base sm:text-lg tracking-wide line-clamp-2 shrink-0">
           {product.name}
         </h3>
-        <p className="text-[#999] text-xs sm:text-sm uppercase tracking-wide mt-1">
+        <p className="text-[#999] text-xs sm:text-sm uppercase tracking-wide mt-1 shrink-0">
           {product.category}
         </p>
-        <div className="relative w-full flex-1 min-h-[180px] flex items-center justify-center my-6">
+        <div className="relative w-full h-[172px] shrink-0 flex items-center justify-center my-3">
           {product.imageSrc ? (
             <Image
               src={(product.imageSrc as string).trim()}
               alt={product.name}
               width={400}
               height={220}
-              className="object-contain w-full max-h-48"
+              className="object-contain w-full h-full max-h-[172px]"
             />
           ) : (
             <span className="text-gray-300 text-xs">Add image</span>
           )}
         </div>
-        <div className="flex flex-col items-center gap-0.5">
+        <div className="flex flex-col items-center gap-0.5 shrink-0">
           {original && (
             <span className="text-[#999] text-sm line-through">
               {(original.currency || price.currency || 'AED')} {original.major}
@@ -171,51 +171,47 @@ function ValueOfDayCard({ product }: { product: ProductItem }) {
         </Link>
       </div>
 
-      {/* Hover overlay – pura card click pe product page */}
+      {/* Hover overlay – Buy Now always visible; description/info scroll if needed */}
       <Link
         href={getProductUrl(product)}
-        className="absolute inset-0 flex flex-col opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 z-10 bg-gray-100 rounded-xl py-0 overflow-visible pointer-events-none group-hover/card:pointer-events-auto"
+        className="absolute inset-0 flex flex-col opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 z-[10] bg-gray-100 rounded-xl py-0 overflow-hidden pointer-events-none group-hover/card:pointer-events-auto"
       >
-        <div className="w-full flex items-end justify-center min-h-[140px] sm:min-h-[160px] pt-0 pb-2 -mt-[40px] shrink-0 relative">
+        <div className="w-full flex items-end justify-center min-h-[120px] sm:min-h-[140px] pt-0 pb-1 z-0 shrink-0 relative">
           {product.imageSrc && (
             <Image
               src={displayImage as string}
               alt={product.name}
               width={320}
               height={400}
-              className="object-contain max-h-44 sm:max-h-52 w-auto drop-shadow-lg -translate-y-2"
+              className="object-contain max-h-36 sm:max-h-40 w-auto drop-shadow-lg -translate-y-2"
             />
           )}
         </div>
-        <div className="flex-1 flex flex-col py-4 px-4 text-center overflow-hidden">
-          <h3 className="text-[#555] font-semibold text-lg tracking-wide">
-            {product.name}
-          </h3>
-          <p className="text-[#999] text-xs uppercase tracking-wide mt-0.5">
-            {product.category}
-          </p>
-          <p className="text-[#555] font-semibold text-base mt-2">
+        <div className="flex-1 flex flex-col min-h-0 py-2 px-3 text-center">
+          <h3 className="text-[#555] font-semibold text-sm tracking-wide line-clamp-1 shrink-0">{product.name}</h3>
+          <p className="text-[#999] text-xs uppercase tracking-wide mt-0.5 shrink-0">{product.category}</p>
+          <p className="text-[#555] font-semibold text-sm mt-1 shrink-0">
             {price.currency || 'AED'} {price.major}
             {price.minor ? `.${price.minor}` : ''}
           </p>
-          <p className="text-[#888] text-xs leading-snug mt-2 line-clamp-3">
-            {description}
-          </p>
-          <div className="mt-3 rounded-lg border border-[#e5e5e5] bg-white/60 py-2.5 px-3 text-left">
-            <div className="flex justify-between text-xs">
-              <span className="text-[#999]">Origin</span>
-              <span className="text-[#555] font-medium">{product.origin || 'China'}</span>
-            </div>
-            <div className="flex justify-between text-xs mt-1.5">
-              <span className="text-[#999]">Type</span>
-              <span className="text-[#555] font-medium">{product.wineType || product.category || ''}</span>
-            </div>
-            <div className="flex justify-between text-xs mt-1.5">
-              <span className="text-[#999]">AWG Rating:</span>
-              <span className="text-[#555] font-medium">{product.alcohol || '18w'}</span>
+          <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden">
+            <p className="text-[#888] text-xs leading-snug mt-1 line-clamp-2">{description}</p>
+            <div className="mt-2 rounded-lg border border-[#e5e5e5] bg-white/60 py-2 px-2.5 text-left">
+              <div className="flex justify-between text-xs">
+                <span className="text-[#999]">Origin</span>
+                <span className="text-[#555] font-medium">{product.origin || 'China'}</span>
+              </div>
+              <div className="flex justify-between text-xs mt-1">
+                <span className="text-[#999]">Type</span>
+                <span className="text-[#555] font-medium">{product.wineType || product.category || ''}</span>
+              </div>
+              <div className="flex justify-between text-xs mt-1">
+                <span className="text-[#999]">AWG Rating:</span>
+                <span className="text-[#555] font-medium">{product.alcohol || '18w'}</span>
+              </div>
             </div>
           </div>
-          <span className="mt-4 w-full py-2.5 rounded-lg border border-[#1658a1] bg-[#dae3ef] text-[#1658a1] font-medium text-sm uppercase tracking-wide text-center block">
+          <span className="shrink-0 mt-2 w-full py-2 rounded-lg border border-[#1658a1] bg-[#dae3ef] text-[#1658a1] font-medium text-xs uppercase tracking-wide text-center block">
             Buy Now
           </span>
         </div>

@@ -56,7 +56,7 @@ export default function Header() {
             </div>
 
             {/* Center: Navigation Menu */}
-            <nav className="hidden font-semibold text-base lg:flex items-center gap-10 hover:text-[#1658a1] transition-colors">
+            <nav className="hidden font-semibold text-lg lg:flex items-center gap-10 hover:text-[#1658a1] transition-colors">
               <NavLink text="Home" href="/" />
               <NavLink text="About Us" />
               
@@ -108,7 +108,7 @@ function NavLink({ text, hasDropdown = false, href = '#' }: { text: string; hasD
   return (
     <Link
       href={href}
-      className="flex items-center gap-1 text-base font-semibold hover:text-[#1658a1] transition-colors"
+      className="flex items-center gap-1 text-inherit font-semibold hover:text-[#1658a1] transition-colors"
     >
       {text}
       {hasDropdown && (

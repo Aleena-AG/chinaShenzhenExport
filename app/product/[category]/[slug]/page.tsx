@@ -249,14 +249,14 @@ export default function ProductPage() {
               <button
                 type="button"
                 onClick={handleAddToCart}
-                className="w-full py-3 rounded-lg text-center font-semibold text-gray-900 bg-[#FDD835] hover:bg-[#f7ca00] transition-colors border-0"
+                className="w-full py-3 rounded-lg text-center font-semibold text-white bg-[#f7aa97] hover:bg-[#f3d2cb] transition-colors border-0"
               >
                 Add to cart
               </button>
               <button
                 type="button"
                 onClick={handleBuyNow}
-                className="w-full py-3 rounded-lg text-center font-semibold text-white bg-[#FB8C00] hover:bg-[#e88b00] transition-colors border-0"
+                className="w-full py-3 rounded-lg text-center font-semibold text-white bg-[#1658a1] hover:bg-[#039bed] transition-colors border-0"
               >
                 Buy Now
               </button>
