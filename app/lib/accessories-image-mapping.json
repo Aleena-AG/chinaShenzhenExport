@@ -1,0 +1,149 @@
+{
+  "cableLugs": {
+    "default": {
+      "DBV2-10 (Red copper)": "lugs.png",
+      "MDD1.25-250": "Picture 2.png",
+      "MDD2-250": "Picture 3.png",
+      "RV1.25-10": "Picture4.png",
+      "DBV 1.25-14": "Picture5.png",
+      "FDD2-250": "Picture6.png",
+      "FDD1.25-250": "Picture7.png",
+      "FDD1.25-110": "Picture8.png"
+    },
+    "hover": {
+      "DBV2-10 (Red copper)": "lugs-removebg.png",
+      "MDD1.25-250": "Picture_2-removebg.png",
+      "MDD2-250": "Picture_3-removebg.png",
+      "RV1.25-10": "Picture4-removebg.png",
+      "DBV 1.25-14": "Picture5-removebg.png",
+      "FDD2-250": "Picture6-removebg.png",
+      "FDD1.25-250": "Picture7-removebg.png",
+      "FDD1.25-110": "Picture8-removebg.png"
+    }
+  },
+  "fuse": {
+    "default": {
+      "Micro Low Profile Fuse": "Micro Low Profile Fuse/MLPF.avif",
+      "Standard Fuse": "Low Profile Fuse/lpf.jpg",
+      "Micro 2-Fuse": "Micro2 Fuse/m2.jpg",
+      "Mini Fuse": "Mini Pin Fuse/mpf.png",
+      "Mini 3-pin Fuse": "Mini 3 Pin Fuse/m3.jpg"
+    },
+    "hover": {
+      "Micro Low Profile Fuse": "Micro Low Profile Fuse/MLPF-removebg.png",
+      "Standard Fuse": "Low Profile Fuse/lpf-removebg.png",
+      "Micro 2-Fuse": "Micro2 Fuse/m2-removebg.png",
+      "Mini Fuse": "Mini Pin Fuse/mpf-removebg.png",
+      "Mini 3-pin Fuse": "Mini 3 Pin Fuse/m3-removebg.png"
+    },
+    "gallery": {
+      "Micro Low Profile Fuse": ["Micro Low Profile Fuse/MLPF.avif", "Micro Low Profile Fuse/MLPF1.jpg", "Micro Low Profile Fuse/MLPF2.jpg", "Micro Low Profile Fuse/MCPF3.avif"],
+      "Standard Fuse": ["Low Profile Fuse/lpf.jpg", "Low Profile Fuse/lpf1.jpg", "Low Profile Fuse/lpf2.jpg", "Low Profile Fuse/lpf3.jpg"],
+      "Micro 2-Fuse": ["Micro2 Fuse/m2.jpg", "Micro2 Fuse/m2-1.jpg", "Micro2 Fuse/m2-2.avif", "Micro2 Fuse/m2-3.avif", "Micro2 Fuse/m2-4.avif", "Micro2 Fuse/m2-5.avif", "Micro2 Fuse/m2-6.jpg", "Micro2 Fuse/m2-7.webp"],
+      "Mini Fuse": ["Mini Pin Fuse/mpf.png", "Mini Pin Fuse/mpf1.webp", "Mini Pin Fuse/mpf2.webp", "Mini Pin Fuse/mpf3.webp", "Mini Pin Fuse/mpf4.webp", "Mini Pin Fuse/mpf5.webp"],
+      "Mini 3-pin Fuse": ["Mini 3 Pin Fuse/m3.jpg", "Mini 3 Pin Fuse/m3-1.jpg", "Mini 3 Pin Fuse/m3-2.jpg", "Mini 3 Pin Fuse/m3-3.jpg", "Mini 3 Pin Fuse/m3-4.avif", "Mini 3 Pin Fuse/m3-5.png", "Mini 3 Pin Fuse/m3-6.jpg"]
+    }
+  },
+  "relayHarness": {
+    "default": {
+      "Arkangel R-1701 /12V": "12v.jpeg",
+      "Arkangel R-1701 /24V": "relay.jpeg",
+      "Universal 5-Pin Automotive Relay Harness": "5pin.jpeg",
+      "Universal 4-Pin Automotive Relay Harness": "4pin.jpg"
+    },
+    "hover": {
+      "Arkangel R-1701 /12V": "12v-removebg-preview.png",
+      "Arkangel R-1701 /24V": "relay-removebg-preview.png",
+      "Universal 5-Pin Automotive Relay Harness": "5pin-removebg-preview.png",
+      "Universal 4-Pin Automotive Relay Harness": "4pin-removebg-preview.png"
+    }
+  },
+  "rfidSensor": {
+    "default": {
+      "Drexia 1W-H0-04P 13.56mhz RFID Reader": "1w-h0-04p-ms-rfid-reader-1356-mhz.jpg",
+      "I BUTTON CC READER": "1w-h3-03-m12-rfid-reader-125khz-unique-hid-hitag-12s-jablotron.jpg",
+      "Teltonika: iButton Reader": "1w-h3u-kbrd-rfid-reader-125khz-emulating-usb-keyboard.jpg"
+    },
+    "hover": {
+      "Drexia 1W-H0-04P 13.56mhz RFID Reader": "1w-h0-04p-ms-rfid-reader-1356-mhz-removebg.png",
+      "I BUTTON CC READER": "1w-h3-03-m12-rfid-reader-125khz-unique-hid-hitag-12s-jablotron-removebg.png",
+      "Teltonika: iButton Reader": "1w-h3u-kbrd-rfid-reader-125khz-emulating-usb-keyboard__2_-removebg-preview (2).png"
+    }
+  },
+  "temperatureDataLogger": {
+    "default": {
+      "ULOGS 3": "Ulogs3.png",
+      "ULOGS 4": "Ulogs4.jpg",
+      "ULOGS 5": "Ulogs5.png",
+      "ULOGS 6": "Ulogs6.jpg"
+    },
+    "hover": {
+      "ULOGS 3": "Ulogs3-removebg.png",
+      "ULOGS 4": "Ulogs4-removebg.png",
+      "ULOGS 5": "Ulogs5-removebg.png",
+      "ULOGS 6": "Ulogs6-removebg.png"
+    }
+  },
+  "tape": {
+    "default": {
+      "Pet Cloth Automotive Tape": "pet_cloth_automotive_tape-removebg-preview.png",
+      "PVC Insulation Tape": "Arkangel_Circle_Logo_copy-removebg-preview.png"
+    },
+    "hover": {
+      "Pet Cloth Automotive Tape": "pet_cloth_automotive_tape-removebg-preview.png",
+      "PVC Insulation Tape": "Arkangel_Circle_Logo_copy-removebg-preview.png"
+    }
+  },
+  "fuseAdapter": {
+    "default": {
+      "Mini Pin Fuse Adapter": "Mini Pin Fuse Adapter/mpfa.png",
+      "Mini 3 pin Fuse Tap": "Mini 3 Pin Fuse Adapter/M3PFA.avif",
+      "Standard Fuse Tap": "Low Profile Fuse Adapter/LPFA.jpg",
+      "Micro Pin Fuse Tap": "Micro Pin Fuse Adapter/MPFA.webp",
+      "Inline Waterproof RATC Fuse Holder": "Inline Waterproof RATC Fuse Holder.png",
+      "Inline Waterproof ATM Fuse Holder": "Inline Waterproof ATM Fuse Holder.png",
+      "Inline Waterproof MAXI Fuse Holder": "Inline Waterproof MAXI Fuse Holder.png",
+      "Inline Waterproof ATC Fuse Holder": "Inline Waterproof ATC Fuse Holder.png"
+    },
+    "hover": {
+      "Mini Pin Fuse Adapter": "Mini Pin Fuse Adapter/mpfa-removebg.png",
+      "Mini 3 pin Fuse Tap": "Mini 3 Pin Fuse Adapter/M3PFA-removebg.png",
+      "Standard Fuse Tap": "Low Profile Fuse Adapter/LPFA-removebg.png",
+      "Micro Pin Fuse Tap": "Micro Pin Fuse Adapter/MPFA-removebg.png",
+      "Inline Waterproof RATC Fuse Holder": "Inline Waterproof RATC Fuse Holder.png",
+      "Inline Waterproof ATM Fuse Holder": "Inline Waterproof ATM Fuse Holder.png",
+      "Inline Waterproof MAXI Fuse Holder": "Inline Waterproof MAXI Fuse Holder.png",
+      "Inline Waterproof ATC Fuse Holder": "Inline Waterproof ATC Fuse Holder.png"
+    },
+    "gallery": {
+      "Mini Pin Fuse Adapter": ["Mini Pin Fuse Adapter/mpfa.png", "Mini Pin Fuse Adapter/mpfa1.avif", "Mini Pin Fuse Adapter/mpfa2.webp", "Mini Pin Fuse Adapter/mpfa3.avif", "Mini Pin Fuse Adapter/mpfa4.jpg", "Mini Pin Fuse Adapter/mpfa5.jpg"],
+      "Mini 3 pin Fuse Tap": ["Mini 3 Pin Fuse Adapter/M3PFA.avif", "Mini 3 Pin Fuse Adapter/M3PFA1.avif", "Mini 3 Pin Fuse Adapter/M3PFA2.avif", "Mini 3 Pin Fuse Adapter/M3PFA3.webp"],
+      "Standard Fuse Tap": ["Low Profile Fuse Adapter/LPFA.jpg", "Low Profile Fuse Adapter/LPFA1.jpg", "Low Profile Fuse Adapter/LPFA2.jpg"],
+      "Micro Pin Fuse Tap": ["Micro Pin Fuse Adapter/MPFA.webp", "Micro Pin Fuse Adapter/MPFA1.jpg", "Micro Pin Fuse Adapter/MPFA2.jpg", "Micro Pin Fuse Adapter/MPFA3.jpg", "Micro Pin Fuse Adapter/MPFA4.avif"],
+      "Inline Waterproof RATC Fuse Holder": ["Inline Waterproof RATC Fuse Holder.png"],
+      "Inline Waterproof ATM Fuse Holder": ["Inline Waterproof ATM Fuse Holder.png"],
+      "Inline Waterproof MAXI Fuse Holder": ["Inline Waterproof MAXI Fuse Holder.png"],
+      "Inline Waterproof ATC Fuse Holder": ["Inline Waterproof ATC Fuse Holder.png"]
+    }
+  },
+  "gpsTracker": {
+    "default": {
+      "YG-T92": "yg-t92.avif",
+      "YG-D3 GPS Tracker": "yg-d3.png",
+      "Teltonika FMC130": "fmc130.jpeg",
+      "Teltonika FMC150": "FMC150.png",
+      "Teltonika ALL-CAN300": "ALL-CAN300.png",
+      "Teltonika CAN-200": "lv-can200.png",
+      "Teltonika FMM 640": "FMM640.png"
+    },
+    "hover": {
+      "YG-T92": "yg-t92.png",
+      "YG-D3 GPS Tracker": "yg-d3-removebg-preview.png",
+      "Teltonika FMC130": "fmc130-removebg-preview.png",
+      "Teltonika FMC150": "FMC150-removebg-preview (1).png",
+      "Teltonika ALL-CAN300": "ALL-CAN300-removebg-preview.png",
+      "Teltonika CAN-200": "lv-can200-removebg-preview.png",
+      "Teltonika FMM 640": "FMM640-removebg-preview.png"
+    }
+  }
+}

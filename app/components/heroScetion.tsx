@@ -4,13 +4,13 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 const bannerImages = [
- "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769509009/ban-3_dg6cst.png",
+ "https://res.cloudinary.com/dstnwi5iq/image/upload/v1770037000/Screenshot_2026-02-02_at_4.52.57_pm_d8frvj.png",
  "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769509009/ban-2_tu7ej8.png",  
  "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769509010/ban-4_s7vpzo.png",
  "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769494739/Screenshot_2026-01-23_at_2.45.31_pm_puqpxg.png",
 
- "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769511645/Screenshot_2026-01-27_at_2.59.49_pm_n7k453.png",
- "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769494739/Screenshot_2026-01-23_at_2.45.31_pm_puqpxg.png",
+ "https://res.cloudinary.com/dstnwi5iq/image/upload/v1770038687/Screenshot_2026-02-02_at_5.17.00_pm_eldbp5.png",
+ "https://res.cloudinary.com/dstnwi5iq/image/upload/v1770036267/Screenshot_2026-02-02_at_4.43.14_pm_q7t9ue.png",
 
 ];
 
@@ -70,11 +70,11 @@ export default function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           {/* Left: Hero Text and Search */}
           <div className="flex flex-col justify-center">
-            <h1 className="text-6xl md:text-7xl lg:text-6xl font-bold mb-4 leading-tight pt-10">
-              OVER ONE MILLION
+            <h1 className="text-6xl md:text-7xl lg:text-4xl font-bold mb-4 leading-tight pt-10">
+            Go global with  <span className="text-[#db1f26]">SHENZHEN</span>  exports Your business deserves it!
             </h1>
             <p className="text-xl font-medium md:text-2xl text-white mb-8">
-              OF COOL CSE AND TECH GADGETS OUT THERE.
+              {/* OF COOL CSE AND TECH GADGETS OUT THERE. */}
             </p>
             
             {/* Search Bar */}

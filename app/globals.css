@@ -76,3 +76,14 @@ body {
 .similar-products-swiper .swiper-button-prev {
   display: none;
 }
+
+/* Hide scrollbar but keep scroll behaviour (card hover overlay) */
+.scrollbar-hide {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}

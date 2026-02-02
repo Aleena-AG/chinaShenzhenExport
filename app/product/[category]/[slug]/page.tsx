@@ -14,7 +14,7 @@ import 'swiper/css/pagination';
 import { getProductByCategorySlug, getProductUrl, slugify as slugifyValue, valueOfDayProducts, type ProductItem } from '../../../components/ValueOfDaySection';
 import { addToCart, addToList, isInList } from '../../../lib/cart';
 import { getGpsProductBySlug, getGpsProductSlug, getGpsProductUrl, getGpsSubCategoryBySlug, type GpsProduct } from '../../../lib/gps-products';
-import { getAccessoriesImageUrl, getAccessoriesImagesBySlug } from '../../../lib/accessories-images';
+import { getAccessoriesImageUrl, getAccessoriesImagesBySlug, getCableLugsDefaultImageUrl, getFuseAdapterGalleryUrls, getFuseAdapterImageUrl, getFuseGalleryUrls, getFuseImageUrl, getGpsTrackerImageUrl, getRelayHarnessDefaultImageUrl, getRfidSensorDefaultImageUrl, getTapeDefaultImageUrl, getTempDataLoggerDefaultImageUrl } from '../../../lib/accessories-images';
 
 function parseMoney(input: string) {
   const raw = (input ?? '').trim();
@@ -76,7 +76,7 @@ export default function ProductPage() {
   let productImageSrc = isGps ? gpsProductData!.image : (resolved.product as ProductItem).imageSrc;
   const productCategory = isGps ? resolved.categoryLabel : (resolved.product as ProductItem).category;
 
-  // For GPS products with non-URL image (e.g. /wp-content/...), use accessories folder images
+  // For GPS products with non-URL image (e.g. /wp-content/...), use name-matched or accessories folder images
   let galleryImages: string[] = [];
   if (isGps && gpsProductData) {
     const rawImage = gpsProductData.image ?? '';
@@ -84,15 +84,46 @@ export default function ProductPage() {
     if (rawImage.startsWith('http')) {
       galleryImages = rawGallery.length ? rawGallery : [rawImage];
     } else {
-      const sub = getGpsSubCategoryBySlug(categorySlug);
-      const productIndex = sub?.products.findIndex((p) => p.id === gpsProductData.id && p.name === gpsProductData.name) ?? 0;
-      const fromAccessories = getAccessoriesImagesBySlug(categorySlug);
-      if (fromAccessories.length) {
-        productImageSrc = getAccessoriesImageUrl(categorySlug, productIndex) ?? fromAccessories[0];
-        galleryImages = fromAccessories;
+      const byName =
+        categorySlug === 'gps-trackers'
+          ? getGpsTrackerImageUrl(productName)
+          : categorySlug === 'fuse-adapters' || categorySlug === 'fuse-adapter'
+            ? getFuseAdapterImageUrl(productName)
+            : categorySlug === 'tapes' || categorySlug === 'tape'
+              ? getTapeDefaultImageUrl(productName)
+              : categorySlug === 'temp-data-logger' || categorySlug === 'temperature-data-logger'
+                ? getTempDataLoggerDefaultImageUrl(productName)
+                : categorySlug === 'rfid-reader' || categorySlug === 'rfid-sensor'
+                  ? getRfidSensorDefaultImageUrl(productName)
+                  : categorySlug === 'relay-harness'
+                    ? getRelayHarnessDefaultImageUrl(productName)
+                    : categorySlug === 'fuse' || categorySlug === 'fuses'
+                      ? getFuseImageUrl(productName)
+                      : categorySlug === 'cable-lugs'
+                        ? getCableLugsDefaultImageUrl(productName)
+                        : null;
+      if (byName) {
+        productImageSrc = byName;
+        if (categorySlug === 'fuse-adapters' || categorySlug === 'fuse-adapter') {
+          const fuseGallery = getFuseAdapterGalleryUrls(productName);
+          galleryImages = fuseGallery.length ? fuseGallery : [byName];
+        } else if (categorySlug === 'fuse' || categorySlug === 'fuses') {
+          const fuseGallery = getFuseGalleryUrls(productName);
+          galleryImages = fuseGallery.length ? fuseGallery : [byName];
+        } else {
+          galleryImages = [byName];
+        }
       } else {
-        productImageSrc = `https://via.placeholder.com/400?text=${encodeURIComponent(productName)}`;
-        galleryImages = [productImageSrc];
+        const sub = getGpsSubCategoryBySlug(categorySlug);
+        const productIndex = sub?.products.findIndex((p) => p.id === gpsProductData.id && p.name === gpsProductData.name) ?? 0;
+        const fromAccessories = getAccessoriesImagesBySlug(categorySlug);
+        if (fromAccessories.length) {
+          productImageSrc = getAccessoriesImageUrl(categorySlug, productIndex) ?? fromAccessories[0];
+          galleryImages = fromAccessories;
+        } else {
+          productImageSrc = `https://via.placeholder.com/400?text=${encodeURIComponent(productName)}`;
+          galleryImages = [productImageSrc];
+        }
       }
     }
   }
@@ -368,10 +399,28 @@ export default function ProductPage() {
 
 /** Same card as category page: default + hover overlay, click goes to product detail */
 function SimilarGpsCard({ product, subSlug, categoryLabel, imageIndex }: { product: GpsProduct; subSlug: string; categoryLabel: string; imageIndex: number }) {
+  const byName =
+    subSlug === 'gps-trackers'
+      ? getGpsTrackerImageUrl(product.name)
+      : subSlug === 'fuse-adapters' || subSlug === 'fuse-adapter'
+        ? getFuseAdapterImageUrl(product.name)
+        : subSlug === 'tapes' || subSlug === 'tape'
+          ? getTapeDefaultImageUrl(product.name)
+          : subSlug === 'temp-data-logger' || subSlug === 'temperature-data-logger'
+            ? getTempDataLoggerDefaultImageUrl(product.name)
+            : subSlug === 'rfid-reader' || subSlug === 'rfid-sensor'
+              ? getRfidSensorDefaultImageUrl(product.name)
+              : subSlug === 'relay-harness'
+                ? getRelayHarnessDefaultImageUrl(product.name)
+                : subSlug === 'fuse' || subSlug === 'fuses'
+                  ? getFuseImageUrl(product.name)
+                  : subSlug === 'cable-lugs'
+                    ? getCableLugsDefaultImageUrl(product.name)
+                    : null;
   const fromSubFolder = getAccessoriesImageUrl(subSlug, imageIndex);
   const imageSrc = product.image?.startsWith('http')
     ? product.image
-    : fromSubFolder ?? `https://via.placeholder.com/300x200?text=${encodeURIComponent(product.name)}`;
+    : byName ?? fromSubFolder ?? `https://via.placeholder.com/300x200?text=${encodeURIComponent(product.name)}`;
   const price = product.price || '$0.00';
   const description =
     product.fullDescription ||

@@ -11,7 +11,7 @@ import {
   type GpsProduct,
   type GpsSubCategory,
 } from '../../../lib/gps-products';
-import { getAccessoriesImageUrl, getAccessoriesMainImageUrl } from '../../../lib/accessories-images';
+import { getAccessoriesImageUrl, getAccessoriesMainImageUrl, getCableLugsDefaultImageUrl, getCableLugsHoverImageUrl, getFuseAdapterDefaultImageUrl, getFuseAdapterHoverImageUrl, getFuseDefaultImageUrl, getFuseHoverImageUrl, getGpsTrackerDefaultImageUrl, getGpsTrackerHoverImageUrl, getRelayHarnessDefaultImageUrl, getRelayHarnessHoverImageUrl, getRfidSensorDefaultImageUrl, getRfidSensorHoverImageUrl, getTapeDefaultImageUrl, getTapeHoverImageUrl, getTempDataLoggerDefaultImageUrl, getTempDataLoggerHoverImageUrl } from '../../../lib/accessories-images';
 
 const PARENT_CATEGORY_NAMES: Record<string, string> = {
   'gps-tracker-accessories': 'Gps Tracker & Accessories',
@@ -22,10 +22,27 @@ function getParentCategoryName(parentSlug: string): string {
 }
 
 function ProductCard({ product, subSlug, categoryLabel, imageIndex }: { product: GpsProduct; subSlug: string; categoryLabel: string; imageIndex: number }) {
+  const defaultByName = subSlug === 'gps-trackers' ? getGpsTrackerDefaultImageUrl(product.name) : null;
+  const hoverByName = subSlug === 'gps-trackers' ? getGpsTrackerHoverImageUrl(product.name) : null;
+  const fuseAdapterDefault = subSlug === 'fuse-adapters' || subSlug === 'fuse-adapter' ? getFuseAdapterDefaultImageUrl(product.name) : null;
+  const fuseAdapterHover = subSlug === 'fuse-adapters' || subSlug === 'fuse-adapter' ? getFuseAdapterHoverImageUrl(product.name) : null;
+  const tapeDefault = subSlug === 'tapes' || subSlug === 'tape' ? getTapeDefaultImageUrl(product.name) : null;
+  const tapeHover = subSlug === 'tapes' || subSlug === 'tape' ? getTapeHoverImageUrl(product.name) : null;
+  const tempLoggerDefault = subSlug === 'temp-data-logger' || subSlug === 'temperature-data-logger' ? getTempDataLoggerDefaultImageUrl(product.name) : null;
+  const tempLoggerHover = subSlug === 'temp-data-logger' || subSlug === 'temperature-data-logger' ? getTempDataLoggerHoverImageUrl(product.name) : null;
+  const rfidDefault = subSlug === 'rfid-reader' || subSlug === 'rfid-sensor' ? getRfidSensorDefaultImageUrl(product.name) : null;
+  const rfidHover = subSlug === 'rfid-reader' || subSlug === 'rfid-sensor' ? getRfidSensorHoverImageUrl(product.name) : null;
+  const relayDefault = subSlug === 'relay-harness' ? getRelayHarnessDefaultImageUrl(product.name) : null;
+  const relayHover = subSlug === 'relay-harness' ? getRelayHarnessHoverImageUrl(product.name) : null;
+  const fuseDefault = subSlug === 'fuse' || subSlug === 'fuses' ? getFuseDefaultImageUrl(product.name) : null;
+  const fuseHover = subSlug === 'fuse' || subSlug === 'fuses' ? getFuseHoverImageUrl(product.name) : null;
+  const cableLugsDefault = subSlug === 'cable-lugs' ? getCableLugsDefaultImageUrl(product.name) : null;
+  const cableLugsHover = subSlug === 'cable-lugs' ? getCableLugsHoverImageUrl(product.name) : null;
   const fromSubFolder = getAccessoriesImageUrl(subSlug, imageIndex);
   const imageSrc = product.image?.startsWith('http')
     ? product.image
-    : fromSubFolder ?? `https://via.placeholder.com/300x200?text=${encodeURIComponent(product.name)}`;
+    : defaultByName ?? fuseAdapterDefault ?? tapeDefault ?? tempLoggerDefault ?? rfidDefault ?? relayDefault ?? fuseDefault ?? cableLugsDefault ?? fromSubFolder ?? `https://via.placeholder.com/300x200?text=${encodeURIComponent(product.name)}`;
+  const hoverImageSrc = hoverByName ?? fuseAdapterHover ?? tapeHover ?? tempLoggerHover ?? rfidHover ?? relayHover ?? fuseHover ?? cableLugsHover ?? imageSrc;
   const price = product.price || '$0.00';
   const description =
     product.fullDescription ||
@@ -59,22 +76,22 @@ function ProductCard({ product, subSlug, categoryLabel, imageIndex }: { product:
         </Link>
       </div>
 
-      {/* Hover overlay – same UI as home page cards */}
+      {/* Hover overlay – remove-bg image on hover; Buy Now always visible at bottom */}
       <Link
         href={getGpsProductUrl(subSlug, product)}
-        className="absolute inset-0 flex flex-col opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 z-10 bg-gray-100 rounded-xl py-0 overflow-visible pointer-events-none group-hover/card:pointer-events-auto"
+        className="absolute inset-0 flex flex-col min-h-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 z-10 bg-gray-100 rounded-xl py-0 overflow-visible pointer-events-none group-hover/card:pointer-events-auto"
       >
-        <div className="w-full flex items-end justify-center min-h-[140px] sm:min-h-[160px] pt-0 pb-2 -mt-[40px] shrink-0 relative">
+        <div className="w-full flex items-end justify-center min-h-[72px] sm:min-h-[80px] pt-1 pb-1 shrink-0 relative -mt-3">
           <Image
-            src={imageSrc}
+            src={hoverImageSrc}
             alt={product.name}
-            width={160}
-            height={200}
-            className="object-contain max-h-44 sm:max-h-52 w-auto drop-shadow-lg -translate-y-2"
-            unoptimized={imageSrc.startsWith('https://via.placeholder')}
+            width={140}
+            height={160}
+            className="object-contain max-h-28 sm:max-h-32 w-auto drop-shadow-lg"
+            unoptimized={hoverImageSrc.startsWith('https://via.placeholder')}
           />
         </div>
-        <div className="flex-1 flex flex-col py-4 px-4 text-center overflow-hidden">
+        <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide py-3 px-4 text-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <h3 className="text-[#555] font-semibold text-lg tracking-wide">{product.name}</h3>
           <p className="text-[#999] text-xs uppercase tracking-wide mt-0.5">{categoryLabel}</p>
           <p className="text-[#555] font-semibold text-base mt-2">{price}</p>
@@ -93,7 +110,9 @@ function ProductCard({ product, subSlug, categoryLabel, imageIndex }: { product:
               <span className="text-[#555] font-medium">{specs?.rating ?? specs?.awg ?? '—'}</span>
             </div>
           </div>
-          <span className="mt-4 w-full py-2.5 rounded-lg border border-[#1658a1] bg-[#dae3ef] text-[#1658a1] font-medium text-sm uppercase tracking-wide text-center block">
+        </div>
+        <div className="shrink-0 pt-3 pb-4 px-4 bg-gray-100 rounded-b-xl">
+          <span className="block w-full py-3 rounded-lg border border-[#9cb8d4] bg-[#dae3ef] text-[#1658a1] font-semibold text-sm uppercase tracking-wide text-center">
             Buy Now
           </span>
         </div>
