@@ -52,7 +52,7 @@ export default function Header() {
           <div className="flex items-center justify-between h-20 text-[#1658a1]">
             {/* Left: Logo */}
             <div className="flex items-center">
-           <Image src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1769773702/161d8737-4a02-4882-8ddd-5363a1b95eb8-removebg-preview_4_uzklux.png" alt="Logo" width={250} height={100} />
+            <Image src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1770638918/ChatGPT_Image_Feb_9__2026__04_05_39_PM-removebg-preview_wluzqi.png" alt="Logo" width={250} height={100} />
             </div>
 
             {/* Center: Navigation Menu */}

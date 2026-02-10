@@ -22,15 +22,15 @@ export default function HeroSection() {
       {/* Hero Background Image – limited to top ~70% so promo cards sit half outside */}
       <div className="absolute top-0 left-0 right-0 z-0 h-[107vh] min-h-[440px] max-h-[740px] overflow-hidden bg-layered-gradient">
         <img
-          src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1769668522/abstract-blurred-blue-purple-colorful-rays-moving-opposite-each-other.jpg_cemgvf.jpg"
+          src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1770193976/chinese-new-year-dragon-element-background-with-empty-copy-space.jpg_1_a6t4n3.jpg"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover object-center "
+          className="absolute inset-0 w-full h-full object-cover object-center blur-[2px] scale-105"
         />
-        {/* Blue overlay: zyada left, kam right */}
+        {/* Overlay: left + right dono side, with blur layer */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none backdrop-blur-[1px]"
           style={{
-            background: 'linear-gradient(to right, rgba(50, 59, 85, 0.6) 0%, rgba(50, 59, 85, 0.5) 25%, rgba(9, 18, 43, 0.2) 45%, transparent 60%)',
+            background: 'linear-gradient(to right, rgba(9, 18, 43, 0.7) 0%, rgba(50, 59, 85, 0.45) 25%, rgba(9, 18, 43, 0.25) 50%, rgba(50, 59, 85, 0.45) 75%, rgba(9, 18, 43, 0.65) 100%)',
           }}
         />
       </div>
@@ -71,7 +71,7 @@ export default function HeroSection() {
           {/* Left: Hero Text and Search */}
           <div className="flex flex-col justify-center">
             <h1 className="text-6xl md:text-7xl lg:text-4xl font-bold mb-4 leading-tight pt-10">
-            Go global with  <span className="text-[#db1f26]">SHENZHEN</span>  exports Your business deserves it!
+            Go global with  <span className="text-[#1658a1]">SHENZHEN</span>  exports Your business deserves it!
             </h1>
             <p className="text-xl font-medium md:text-2xl text-white mb-8">
               {/* OF COOL CSE AND TECH GADGETS OUT THERE. */}

@@ -4,6 +4,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaFacebookF, FaWhatsapp, FaPinterestP, FaLinkedinIn, FaInstagram, FaYoutube, FaRss } from 'react-icons/fa';
 
+// Dragon fly animation – moves across full footer (right to left)
+const dragonFlyStyles = `
+  @keyframes dragonFly {
+    0%   { left: 100%; transform: translate(0, -50%); }
+    100% { left: 0; transform: translate(-100%, -50%); }
+  }
+  .animate-dragon-fly {
+    animation: dragonFly 22s linear infinite;
+  }
+`;
+
 // ─── Newsletter bar ─────────────────────────────────────────────────────────
 function NewsletterBar() {
   return (
@@ -102,7 +113,7 @@ const FIND_IT_FAST = [
   'Video Games & Consoles',
   'TV & Audio',
   'Gadgets',
-  'Waterproof Headphones',
+ 
 ].map((label) => ({ label }));
 
 const ABOUT_LINKS = ['About', 'Contact', 'Wishlist', 'Compare', 'FAQ', 'Store Directory'].map((label) => ({ label }));
@@ -119,26 +130,41 @@ const CUSTOMER_CARE = [
 // ─── Main footer ───────────────────────────────────────────────────────────
 export default function Footer() {
   return (
-    <footer className="w-full text-gray-700 bg-gray-50">
+    <footer className="w-full text-gray-700 bg-gray-50 relative overflow-hidden">
+      <style dangerouslySetInnerHTML={{ __html: dragonFlyStyles }} />
+      {/* Dragon – flies across full footer, no layout space */}
+      <div
+        className="hidden lg:block absolute top-107 pointer-events-none z-10 w-[200px] lg:w-[240px] xl:w-[280px] animate-dragon-fly"
+        style={{ left: 0 }}
+        aria-hidden
+      >
+        <Image
+          src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1770208002/Screenshot_2026-02-04_at_4.24.55_pm-removebg-preview_ngdwsq.png"
+          alt=""
+          width={280}
+          height={280}
+          className="h-auto w-full max-w-full object-contain"
+        />
+      </div>
       <NewsletterBar />
-      <div className="w-full bg-white border-t border-gray-100">
-        <div className="container mx-auto px-4 sm:px-6 py-8 lg:py-10">
+      <div className="w-full bg-white border-t border-gray-100 relative">
+        <div className="container relative z-0 mx-auto px-4 sm:px-6 py-8 lg:py-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8">
             {/* Brand & Contact */}
             <div className="sm:col-span-2 lg:col-span-1 mt-[-40px]">
               <Link href="/" className="inline-block">
                 <Image
-                  src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1769773702/161d8737-4a02-4882-8ddd-5363a1b95eb8-removebg-preview_4_uzklux.png"
+                  src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1770638918/ChatGPT_Image_Feb_9__2026__04_05_39_PM-removebg-preview_wluzqi.png"
                   alt="China Shenzhen Export"
                   width={200}
                   height={80}
                   className="h-auto w-[200px] object-contain block"
                 />
               </Link>
-              <div className="mt-4 pt-4 border-t border-gray-100">
+              <div className="pt-4 border-t border-gray-100">
                 <h3 className="text-gray-900 font-bold text-sm uppercase tracking-wider mb-2 text-[#1658a1]">Contact Info</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  17 Princess Road, London, Greater London NW1 8JR, UK
+                  NBQ Building Al Hamriya  Dubai, United Arab Emirates
                 </p>
               </div>
               <SocialIcons />
@@ -153,24 +179,11 @@ export default function Footer() {
 
       {/* Copyright & legal links – dark bar */}
       <div className="w-full bg-[#212121] border-t border-[#2a2a2a]">
-        <div className="container mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <p className="text-gray-400 text-sm order-2 sm:order-1">© 2022 – 2026 ChinaShenzhenExport</p>
-          <div className="order-1 sm:order-2 flex flex-wrap items-center justify-center sm:justify-end gap-4 sm:gap-6 text-sm">
-            <a href="#" className="text-gray-400 hover:text-white transition-colors underline underline-offset-2">Terms of use</a>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors underline underline-offset-2">Privacy policy</a>
-            <span className="inline-flex items-center gap-1.5">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors underline underline-offset-2">Your privacy choices</a>
-              <span className="inline-flex h-5 rounded-full overflow-hidden border border-gray-500" aria-hidden title="Privacy choices toggle">
-                <span className="h-full w-5 flex items-center justify-center bg-blue-600">
-                  <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-                </span>
-                <span className="h-full w-5 flex items-center justify-center bg-gray-600">
-                  <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
-                </span>
-              </span>
-            </span>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors underline underline-offset-2">Ad Choices</a>
-          </div>
+        <div className="container mx-auto px-4 sm:px-6 py-4 flex justify-center items-center text-center">
+          <p className="text-gray-400 text-sm">Copyright © 2026 by China Shenzhen Export. All Rights Reserved.
+
+
+</p>
         </div>
       </div>
     </footer>

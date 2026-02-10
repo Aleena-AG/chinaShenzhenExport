@@ -234,7 +234,21 @@ export default function ValueOfDaySection() {
       <div className="container mx-auto px-4 pt-24 pb-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left: Assortment sidebar – click to open/close dropdown */}
-          <aside className="lg:w-56 shrink-0">
+          <aside className="lg:w-66 shrink-0 relative rounded-lg overflow-hidden min-h-[280px] z-20 border border-gray-100">
+            {/* Lantern – fixed left position + fixed width so open/close looks same; only height changes */}
+            <div
+              className={`absolute left-0 top-0 z-0 w-80 min-w-80 max-w-80 overflow-hidden rounded-br-lg transition-[height] duration-300 ease-out ${
+                openCategory ? 'h-[1020px] left-[-10]' : 'h-[780px] left-0'
+              }`}
+            >
+              <img
+                src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1770723919/pngggggg_winawv.png"
+                alt=""
+                className="h-full w-full object-cover object-top pointer-events-none select-none"
+              />
+            </div>
+
+            <div className="relative z-10 p-4">
             <h2 className="text-lg font-semibold text-[#1658a1] mb-4">Categories</h2>
             
             <ul className="space-y-1 mb-8">
@@ -282,7 +296,7 @@ export default function ValueOfDaySection() {
                 </li>
               ))}
             </ul>
-         
+            </div>
           </aside>
 
           {/* Right: Value of the Day grid */}

@@ -12,6 +12,22 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Layered gradient – customize colors here */
+:root {
+  --gradient-layer-1: #0f172a;
+  --gradient-layer-2: #1e293b;
+  --gradient-layer-3: #334155;
+  --gradient-layer-4: #475569;
+}
+
+.bg-layered-gradient {
+  background:
+    linear-gradient(135deg, var(--gradient-layer-1) 0%, transparent 50%),
+    linear-gradient(225deg, var(--gradient-layer-2) 0%, transparent 45%),
+    linear-gradient(180deg, var(--gradient-layer-3) 50%, var(--gradient-layer-4) 100%);
+  background-color: var(--gradient-layer-1);
+}
+
 html {
   /* Smooth scaling at 110%/125% zoom */
   -webkit-text-size-adjust: 100%;
