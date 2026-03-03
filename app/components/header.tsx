@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { getCartCount, getCartTotal, CART_UPDATED_EVENT } from '../lib/cart';
 import { getWishlistCount, getCompareCount, WISHLIST_UPDATED_EVENT, COMPARE_UPDATED_EVENT } from '../lib/wishlist';
 import WishlistModal from './WishlistModal';
+import CompareModal from './CompareModal';
+import TrackOrderModal from './TrackOrderModal';
 
 export default function Header() {
   const [cartCount, setCartCount] = useState(0);
@@ -13,6 +15,8 @@ export default function Header() {
   const [compareCount, setCompareCount] = useState(0);
   const [wishlistCount, setWishlistCount] = useState(0);
   const [showWishlistModal, setShowWishlistModal] = useState(false);
+  const [showCompareModal, setShowCompareModal] = useState(false);
+  const [showTrackOrderModal, setShowTrackOrderModal] = useState(false);
 
   const refreshCart = () => {
     if (typeof window !== 'undefined') {
@@ -50,6 +54,8 @@ export default function Header() {
   return (
     <>
       <WishlistModal isOpen={showWishlistModal} onClose={() => setShowWishlistModal(false)} />
+      <CompareModal isOpen={showCompareModal} onClose={() => setShowCompareModal(false)} />
+      <TrackOrderModal isOpen={showTrackOrderModal} onClose={() => setShowTrackOrderModal(false)} />
       <header className="w-full text-[#1658a1]">
         {/* Top Utility Bar - white bg, red text */}
       <div className="bg-white border-b border-gray-200">
@@ -63,9 +69,9 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-0">
             <UtilityLink icon="location" text="Store Locator" isMailBar />
             <Divider isLight />
-            <UtilityLink icon="truck" text="Track Your Order" isMailBar />
+            <UtilityLink icon="truck" text="Track Your Order" isMailBar onClick={() => setShowTrackOrderModal(true)} />
             <Divider isLight />
-            <UtilityLink icon="bag" text="Shop" isMailBar />
+            <UtilityLink icon="bag" text="Shop" isMailBar href="/shop" />
             <Divider isLight />
             <UtilityLink icon="user" text="My Account" isMailBar />
           </div>
@@ -86,23 +92,21 @@ export default function Header() {
               <NavLink text="Home" href="/" />
               <NavLink text="About Us" />
               
-              <NavLink text="Shop" />
-              <NavLink text="Contact Us" />
+              <NavLink text="Shop" href="/shop" />
+              <NavLink text="Contact Us" href="/contact" />
             </nav>
 
             {/* Right: Action Icons & Cart */}
             <div className="flex items-center gap-4 sm:gap-6">
-              <IconButton icon="refresh" badge={compareCount} variant="blue" />
-              <button type="button" onClick={() => setShowWishlistModal(true)}>
-                <IconButton icon="heart" badge={wishlistCount} variant="blue" />
-              </button>
-              <IconButton icon="user" variant="blue" />
+              <IconButton icon="refresh" badge={compareCount} variant="blue" onClick={() => setShowCompareModal(true)} aria-label="Compare" />
+              <IconButton icon="heart" badge={wishlistCount} variant="blue" onClick={() => setShowWishlistModal(true)} aria-label="Wishlist" />
+              {/* <IconButton icon="user" variant="blue" />
               <Link href="/cart" className="flex items-center gap-2">
                 <IconButton icon="cart" badge={cartCount} variant="blue" />
                 <span className="hidden sm:inline text-sm text-[#1658a1] font-medium">
                   ${cartTotal}
-                </span>
-              </Link>
+                </span> */}
+              {/* </Link> */}
             </div>
           </div>
         </div>
@@ -113,17 +117,25 @@ export default function Header() {
 }
 
 // Utility Link Component
-function UtilityLink({ icon, text, isMailBar }: { icon: string; text: string; isMailBar?: boolean }) {
+function UtilityLink({ icon, text, isMailBar, onClick, href }: { icon: string; text: string; isMailBar?: boolean; onClick?: () => void; href?: string }) {
   const IconComponent = getIcon(icon);
   const linkClass = isMailBar
     ? "flex items-center gap-2 px-3 py-1 text-[#1658a1] hover:opacity-90 transition-colors text-xs sm:text-sm font-medium"
     : "flex items-center gap-2 px-3 py-1 text-[#1658a1] hover:opacity-90 transition-colors text-xs sm:text-sm";
   
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} className={linkClass + " bg-transparent border-0 cursor-pointer"}>
+        <IconComponent className="w-4 h-4" />
+        <span>{text}</span>
+      </button>
+    );
+  }
   return (
-    <a href="#" className={linkClass}>
+    <Link href={href ?? "#"} className={linkClass}>
       <IconComponent className="w-4 h-4" />
       <span>{text}</span>
-    </a>
+    </Link>
   );
 }
 
@@ -160,23 +172,18 @@ function NavLink({ text, hasDropdown = false, href = '#' }: { text: string; hasD
 }
 
 // Icon Button Component
-function IconButton({ icon, badge, variant }: { icon: string; badge?: number; variant?: 'blue' | 'blue' }) {
+function IconButton({ icon, badge, variant, onClick, 'aria-label': ariaLabel }: { icon: string; badge?: number; variant?: 'blue' | 'blue'; onClick?: () => void; 'aria-label'?: string }) {
   const IconComponent = getIcon(icon);
   const btnClass = variant === 'blue'
     ? "relative p-2 text-[#1658a1] hover:text-[#1658a1] transition-colors"
     : "relative p-2 hover:text-[#1658a1] transition-colors";
   
   return (
-    <button className={btnClass}>
+    <button type="button" className={btnClass} onClick={onClick} aria-label={ariaLabel}>
       <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" />
       {badge !== undefined && badge > 0 && (
         <span className="absolute -top-1 -right-1 bg-[#1658a1] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
           {badge}
-        </span>
-      )}
-      {badge !== undefined && badge === 0 && (
-          <span className="absolute -top-1 -right-1 bg-[#1658a1] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-          0
         </span>
       )}
     </button>

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import GradientButton from './GradientButton';
 import WishlistModal from './WishlistModal';
-import { addToWishlist, removeFromWishlist, isInWishlist, addToCompare, isInCompare, WISHLIST_UPDATED_EVENT } from '../lib/wishlist';
+import { addToWishlist, removeFromWishlist, isInWishlist, addToCompare, isInCompare, flattenSpecs, WISHLIST_UPDATED_EVENT } from '../lib/wishlist';
 
 
 export type ProductDetailTabId =
@@ -34,9 +34,11 @@ export type ProductDetailProps = {
   productName: string;
   productId?: string;
   productPrice?: string;
+  originalPrice?: string;
   categorySlug?: string;
   productSlug?: string;
   mainImage: string;
+  compareDetails?: { sku?: string; availability?: string; specs?: Record<string, unknown> };
   thumbnailImages?: string[];
   backHref: string;
   orderNowHref?: string;
@@ -119,9 +121,11 @@ export default function ProductDetail({
   productName,
   productId,
   productPrice,
+  originalPrice,
   categorySlug,
   productSlug,
   mainImage,
+  compareDetails,
   thumbnailImages = [],
   backHref,
   orderNowHref,
@@ -172,13 +176,18 @@ export default function ProductDetail({
     if (inCompare) {
       return;
     }
+    const specs = compareDetails?.specs ? flattenSpecs(compareDetails.specs) : undefined;
     const added = addToCompare({
       productId: pid,
       name: productName,
       price: productPrice,
+      originalPrice,
       imageSrc: mainImage,
       categorySlug,
       productSlug,
+      sku: compareDetails?.sku,
+      availability: compareDetails?.availability,
+      specs,
     });
     if (added) setInCompare(true);
   };

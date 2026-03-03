@@ -13,13 +13,34 @@ export type WishlistItem = {
   productSlug?: string;
 };
 
+/** Flattened specs for comparison – arrays joined to string */
+export type CompareSpecs = Record<string, string>;
+
+/** Flatten specs for comparison – arrays → comma-joined, objects skipped */
+export function flattenSpecs(raw: Record<string, unknown> | undefined): CompareSpecs {
+  if (!raw || typeof raw !== 'object') return {};
+  const out: CompareSpecs = {};
+  for (const [k, v] of Object.entries(raw)) {
+    if (v == null) continue;
+    if (Array.isArray(v)) out[k] = v.map((x) => (typeof x === 'string' ? x : String(x))).join(', ');
+    else if (typeof v === 'object') continue;
+    else out[k] = String(v);
+  }
+  return out;
+}
+
 export type CompareItem = {
   productId: string;
   name: string;
   price?: string;
+  originalPrice?: string;
   imageSrc?: string;
   categorySlug?: string;
   productSlug?: string;
+  sku?: string;
+  availability?: string;
+  /** Your product specs – connectivity, positioning, dimensions, weight, etc. */
+  specs?: CompareSpecs;
 };
 
 function getWishlist(): WishlistItem[] {

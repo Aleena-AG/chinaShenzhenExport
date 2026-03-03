@@ -60,14 +60,15 @@ export default function Categories() {
     if (!selectedMain) return;
     const hasSub = Boolean(selectedSubSlug);
     setProductsLoading(true);
+    // Main category only → all products in that category; subcategory selected → only that subcategory's products
     const params = hasSub
       ? { subcategory: selectedSubSlug }
-      : { category: selectedMain.id };
+      : { category: selectedMain.slug || selectedMain.id };
     fetchProductsByCategory(params)
       .then((data) => setProducts(data))
       .catch(() => setProducts([]))
       .finally(() => setProductsLoading(false));
-  }, [selectedMain?.id, selectedMain, selectedSubSlug]);
+  }, [selectedMain?.id, selectedMain?.slug, selectedMain, selectedSubSlug]);
 
   const categorySlug = selectedSubSlug || selectedMain?.slug || '';
   const handleProductChange = (productId: string) => {

@@ -121,19 +121,30 @@ function toDisplayProduct(p: ProductItem): DisplayProduct {
   };
 }
 
+function resolveImageUrl(raw: string, fallback: string): string {
+  const img = raw?.trim() || '';
+  if (!img) return fallback;
+  if (img.startsWith('http://') || img.startsWith('https://') || img.startsWith('/')) return img;
+  const base = process.env.NEXT_PUBLIC_API_URL || '';
+  if (!base) return fallback;
+  const resolved = base.endsWith('/') ? base + img.replace(/^\//, '') : base + '/' + img.replace(/^\//, '');
+  return resolved;
+}
+
 /** Map API product to DisplayProduct; handles various backend field names */
-function apiProductToDisplay(p: ApiProduct): DisplayProduct {
+export function apiProductToDisplay(p: ApiProduct, categorySlugOverride?: string): DisplayProduct {
   const id = String(p.id ?? '');
   const name = (p.name ?? p.title ?? 'Product').toString().trim();
   const desc = (p.short_description ?? p.description ?? '').toString().trim();
-  const img =
-    (p.image ?? p.image_url ?? p.thumbnail ?? (Array.isArray(p.images) ? p.images[0] : undefined) ?? '')?.toString().trim() ||
-    `https://via.placeholder.com/200x200?text=${encodeURIComponent(name)}`;
+  const rawImg =
+    (p.image ?? p.image_url ?? p.thumbnail ?? (Array.isArray(p.images) ? p.images[0] : undefined) ?? '')?.toString().trim() || '';
+  const placeholder = `https://via.placeholder.com/200x200?text=${encodeURIComponent(name.slice(0, 2).toUpperCase())}`;
+  const img = resolveImageUrl(rawImg, placeholder);
   const price =
     (p.price_formatted ?? (typeof p.price === 'number' ? `$${p.price}` : p.price) ?? '$0.00').toString().trim();
   const category = (p.category_name ?? p.category ?? '').toString().trim();
   const tag = (p.tag ?? p.badge ?? '').toString().trim() || undefined;
-  const catSlug = (p.category_slug ?? (category ? slugify(category) : '')).toString().trim();
+  const catSlug = categorySlugOverride ?? (p.category_slug ?? (category ? slugify(category) : '')).toString().trim();
   const productSlug = (p.slug ?? `${slugify(name)}-${id}`).toString().trim();
   const numericId = typeof p.id === 'number' ? p.id : (p.id && /^\d+$/.test(String(p.id)) ? Number(p.id) : null);
   const productUrl = numericId != null ? `/product/${numericId}` : (catSlug ? `/product/${catSlug}/${productSlug}` : `/#product-${id}`);
@@ -141,7 +152,7 @@ function apiProductToDisplay(p: ApiProduct): DisplayProduct {
     id,
     name,
     description: desc || undefined,
-    imageSrc: img.startsWith('http') || img.startsWith('/') ? img : `https://via.placeholder.com/200?text=${encodeURIComponent(name)}`,
+    imageSrc: img || placeholder,
     price,
     category: category || undefined,
     tag: tag || undefined,
@@ -174,7 +185,7 @@ function parseMoney(input: string) {
   };
 }
 
-function ValueOfDayCard({ product }: { product: DisplayProduct }) {
+export function ValueOfDayCard({ product }: { product: DisplayProduct }) {
   const ribbonTag = product.tag?.trim();
   const imageSrc = product.imageSrc?.trim() || `https://via.placeholder.com/200?text=${encodeURIComponent(product.name)}`;
 
@@ -204,7 +215,10 @@ function ValueOfDayCard({ product }: { product: DisplayProduct }) {
             width={150}
             height={150}
             className="object-contain w-full h-full"
-            unoptimized={imageSrc.startsWith('https://via.placeholder')}
+            unoptimized={imageSrc.startsWith('https://via.placeholder') || imageSrc.startsWith('data:')}
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = `https://via.placeholder.com/200x200?text=${encodeURIComponent(product.name.slice(0, 2).toUpperCase())}`;
+            }}
           />
         </div>
         <div className="flex-1 min-w-0 py-2">
@@ -239,7 +253,7 @@ export default function ValueOfDaySection() {
     let cancelled = false;
     fetchProducts()
       .then((list) => {
-        if (!cancelled) setApiProducts(list.map(apiProductToDisplay));
+        if (!cancelled) setApiProducts(list.map((p) => apiProductToDisplay(p)));
       })
       .catch(() => {
         if (!cancelled) setApiProducts([]);

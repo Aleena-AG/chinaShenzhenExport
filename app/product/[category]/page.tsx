@@ -144,11 +144,29 @@ export default function ProductByCategoryOrIdPage() {
       : undefined;
   const tabContent = buildTabContent(description, apiTabs);
   const orderHref = `/product/${id}/order`;
+  const pAny = product as Record<string, unknown>;
+  const apiSpecs = (pAny.specs ?? pAny.attributes ?? pAny.meta ?? {}) as Record<string, unknown>;
+  const mergedSpecs = { ...apiSpecs };
+  if (pAny.sku) mergedSpecs.sku = pAny.sku;
+  if (pAny.weight) mergedSpecs.weight = pAny.weight;
+  if (pAny.dimensions) mergedSpecs.dimensions = pAny.dimensions;
+  if (pAny.brand ?? pAny.brand_name ?? product.category_name) mergedSpecs.brand = pAny.brand ?? pAny.brand_name ?? product.category_name;
+  if (pAny.color) mergedSpecs.color = pAny.color;
+  const compareDetails = {
+    sku: (pAny.sku ?? pAny.sku_number ?? id) as string | undefined,
+    availability: (pAny.stock_status ?? pAny.availability ?? 'In stock') as string | undefined,
+    specs: Object.keys(mergedSpecs).length ? mergedSpecs : undefined,
+  };
 
   return (
     <div className="min-h-screen bg-white">
       <ProductDetail
         productName={name}
+        productId={id}
+        productPrice={product.price ? String(product.price) : undefined}
+        originalPrice={pAny.compare_at_price ? String(pAny.compare_at_price) : (pAny.sale_price ?? pAny.discount_price) as string | undefined}
+        categorySlug={product.category_slug}
+        productSlug={product.slug}
         mainImage={mainImage}
         thumbnailImages={thumbnailImages}
         backHref="/"
@@ -157,6 +175,7 @@ export default function ProductByCategoryOrIdPage() {
         dynamicTabs={dynamicTabs}
         shortVideoUrl={product.short_video_url ?? null}
         videoUrl={product.video_url ?? null}
+        compareDetails={compareDetails}
       />
     </div>
   );

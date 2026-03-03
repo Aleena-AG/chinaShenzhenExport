@@ -1,9 +1,11 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { getProductByCategorySlug, type ProductItem } from '../../../../components/ValueOfDaySection';
 import { getGpsProductBySlug, getGpsSubCategoryBySlug } from '../../../../lib/gps-products';
+import { fetchProductById } from '../../../../lib/api';
 import {
   getAccessoriesImageUrl,
   getAccessoriesImagesBySlug,
@@ -17,6 +19,12 @@ import {
   getTempDataLoggerDefaultImageUrl,
 } from '../../../../lib/accessories-images';
 import OrderForm from '../../../../components/orderForm';
+
+function getProductIdFromSlug(productSlug: string): string | null {
+  const parts = productSlug.split('-');
+  const last = parts[parts.length - 1];
+  return last && /^\d+$/.test(last) ? last : null;
+}
 
 function getProductInfo(categorySlug: string, productSlug: string) {
   const valueProduct = getProductByCategorySlug(categorySlug, productSlug);
@@ -64,33 +72,87 @@ function getProductInfo(categorySlug: string, productSlug: string) {
   return { productName, productImage };
 }
 
+function NotFound({ backHref = '/' }: { backHref?: string }) {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="text-center px-4">
+        <h1 className="text-2xl font-bold text-gray-800">Product not found</h1>
+        <Link href={backHref} className="mt-4 inline-block text-[#1658a1] underline">
+          Back to {backHref === '/' ? 'home' : 'shop'}
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 export default function OrderDevicePage() {
   const params = useParams();
   const categorySlug = typeof params.category === 'string' ? params.category : '';
   const productSlug = typeof params.slug === 'string' ? params.slug : '';
-  const info = getProductInfo(categorySlug, productSlug);
+  const staticInfo = getProductInfo(categorySlug, productSlug);
 
-  if (!info) {
+  const [apiInfo, setApiInfo] = useState<{ productName: string; productImage?: string } | null>(null);
+  const [apiLoading, setApiLoading] = useState(false);
+
+  const productId = getProductIdFromSlug(productSlug);
+
+  useEffect(() => {
+    if (staticInfo || !productId) return;
+    let cancelled = false;
+    setApiLoading(true);
+    fetchProductById(productId)
+      .then((p) => {
+        if (cancelled) return;
+        if (p) {
+          const name = (p.name ?? p.title ?? 'Product').toString().trim();
+          const img = p.cover_image_url ?? (Array.isArray(p.image_urls) ? p.image_urls[0] : p.image_url ?? p.image);
+          setApiInfo({ productName: name, productImage: typeof img === 'string' ? img : undefined });
+        } else {
+          setApiInfo(null);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setApiInfo(null);
+      })
+      .finally(() => {
+        if (!cancelled) setApiLoading(false);
+      });
+    return () => { cancelled = true; };
+  }, [productId, staticInfo]);
+
+  const info = staticInfo ?? apiInfo;
+
+  if (staticInfo) {
+    return (
+      <OrderForm
+        productName={staticInfo.productName}
+        productImage={staticInfo.productImage}
+        productSlug={productSlug}
+        categorySlug={categorySlug}
+        variant="page"
+      />
+    );
+  }
+
+  if (apiLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="text-center px-4">
-          <h1 className="text-2xl font-bold text-gray-800">Product not found</h1>
-          <Link href="/" className="mt-4 inline-block text-[#1658a1] underline">
-            Back to home
-          </Link>
-        </div>
+        <p className="text-gray-500">Loading product…</p>
       </div>
     );
   }
 
-  return (
-    <OrderForm
-      productName={info.productName}
-      productImage={info.productImage}
-      productSlug={productSlug}
-      categorySlug={categorySlug}
-      variant="page"
-     
-    />
-  );
+  if (apiInfo) {
+    return (
+      <OrderForm
+        productName={apiInfo.productName}
+        productImage={apiInfo.productImage}
+        productSlug={productSlug}
+        categorySlug={categorySlug}
+        variant="page"
+      />
+    );
+  }
+
+  return <NotFound backHref={productId ? '/shop' : '/'} />;
 }

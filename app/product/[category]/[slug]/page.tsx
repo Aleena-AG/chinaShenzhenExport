@@ -151,12 +151,26 @@ export default function ProductPage() {
     const sortedTabs = [...apiTabs].sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
     const dynamicTabs = sortedTabs.length > 0 ? sortedTabs.map((t) => ({ tab_title: t.tab_title ?? '', content: t.content ?? '' })) : undefined;
     const orderHref = `/product/${categorySlug}/${productSlug}/order`;
+    const pAny = p as Record<string, unknown>;
+    const apiSpecs = (pAny.specs ?? pAny.attributes ?? pAny.meta ?? {}) as Record<string, unknown>;
+    const mergedSpecs = { ...apiSpecs };
+    if (pAny.sku) mergedSpecs.sku = pAny.sku;
+    if (pAny.weight) mergedSpecs.weight = pAny.weight;
+    if (pAny.dimensions) mergedSpecs.dimensions = pAny.dimensions;
+    if (pAny.brand ?? pAny.brand_name ?? pAny.category_name) mergedSpecs.brand = pAny.brand ?? pAny.brand_name ?? pAny.category_name;
+    if (pAny.color) mergedSpecs.color = pAny.color;
+    const compareDetails = {
+      sku: (pAny.sku ?? pAny.sku_number ?? idFromSlug) as string | undefined,
+      availability: (pAny.stock_status ?? pAny.availability ?? 'In stock') as string | undefined,
+      specs: Object.keys(mergedSpecs).length ? mergedSpecs : undefined,
+    };
     return (
       <div className="min-h-screen bg-white">
         <ProductDetail
           productName={name}
           productId={idFromSlug ?? undefined}
           productPrice={p.price ? String(p.price) : undefined}
+          originalPrice={pAny.compare_at_price ? String(pAny.compare_at_price) : (pAny.sale_price ?? pAny.discount_price) as string | undefined}
           categorySlug={categorySlug}
           productSlug={productSlug}
           mainImage={mainImage}
@@ -167,6 +181,7 @@ export default function ProductPage() {
           dynamicTabs={dynamicTabs}
           shortVideoUrl={p.short_video_url ?? null}
           videoUrl={p.video_url ?? null}
+          compareDetails={compareDetails}
         />
       </div>
     );
@@ -324,6 +339,17 @@ const valueProductItem = !isGps ? (r.product as ProductItem) : null;
   };
 
   const orderPageHref = `/product/${categorySlug}/${productSlug}/order`;
+  const origPrice = valueProductItem?.originalPrice;
+  const productSpecs = isGps && gpsProductData?.specs
+    ? gpsProductData.specs as Record<string, unknown>
+    : valueProductItem
+      ? { origin: valueProductItem.origin, type: valueProductItem.wineType, rating: valueProductItem.alcohol, category: productCategory } as Record<string, unknown>
+      : undefined;
+  const compareDetails = {
+    sku: productSlug || productId,
+    availability: 'In stock',
+    specs: productSpecs,
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -331,6 +357,7 @@ const valueProductItem = !isGps ? (r.product as ProductItem) : null;
         productName={productName}
         productId={productId}
         productPrice={productPrice}
+        originalPrice={origPrice}
         categorySlug={categorySlug}
         productSlug={productSlug}
         mainImage={galleryImages[0] || productImageSrc}
@@ -338,6 +365,7 @@ const valueProductItem = !isGps ? (r.product as ProductItem) : null;
         backHref="/"
         orderNowHref={orderPageHref}
         tabContent={tabContent}
+        compareDetails={compareDetails}
       />
 
    
