@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaFacebookF, FaWhatsapp, FaPinterestP, FaLinkedinIn, FaInstagram, FaYoutube, FaRss } from 'react-icons/fa';
+import GradientButton from './GradientButton';
 
 // Dragon fly animation – moves across full footer (right to left)
 const dragonFlyStyles = `
@@ -45,12 +46,9 @@ function NewsletterBar() {
             className="flex-1 min-w-0 px-4 py-3.5 bg-white/95 border-0 text-gray-900 placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-white/50"
             aria-label="Email for newsletter"
           />
-          <button
-            type="submit"
-            className="px-6 py-3.5 bg-[#1658a1] text-white font-semibold text-sm hover:bg-[#124a85] transition-colors shrink-0"
-          >
+          <GradientButton type="submit" size="lg" className="shrink-0 rounded-none">
             Sign Up
-          </button>
+          </GradientButton>
         </form>
       </div>
     </div>
@@ -132,20 +130,7 @@ export default function Footer() {
   return (
     <footer className="w-full text-gray-700 bg-gray-50 relative overflow-hidden">
       <style dangerouslySetInnerHTML={{ __html: dragonFlyStyles }} />
-      {/* Dragon – flies across full footer, no layout space */}
-      <div
-        className="hidden lg:block absolute top-107 pointer-events-none z-10 w-[200px] lg:w-[240px] xl:w-[280px] animate-dragon-fly"
-        style={{ left: 0 }}
-        aria-hidden
-      >
-        <Image
-          src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1770208002/Screenshot_2026-02-04_at_4.24.55_pm-removebg-preview_ngdwsq.png"
-          alt=""
-          width={280}
-          height={280}
-          className="h-auto w-full max-w-full object-contain"
-        />
-      </div>
+   
       <NewsletterBar />
       <div className="w-full bg-white border-t border-gray-100 relative">
         <div className="container relative z-0 mx-auto px-4 sm:px-6 py-8 lg:py-10">

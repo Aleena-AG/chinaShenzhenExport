@@ -1,20 +1,49 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+import ProductDetail, { type ProductDetailTabContent } from '../../../components/ProductDetail';
+import GradientButton from '../../../components/GradientButton';
 import { getProductByCategorySlug, getProductUrl, slugify as slugifyValue, valueOfDayProducts, type ProductItem } from '../../../components/ValueOfDaySection';
-import { addToCart, addToList, isInList } from '../../../lib/cart';
+import { addToCart } from '../../../lib/cart';
+import { fetchProductById, type ApiProductDetail, type ApiProductTab } from '../../../lib/api';
 import { getGpsProductBySlug, getGpsProductSlug, getGpsProductUrl, getGpsSubCategoryBySlug, type GpsProduct } from '../../../lib/gps-products';
 import { getAccessoriesImageUrl, getAccessoriesImagesBySlug, getCableLugsDefaultImageUrl, getFuseAdapterGalleryUrls, getFuseAdapterImageUrl, getFuseGalleryUrls, getFuseImageUrl, getGpsTrackerImageUrl, getRelayHarnessDefaultImageUrl, getRfidSensorDefaultImageUrl, getTapeDefaultImageUrl, getTempDataLoggerDefaultImageUrl } from '../../../lib/accessories-images';
+
+const TAB_KEYS: (keyof ProductDetailTabContent)[] = [
+  'features', 'spectrumGnss', 'hardwareSpecs', 'otherSpecs', 'downloads', 'demoVideo',
+];
+
+function htmlToNode(html: string) {
+  return <div className="text-gray-700 prose prose-sm max-w-none prose-p:mb-2" dangerouslySetInnerHTML={{ __html: html }} />;
+}
+
+function buildApiTabContent(description: string, apiTabs: ApiProductTab[]): ProductDetailTabContent {
+  const sorted = [...apiTabs].sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
+  const content: ProductDetailTabContent = {};
+  if (sorted.length === 0 && description.trim()) {
+    content.features = htmlToNode(description);
+    return content;
+  }
+  sorted.forEach((tab, i) => {
+    const key = TAB_KEYS[i] ?? 'otherSpecs';
+    const node = <div><h3 className="text-base font-semibold text-[#282A4D] mb-2">{tab.tab_title}</h3>{htmlToNode(tab.content ?? '')}</div>;
+    if (key === 'features' && description.trim()) {
+      content.features = <>{htmlToNode(description)}<div className="mt-4">{node}</div></>;
+    } else {
+      (content as Record<string, React.ReactNode>)[key] = node;
+    }
+  });
+  return content;
+}
 
 function parseMoney(input: string) {
   const raw = (input ?? '').trim();
@@ -53,11 +82,33 @@ export default function ProductPage() {
     : gpsProduct && gpsSub
       ? { source: 'gps', product: gpsProduct, categoryLabel: gpsSub.label }
       : null;
+
+  const idFromSlug = productSlug ? (productSlug.match(/-(\d+)$/) ?? null)?.[1] : null;
+  const [apiProduct, setApiProduct] = useState<ApiProductDetail | null | undefined>(undefined);
+  const [apiLoading, setApiLoading] = useState(false);
+
+  useEffect(() => {
+    if (resolved || !idFromSlug) {
+      setApiProduct(undefined);
+      return;
+    }
+    let cancelled = false;
+    setApiLoading(true);
+    fetchProductById(idFromSlug)
+      .then((p) => {
+        if (!cancelled) setApiProduct(p ?? null);
+      })
+      .finally(() => {
+        if (!cancelled) setApiLoading(false);
+      });
+    return () => { cancelled = true; };
+  }, [resolved, idFromSlug]);
+
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [toast, setToast] = useState<string | null>(null);
 
-  if (!resolved) {
+  if (!resolved && !idFromSlug) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -68,13 +119,63 @@ export default function ProductPage() {
     );
   }
 
-  const isGps = resolved.source === 'gps';
-  const gpsProductData = isGps ? (resolved.product as import('../../../lib/gps-products').GpsProduct) : null;
-  const productId = isGps ? String(resolved.product.id) : resolved.product.id;
-  const productName = resolved.product.name;
-  const productPrice = resolved.product.price;
-  let productImageSrc = isGps ? gpsProductData!.image : (resolved.product as ProductItem).imageSrc;
-  const productCategory = isGps ? resolved.categoryLabel : (resolved.product as ProductItem).category;
+  if (!resolved && idFromSlug) {
+    if (apiLoading) {
+      return (
+        <div className="min-h-screen flex items-center justify-center">
+          <p className="text-gray-500">Loading product…</p>
+        </div>
+      );
+    }
+    if (apiProduct === null || apiProduct === undefined) {
+      return (
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-800">Product not found</h1>
+            <Link href="/" className="mt-4 inline-block text-[#1658a1] underline">Back to home</Link>
+          </div>
+        </div>
+      );
+    }
+    const p = apiProduct;
+    const name = (p.name ?? p.title ?? 'Product').toString().trim();
+    const imageUrls = Array.isArray(p.image_urls) && p.image_urls.length > 0 ? p.image_urls : p.image_url ? [p.image_url] : [];
+    const coverValid = p.cover_image_url && (p.cover_image_url.startsWith('http') || p.cover_image_url.startsWith('/'));
+    const mainImage = (coverValid ? p.cover_image_url! : null) ?? imageUrls[0] ?? p.image_url ?? '';
+    const allImages = coverValid
+      ? [p.cover_image_url!, ...imageUrls.filter((u) => u !== p.cover_image_url)]
+      : imageUrls;
+    const description = (p.description ?? p.short_description ?? '').toString().trim();
+    const apiTabs: ApiProductTab[] = Array.isArray(p.tabs) ? p.tabs : [];
+    const tabContent = buildApiTabContent(description, apiTabs);
+    const sortedTabs = [...apiTabs].sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
+    const dynamicTabs = sortedTabs.length > 0 ? sortedTabs.map((t) => ({ tab_title: t.tab_title ?? '', content: t.content ?? '' })) : undefined;
+    const orderHref = `/product/${categorySlug}/${productSlug}/order`;
+    return (
+      <div className="min-h-screen bg-white">
+        <ProductDetail
+          productName={name}
+          mainImage={mainImage}
+          thumbnailImages={allImages.length > 0 ? allImages : undefined}
+          backHref="/"
+          orderNowHref={orderHref}
+          tabContent={tabContent}
+          dynamicTabs={dynamicTabs}
+          shortVideoUrl={p.short_video_url ?? null}
+          videoUrl={p.video_url ?? null}
+        />
+      </div>
+    );
+  }
+
+  const r = resolved!;
+  const isGps = r.source === 'gps';
+  const gpsProductData = isGps ? (r.product as import('../../../lib/gps-products').GpsProduct) : null;
+  const productId = isGps ? String(r.product.id) : String(r.product.id);
+  const productName = r.product.name;
+  const productPrice = r.product.price;
+  let productImageSrc = isGps ? gpsProductData!.image : (r.product as ProductItem).imageSrc;
+  const productCategory = isGps ? (r as { categoryLabel: string }).categoryLabel : (r.product as ProductItem).category;
 
   // For GPS products with non-URL image (e.g. /wp-content/...), use name-matched or accessories folder images
   let galleryImages: string[] = [];
@@ -128,7 +229,7 @@ export default function ProductPage() {
     }
   }
   if (!isGps) {
-    galleryImages = buildGalleryImages(resolved.product as ProductItem);
+    galleryImages = buildGalleryImages(r.product as ProductItem);
   }
 
   const mainImage = galleryImages[selectedImageIndex] || productImageSrc;
@@ -142,11 +243,11 @@ export default function ProductPage() {
       ).slice(0, 8);
 
   const description = isGps
-    ? (resolved.product as import('../../../lib/gps-products').GpsProduct).fullDescription ||
-      (resolved.product as import('../../../lib/gps-products').GpsProduct).description ||
+    ? (r.product as import('../../../lib/gps-products').GpsProduct).fullDescription ||
+      (r.product as import('../../../lib/gps-products').GpsProduct).description ||
       ''
-    : (resolved.product as ProductItem).description ||
-      `${resolved.product.name} is a popular choice and enjoys a significant following with seasoned enthusiasts who enjoy quality products.`;
+    : (r.product as ProductItem).description ||
+      `${r.product.name} is a popular choice and enjoys a significant following with seasoned enthusiasts who enjoy quality products.`;
 
   const showToast = (message: string) => {
     setToast(message);
@@ -164,235 +265,74 @@ export default function ProductPage() {
     showToast('Added to cart');
   };
 
-  const handleBuyNow = () => {
-    addToCart({
-      productId,
-      name: productName,
-      price: productPrice,
-      imageSrc: productImageSrc?.startsWith('http') ? productImageSrc : `https://via.placeholder.com/200?text=Product`,
-      quantity,
-    });
-    router.push('/cart?checkout=1');
+
+
+const valueProductItem = !isGps ? (r.product as ProductItem) : null;
+  const specs = isGps && gpsProductData ? (gpsProductData.specs as Record<string, string> | undefined) : undefined;
+
+  const tabContent: ProductDetailTabContent = {
+    features: (
+      <>
+        <p className="mb-4">{description}</p>
+        <ul className="list-disc pl-5 space-y-2 text-sm">
+          <li>Dual-lens Recording with 2K Lens</li>
+          <li>Driver Monitoring System (DMS)</li>
+          <li>High-quality build and reliable performance</li>
+        </ul>
+      </>
+    ),
+    spectrumGnss: specs?.gnss || specs?.spectrum ? (
+      <ul className="space-y-2 text-sm">
+        {specs.gnss && <li><strong>GNSS:</strong> {specs.gnss}</li>}
+        {specs.spectrum && <li><strong>Spectrum:</strong> {specs.spectrum}</li>}
+      </ul>
+    ) : (
+      <p className="text-sm">Spectrum and GNSS details can be provided on request.</p>
+    ),
+    hardwareSpecs: (
+      <ul className="space-y-2 text-sm">
+        <li><strong>Brand:</strong> {productCategory}</li>
+        <li><strong>Type:</strong> {valueProductItem?.wineType || productCategory}</li>
+        <li><strong>AWG / Rating:</strong> {valueProductItem?.alcohol || specs?.rating || specs?.awg || '—'}</li>
+        {specs && Object.entries(specs).filter(([k]) => !['gnss', 'spectrum', 'origin', 'type', 'rating', 'awg'].includes(k)).map(([key, val]) => (
+          <li key={key}><strong>{key}:</strong> {String(val)}</li>
+        ))}
+      </ul>
+    ),
+    otherSpecs: (
+      <ul className="space-y-2 text-sm">
+        <li><strong>Origin:</strong> {valueProductItem?.origin || specs?.origin || 'China'}</li>
+        <li><strong>Colour / Type:</strong> {valueProductItem?.wineType || productCategory}</li>
+        <li><strong>Item weight / AWG:</strong> {valueProductItem?.alcohol || '—'}</li>
+      </ul>
+    ),
+    downloads: (
+      <ul className="space-y-2 text-sm">
+        <li><a href="#" className="text-[#1658a1] hover:underline">Product datasheet (PDF)</a></li>
+        <li><a href="#" className="text-[#1658a1] hover:underline">User manual (PDF)</a></li>
+      </ul>
+    ),
+    demoVideo: (
+      <div className="aspect-video max-w-lg bg-gray-100 rounded-lg flex items-center justify-center text-gray-500 text-sm">
+        Demo video placeholder — link or embed can be added here.
+      </div>
+    ),
   };
 
-  const handleAddToList = () => {
-    if (isInList(productId)) {
-      showToast('Already in your list');
-      return;
-    }
-    addToList({
-      productId,
-      name: productName,
-      price: productPrice,
-      imageSrc: productImageSrc?.startsWith('http') ? productImageSrc : `https://via.placeholder.com/200?text=Product`,
-    });
-    showToast('Added to list');
-  };
-
-  const price = parseMoney(productPrice);
-  const original = !isGps && (resolved.product as ProductItem).originalPrice ? parseMoney((resolved.product as ProductItem).originalPrice!) : null;
+  const orderPageHref = `/product/${categorySlug}/${productSlug}/order`;
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-          <div>
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex flex-col gap-2 order-2 md:order-1 md:w-20 shrink-0">
-                {galleryImages.map((src, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => setSelectedImageIndex(i)}
-                    className={`relative w-full aspect-square rounded border-2 overflow-hidden bg-gray-100 ${
-                      selectedImageIndex === i ? 'border-[#1658a1]' : 'border-gray-200'
-                    }`}
-                  >
-                    <Image src={src?.startsWith('http') || src?.startsWith('/') ? src : `https://via.placeholder.com/80?text=${i + 1}`} alt={`${productName} ${i + 1}`} fill className="object-contain" sizes="80px" unoptimized={!(src?.startsWith('http') || src?.startsWith('/'))} />
-                  </button>
-                ))}
-              </div>
-              <div className="relative w-full aspect-square max-h-[480px] bg-white border border-gray-200 rounded-lg overflow-hidden order-1 md:order-2 flex-1">
-                <Image
-                  src={mainImageValid ? mainImage : `https://via.placeholder.com/400?text=${encodeURIComponent(productName)}`}
-                  alt={productName}
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority
-                  unoptimized={!mainImageValid}
-                />
-              </div>
-            </div>
-            <p className="text-gray-500 text-sm mt-2">Click to see full view</p>
-          </div>
+      <ProductDetail
+        productName={productName}
+        mainImage={galleryImages[0] || productImageSrc}
+        thumbnailImages={galleryImages}
+        backHref="/"
+        orderNowHref={orderPageHref}
+        tabContent={tabContent}
+      />
 
-          <div className="flex flex-col">
-            <h1 className="text-xl md:text-2xl font-bold text-gray-900 leading-tight">{productName}</h1>
-            <p className="text-gray-600 text-sm mt-1">Brand: {productCategory}</p>
-            <div className="flex items-center gap-2 mt-2">
-              <span className="text-amber-500">★★★★☆</span>
-              <span className="text-gray-500 text-sm">(8)</span>
-              <span className="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded">Our Choice</span>
-            </div>
-            <div className="mt-2 flex items-baseline gap-2 flex-wrap">
-              <span className="text-red-600 font-bold text-sm">-15%</span>
-              <span className="text-2xl font-bold text-gray-900">
-                {price.currency} {price.major}
-                {price.minor ? `.${price.minor}` : ''}
-              </span>
-              {original && (
-                <span className="text-gray-500 text-sm line-through">
-                  Was: {original.currency} {original.major}
-                  {original.minor ? `.${original.minor}` : ''}
-                </span>
-              )}
-            </div>
-            <p className="text-gray-600 text-sm mt-1">FREE Returns</p>
-            <p className="text-gray-500 text-xs mt-0.5">All prices include VAT.</p>
-
-            <div className="mt-4 p-4 border border-gray-200 rounded-lg">
-              <p className="font-semibold text-gray-900">
-                {price.currency} {price.major}
-                {price.minor ? `.${price.minor}` : ''}
-              </p>
-              <p className="text-green-700 text-sm mt-1">FREE delivery Saturday, 31 January on your first order</p>
-              <p className="text-green-700 text-sm mt-0.5">Fastest delivery Tomorrow, 30 January. Order within 7 hrs 48 mins</p>
-              <p className="text-gray-500 text-sm mt-1">Deliver to Dubai, Al Barsha...</p>
-            </div>
-
-            <p className="text-green-700 font-semibold mt-4">In Stock</p>
-            <div className="mt-2 flex items-center gap-2">
-              <label htmlFor="qty" className="text-gray-700 text-sm">Quantity:</label>
-              <select
-                id="qty"
-                value={quantity}
-                onChange={(e) => setQuantity(Number(e.target.value))}
-                className="border border-gray-300 rounded px-3 py-1.5 text-sm"
-              >
-                {[1, 2, 3, 4, 5].map((n) => (
-                  <option key={n} value={n}>{n}</option>
-                ))}
-              </select>
-            </div>
-
-            <div className="mt-6 flex flex-col gap-3">
-              <button
-                type="button"
-                onClick={handleAddToCart}
-                className="w-full py-3 rounded-lg text-center font-semibold text-white bg-[#f7aa97] hover:bg-[#f3d2cb] transition-colors border-0"
-              >
-                Add to cart
-              </button>
-              <button
-                type="button"
-                onClick={handleBuyNow}
-                className="w-full py-3 rounded-lg text-center font-semibold text-white bg-[#1658a1] hover:bg-[#039bed] transition-colors border-0"
-              >
-                Buy Now
-              </button>
-              <button
-                type="button"
-                onClick={handleAddToList}
-                className="w-full py-3 rounded-lg text-center font-semibold text-gray-800 bg-white border border-[#D3D6DB] hover:bg-gray-50 transition-colors"
-              >
-                Add to List
-              </button>
-            </div>
-            {toast && (
-              <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg text-sm z-50">
-                {toast}
-              </div>
-            )}
-
-            <p className="mt-4 text-gray-600 text-sm">Fulfilled by Amazon</p>
-            <p className="text-gray-600 text-sm">
-              Sold by <a href="#" className="text-[#1658a1] hover:underline">Valisun-UAE</a>
-            </p>
-            <p className="text-gray-600 text-sm">
-              <a href="#" className="text-[#1658a1] hover:underline">Payment Secure transaction</a>
-            </p>
-
-            <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs text-gray-600">
-              <div className="flex items-center gap-1.5"><span className="text-lg">💵</span> Cash on Delivery</div>
-              <div className="flex items-center gap-1.5"><span className="text-lg">↩️</span> 15 days Returnable</div>
-              <div className="flex items-center gap-1.5"><span className="text-lg">🚚</span> Free Delivery</div>
-              <div className="flex items-center gap-1.5"><span className="text-lg">📦</span> Fulfilled by Amazon</div>
-              <div className="flex items-center gap-1.5"><span className="text-lg">🔒</span> Secure transaction</div>
-            </div>
-
-            <div className="mt-6 border-t border-gray-200 pt-4">
-              <h2 className="font-bold text-gray-900 mb-2">Product details</h2>
-              <ul className="space-y-1 text-sm text-gray-700">
-                <li>Brand {productCategory}</li>
-                <li>Colour / Type {!isGps ? (resolved.product as ProductItem).wineType || productCategory : '—'}</li>
-                <li>Item weight / AWG {!isGps ? (resolved.product as ProductItem).alcohol || '—' : '—'}</li>
-                <li>Origin {!isGps ? (resolved.product as ProductItem).origin || 'China' : 'China'}</li>
-              </ul>
-              <p className="mt-3 text-sm text-gray-600">{description}</p>
-            </div>
-          </div>
-        </div>
-
-        {similarProducts.length > 0 && (
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <div className="flex items-center justify-between mb-5">
-              <h2 className="text-xl font-bold text-gray-900">Similar products</h2>
-              <div className="similar-products-swiper-nav flex items-center gap-2">
-                <button type="button" className="similar-swiper-prev flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-200 bg-white text-[#1658a1] shadow-sm transition hover:border-[#1658a1] hover:bg-[#1658a1] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#1658a1] focus:ring-offset-2" aria-label="Previous">
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-                </button>
-                <button type="button" className="similar-swiper-next flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-200 bg-white text-[#1658a1] shadow-sm transition hover:border-[#1658a1] hover:bg-[#1658a1] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#1658a1] focus:ring-offset-2" aria-label="Next">
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                </button>
-              </div>
-            </div>
-            <Swiper
-              modules={[Autoplay, Navigation, Pagination]}
-              spaceBetween={20}
-              slidesPerView={2}
-              autoplay={{
-                delay: 3500,
-                disableOnInteraction: false,
-              }}
-              navigation={{
-                nextEl: '.similar-swiper-next',
-                prevEl: '.similar-swiper-prev',
-              }}
-              pagination={{
-                clickable: true,
-                el: '.similar-swiper-pagination',
-                bulletClass: 'similar-swiper-bullet',
-                bulletActiveClass: 'similar-swiper-bullet-active',
-              }}
-              grabCursor
-              loop={similarProducts.length >= 4}
-              breakpoints={{
-                640: { slidesPerView: 2, spaceBetween: 20 },
-                768: { slidesPerView: 3, spaceBetween: 24 },
-                1024: { slidesPerView: 4, spaceBetween: 24 },
-              }}
-              className="similar-products-swiper overflow-visible pb-14"
-            >
-              {similarProducts.map((item, idx) => (
-                <SwiperSlide key={isGps ? (item as GpsProduct).id + '-' + idx : (item as ProductItem).id + '-' + idx} className="!h-auto">
-                  {isGps ? (
-                    <SimilarGpsCard
-                      product={item as GpsProduct}
-                      subSlug={categorySlug}
-                      categoryLabel={productCategory}
-                      imageIndex={gpsSub!.products.findIndex((p) => getGpsProductSlug(p) === getGpsProductSlug(item as GpsProduct))}
-                    />
-                  ) : (
-                    <SimilarValueCard product={item as ProductItem} />
-                  )}
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <div className="similar-swiper-pagination similar-products-swiper-pagination mt-4 flex justify-center gap-1.5" />
-          </div>
-        )}
-      </div>
+   
     </div>
   );
 }
@@ -444,13 +384,14 @@ function SimilarGpsCard({ product, subSlug, categoryLabel, imageIndex }: { produ
           />
         </div>
         <p className="text-[#555] font-semibold text-lg sm:text-xl mb-2">{price}</p>
-        <Link
+        <GradientButton
           href={getGpsProductUrl(subSlug, product)}
-          className="mt-auto w-full max-w-[180px] mx-auto py-2.5 rounded-full border-0 text-white font-semibold text-sm uppercase tracking-wide transition-colors hover:opacity-95 flex items-center justify-center"
-          style={{ background: 'linear-gradient(90deg,rgba(0, 58, 145, 1) 24%, rgba(156, 3, 3, 1) 100%)' }}
+          variant="primary"
+          size="lg"
+          className="mt-auto w-full max-w-[180px] mx-auto"
         >
           Buy Now
-        </Link>
+        </GradientButton>
       </div>
       <Link
         href={getGpsProductUrl(subSlug, product)}
@@ -533,13 +474,14 @@ function SimilarValueCard({ product }: { product: ProductItem }) {
             {price.minor ? <span className="text-base">.{price.minor}</span> : ''}
           </p>
         </div>
-        <Link
+        <GradientButton
           href={getProductUrl(product)}
-          className="mt-auto w-full max-w-[180px] mx-auto py-2.5 rounded-full border-0 text-white font-semibold text-md uppercase tracking-wide transition-colors hover:opacity-95 flex items-center justify-center"
-          style={{ background: 'linear-gradient(90deg,rgba(0, 58, 145, 1) 24%, rgba(156, 3, 3, 1) 100%)' }}
+          variant="primary"
+          size="lg"
+          className="mt-auto w-full max-w-[180px] mx-auto"
         >
           Buy Now
-        </Link>
+        </GradientButton>
       </div>
       <Link
         href={getProductUrl(product)}

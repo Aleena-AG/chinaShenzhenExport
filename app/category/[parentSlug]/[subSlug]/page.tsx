@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import GradientButton from '../../../components/GradientButton';
 import {
   getGpsSubCategories,
   getGpsSubCategoryBySlug,
@@ -67,13 +68,14 @@ function ProductCard({ product, subSlug, categoryLabel, imageIndex }: { product:
           />
         </div>
         <p className="text-[#555] font-semibold text-lg sm:text-xl mb-2">{price}</p>
-        <Link
+        <GradientButton
           href={getGpsProductUrl(subSlug, product)}
-          className="mt-auto  w-full max-w-[180px] mx-auto py-2.5 rounded-full border-0 text-white font-semibold text-sm uppercase tracking-wide transition-colors hover:opacity-95 flex items-center justify-center"
-          style={{ background: 'linear-gradient(90deg,rgba(0, 58, 145, 1) 24%, rgba(156, 3, 3, 1) 100%)' }}
+          variant="primary"
+          size="lg"
+          className="mt-auto w-full max-w-[180px] mx-auto"
         >
           Buy Now
-        </Link>
+        </GradientButton>
       </div>
 
       {/* Hover overlay – remove-bg image on hover; Buy Now always visible at bottom */}

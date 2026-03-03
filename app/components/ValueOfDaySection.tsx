@@ -1,11 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getGpsSubCategories } from '../lib/gps-products';
+import { fetchProducts, type ApiProduct } from '../lib/api';
+import GradientButton from './GradientButton';
+import HtmlRenderer from './RenderHtml';
 
-// Product shape – imageSrc = default, imageSrcHover = hover pe dikhega
+/** Unified product for the card – from static list or API */
+export type DisplayProduct = {
+  id: string;
+  name: string;
+  description?: string;
+  imageSrc: string;
+  price: string;
+  category?: string;
+  tag?: string;
+  productUrl: string;
+};
+
+// Product shape – imageSrc = default, imageSrcHover = hover pe dikhega. tag = optional ribbon (e.g. "NEW", "SALE", "HOT") – only shown when set.
 export type ProductItem = {
   id: string;
   category: string;
@@ -18,24 +33,25 @@ export type ProductItem = {
   origin?: string;
   wineType?: string;
   alcohol?: string;
+  tag?: string;
 };
 
 // 16 unique products – each shown once on home page (no repeats)
 export const valueOfDayProducts: ProductItem[] = [
-  { id: '1', category: 'Gps Tracker & Accessories', name: 'DBV2-10 (Red copper)', imageSrc: '/accesories/cable%20lugs/lugs.png', imageSrcHover: '/accesories/cable%20lugs/lugs-removebg.png', price: 'AED 62.10', originalPrice: 'AED 69.00' },
-  { id: '2', category: 'Gps Tracker & Accessories', name: 'Teltonika FMC150', imageSrc: '/accesories/gps%20tracker/fmc150.jpg', imageSrcHover: '/accesories/gps%20tracker/FMC150-removebg-preview%20(1).png', price: 'AED 59.00', originalPrice: 'AED 79.00' },
-  { id: '3', category: 'Gps Tracker & Accessories', name: 'Mini Pin Fuse Adapter', imageSrc: '/accesories/Fuse%20Adapter/Mini%20Pin%20Fuse%20Adapter/mpfa.png', imageSrcHover: '/accesories/Fuse%20Adapter/Mini%20Pin%20Fuse%20Adapter/mpfa-removebg.png', price: '$12.00' },
+  { id: '1', category: 'Gps Tracker & Accessories', name: 'DBV2-10 (Red copper)', imageSrc: '/accesories/cable%20lugs/lugs.png', imageSrcHover: '/accesories/cable%20lugs/lugs-removebg.png', price: 'AED 62.10', originalPrice: 'AED 69.00', tag: 'NEW' },
+  { id: '2', category: 'Gps Tracker & Accessories', name: 'Teltonika FMC150', imageSrc: '/accesories/gps%20tracker/fmc150.jpg', imageSrcHover: '/accesories/gps%20tracker/FMC150-removebg-preview%20(1).png', price: 'AED 59.00', originalPrice: 'AED 79.00', tag: 'SALE' },
+  { id: '3', category: 'Gps Tracker & Accessories', name: 'Mini Pin Fuse Adapter', imageSrc: '/accesories/Fuse%20Adapter/Mini%20Pin%20Fuse%20Adapter/mpfa.png', imageSrcHover: '/accesories/Fuse%20Adapter/Mini%20Pin%20Fuse%20Adapter/mpfa-removebg.png', price: '$12.00', tag: 'HOT' },
   { id: '4', category: 'Gps Tracker & Accessories', name: 'Drexia 1W-H0-04P 13.56mhz RFID Reader', imageSrc: '/accesories/RFID%20Sensor/1w-h0-04p-ms-rfid-reader-1356-mhz.jpg', imageSrcHover: '/accesories/RFID%20Sensor/1w-h0-04p-ms-rfid-reader-1356-mhz-removebg.png', price: '$799.00' },
-  { id: '5', category: 'Gps Tracker & Accessories', name: 'Pet Cloth Automotive Tape', imageSrc: '/accesories/Tape/pet%20cloth%20automotive%20tape.jpg', imageSrcHover: '/accesories/Tape/pet_cloth_automotive_tape-removebg-preview.png', price: '$8.00' },
+  { id: '5', category: 'Gps Tracker & Accessories', name: 'Pet Cloth Automotive Tape', imageSrc: '/accesories/Tape/pet%20cloth%20automotive%20tape.jpg', imageSrcHover: '/accesories/Tape/pet_cloth_automotive_tape-removebg-preview.png', price: '$8.00', tag: 'NEW' },
   { id: '6', category: 'Gps Tracker & Accessories', name: 'ULOGS 3', imageSrc: '/accesories/Temperature%20Data%20Logger/Ulogs3.png', imageSrcHover: '/accesories/Temperature%20Data%20Logger/Ulogs3-removebg.png', price: '$45.00' },
   { id: '7', category: 'Gps Tracker & Accessories', name: 'Arkangel R-1701 /12V', imageSrc: '/accesories/Relay%26%20harness/12v-removebg-preview.png', imageSrcHover: '/accesories/Relay%26%20harness/12v-removebg-preview.png', price: '$0.00' },
-  { id: '8', category: 'Gps Tracker & Accessories', name: 'Micro Low Profile Fuse', imageSrc: '/accesories/Fuse/Micro%20Low%20Profile%20Fuse/MLPF.avif', imageSrcHover: '/accesories/Fuse/Micro%20Low%20Profile%20Fuse/MLPF-removebg.png', price: '$0.00' },
+  { id: '8', category: 'Gps Tracker & Accessories', name: 'Micro Low Profile Fuse', imageSrc: '/accesories/Fuse/Micro%20Low%20Profile%20Fuse/MLPF.avif', imageSrcHover: '/accesories/Fuse/Micro%20Low%20Profile%20Fuse/MLPF-removebg.png', price: '$0.00', tag: 'SALE' },
   { id: '9', category: 'Gps Tracker & Accessories', name: 'YG-D3 GPS Tracker', imageSrc: '/accesories/gps%20tracker/yg-d3.png', imageSrcHover: '/accesories/gps%20tracker/yg-d3-removebg-preview.png', price: '$0.00' },
   { id: '10', category: 'Gps Tracker & Accessories', name: 'Universal 5-Pin Automotive Relay Harness', imageSrc: '/accesories/Relay%26%20harness/5pin.jpeg', imageSrcHover: '/accesories/Relay%26%20harness/5pin-removebg-preview.png', price: '$0.00' },
   { id: '11', category: 'Gps Tracker & Accessories', name: 'Mini Fuse', imageSrc: '/accesories/Fuse/Mini%20Pin%20Fuse/mpf.png', imageSrcHover: '/accesories/Fuse/Mini%20Pin%20Fuse/mpf-removebg.png', price: '$0.00' },
   { id: '12', category: 'Gps Tracker & Accessories', name: 'Standard Fuse Tap', imageSrc: '/accesories/Fuse%20Adapter/Low%20Profile%20Fuse%20Adapter/LPFA.jpg', imageSrcHover: '/accesories/Fuse%20Adapter/Low%20Profile%20Fuse%20Adapter/LPFA-removebg.png', price: '$0.00' },
   { id: '13', category: 'Gps Tracker & Accessories', name: 'PVC Insulation Tape', imageSrc: '/accesories/Tape/Arkangel%20Circle%20Logo%20copy.jpg', imageSrcHover: '/accesories/Tape/Arkangel_Circle_Logo_copy-removebg-preview.png', price: '$6.00' },
-  { id: '14', category: 'Gps Tracker & Accessories', name: 'ULOGS 4', imageSrc: '/accesories/Temperature%20Data%20Logger/Ulogs4.jpg', imageSrcHover: '/accesories/Temperature%20Data%20Logger/Ulogs4-removebg.png', price: '$0.00' },
+  { id: '14', category: 'Gps Tracker & Accessories', name: 'ULOGS 4', imageSrc: '/accesories/Temperature%20Data%20Logger/Ulogs4.jpg', imageSrcHover: '/accesories/Temperature%20Data%20Logger/Ulogs4-removebg.png', price: '$0.00', tag: 'HOT' },
   { id: '15', category: 'Gps Tracker & Accessories', name: 'MDD1.25-250', imageSrc: '/accesories/cable%20lugs/Picture%202.png', imageSrcHover: '/accesories/cable%20lugs/Picture_2-removebg.png', price: 'AED 62.10' },
   { id: '16', category: 'Gps Tracker & Accessories', name: 'Teltonika FMC130', imageSrc: '/accesories/gps%20tracker/fmc130.jpeg', imageSrcHover: '/accesories/gps%20tracker/fmc130-removebg-preview.png', price: '$0.00' },
 ];
@@ -91,6 +107,48 @@ export function getProductUrl(product: ProductItem): string {
   return `/product/${categorySlug}/${productSlug}`;
 }
 
+/** Map static ProductItem to DisplayProduct for the card grid */
+function toDisplayProduct(p: ProductItem): DisplayProduct {
+  return {
+    id: p.id,
+    name: p.name,
+    description: p.description,
+    imageSrc: p.imageSrc,
+    price: p.price,
+    category: p.category,
+    tag: p.tag,
+    productUrl: getProductUrl(p),
+  };
+}
+
+/** Map API product to DisplayProduct; handles various backend field names */
+function apiProductToDisplay(p: ApiProduct): DisplayProduct {
+  const id = String(p.id ?? '');
+  const name = (p.name ?? p.title ?? 'Product').toString().trim();
+  const desc = (p.short_description ?? p.description ?? '').toString().trim();
+  const img =
+    (p.image ?? p.image_url ?? p.thumbnail ?? (Array.isArray(p.images) ? p.images[0] : undefined) ?? '')?.toString().trim() ||
+    `https://via.placeholder.com/200x200?text=${encodeURIComponent(name)}`;
+  const price =
+    (p.price_formatted ?? (typeof p.price === 'number' ? `$${p.price}` : p.price) ?? '$0.00').toString().trim();
+  const category = (p.category_name ?? p.category ?? '').toString().trim();
+  const tag = (p.tag ?? p.badge ?? '').toString().trim() || undefined;
+  const catSlug = (p.category_slug ?? (category ? slugify(category) : '')).toString().trim();
+  const productSlug = (p.slug ?? `${slugify(name)}-${id}`).toString().trim();
+  const numericId = typeof p.id === 'number' ? p.id : (p.id && /^\d+$/.test(String(p.id)) ? Number(p.id) : null);
+  const productUrl = numericId != null ? `/product/${numericId}` : (catSlug ? `/product/${catSlug}/${productSlug}` : `/#product-${id}`);
+  return {
+    id,
+    name,
+    description: desc || undefined,
+    imageSrc: img.startsWith('http') || img.startsWith('/') ? img : `https://via.placeholder.com/200?text=${encodeURIComponent(name)}`,
+    price,
+    category: category || undefined,
+    tag: tag || undefined,
+    productUrl,
+  };
+}
+
 /** Find product by URL category + slug */
 export function getProductByCategorySlug(categorySlug: string, productSlug: string): ProductItem | undefined {
   return valueOfDayProducts.find(
@@ -116,196 +174,97 @@ function parseMoney(input: string) {
   };
 }
 
-function ValueOfDayCard({ product }: { product: ProductItem }) {
-  const price = parseMoney(product.price);
-  const original = product.originalPrice ? parseMoney(product.originalPrice) : null;
-  const displayImage = product.imageSrcHover?.trim()
-  const description =
-    product.description ||
-    `${product.name} is a popular choice and enjoys a significant following with seasoned enthusiasts who enjoy quality products.`;
+function ValueOfDayCard({ product }: { product: DisplayProduct }) {
+  const ribbonTag = product.tag?.trim();
+  const imageSrc = product.imageSrc?.trim() || `https://via.placeholder.com/200?text=${encodeURIComponent(product.name)}`;
 
   return (
-    <div className="group/card relative bg-white rounded-xl border-2 border-gray-200 overflow-visible flex flex-col py-5 px-5 text-center h-[420px] min-w-0">
-      {/* Fixed height – card height never increases, button at bottom */}
-      <div className="overflow-hidden rounded-xl flex flex-col flex-1 min-h-0 min-w-0">
-        <h3 className="text-[#555] font-semibold text-base sm:text-lg tracking-wide line-clamp-2 shrink-0">
-          {product.name}
-        </h3>
-        <p className="text-[#999] text-xs sm:text-sm uppercase tracking-wide mt-1 shrink-0">
-          {product.category}
-        </p>
-        <div className="relative w-full h-[172px] shrink-0 flex items-center justify-center my-3">
-          {product.imageSrc ? (
-            <Image
-              src={(product.imageSrc as string).trim()}
-              alt={product.name}
-              width={400}
-              height={220}
-              className="object-contain w-full h-full max-h-[172px]"
-            />
-          ) : (
-            <span className="text-gray-300 text-xs">Add image</span>
-          )}
+    <Link
+      href={product.productUrl}
+      className="group/card relative bg-white rounded-[16px] shadow-[0_4px_24px_rgba(0,0,0,0.08)] overflow-visible flex flex-col min-w-0 hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-shadow"
+    >
+      {/* Ribbon – top right (NEW, SALE, HOT) */}
+      {ribbonTag && (
+        <div className="absolute top-0 right-0 overflow-hidden w-16 h-16 z-10">
+          <div
+            className="absolute top-2 right-[-32px] w-[80px] py-0.5 text-center text-[10px] font-bold text-white uppercase tracking-wide shadow-md"
+            style={{ background: 'linear-gradient(90deg, #b91c1c 0%, #991b1b 100%)', transform: 'rotate(45deg)' }}
+          >
+            {ribbonTag}
+          </div>
         </div>
-        <div className="flex flex-col items-center gap-0.5 shrink-0">
-          {original && (
-            <span className="text-[#999] text-sm line-through">
-              {(original.currency || price.currency || 'AED')} {original.major}
-              {original.minor ? `.${original.minor}` : ''}
-            </span>
-          )}
-          <p className="text-[#555] font-semibold text-lg sm:text-xl mb-2">
-            {price.currency || 'AED'} {price.major}
-            {price.minor ? <span className="text-base">.{price.minor}</span> : ''}
-          </p>
+      )}
+
+      {/* Image (left) + title & description (right) */}
+      <div className="flex flex-row items-center flex-1 min-h-[120px] p-4 sm:p-4 gap-3">
+        <div className="relative w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] shrink-0 flex items-center justify-center rounded-2xl bg-gray-100 overflow-hidden">
+          <Image
+            src={imageSrc}
+            alt={product.name}
+            width={150}
+            height={150}
+            className="object-contain w-full h-full"
+            unoptimized={imageSrc.startsWith('https://via.placeholder')}
+          />
         </div>
-        <Link
-          href={getProductUrl(product)}
-          className="mt-auto w-full max-w-[180px] mx-auto py-2.5 rounded-full border-0 text-white font-semibold text-md uppercase tracking-wide transition-colors hover:opacity-95 flex items-center justify-center"
-          style={{
-            background: 'linear-gradient(90deg,rgba(0, 58, 145, 1) 24%, rgba(156, 3, 3, 1) 100%)',
-          }}
-        >
-          Buy Now
-        </Link>
+        <div className="flex-1 min-w-0 py-2">
+          <h3 className="text-[#282A4D] mb-1 font-bold text-base sm:text-lg leading-tight line-clamp-2">
+            {product.name}
+          </h3>
+          {product.description ? (
+            <div className="text-[#003a91] text-sm mt-1 line-clamp-2"><HtmlRenderer htmlString={product.description} /></div>
+          ) : null}
+        
+        </div>
       </div>
 
-      {/* Hover overlay – Buy Now always visible; description/info scroll if needed */}
-      <Link
-        href={getProductUrl(product)}
-        className="absolute inset-0 flex flex-col opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 z-[10] bg-gray-100 rounded-xl py-0 overflow-hidden pointer-events-none group-hover/card:pointer-events-auto"
-      >
-        <div className="w-full flex items-end justify-center min-h-[120px] sm:min-h-[140px] pt-0 pb-1 z-0 shrink-0 relative">
-          {product.imageSrc && (
-            <Image
-              src={displayImage as string}
-              alt={product.name}
-              width={320}
-              height={400}
-              className="object-contain max-h-36 sm:max-h-40 w-auto drop-shadow-lg -translate-y-2"
-            />
-          )}
-        </div>
-        <div className="flex-1 flex flex-col min-h-0 py-2 px-3 text-center">
-          <h3 className="text-[#555] font-semibold text-sm tracking-wide line-clamp-1 shrink-0">{product.name}</h3>
-          <p className="text-[#999] text-xs uppercase tracking-wide mt-0.5 shrink-0">{product.category}</p>
-          <p className="text-[#555] font-semibold text-sm mt-1 shrink-0">
-            {price.currency || 'AED'} {price.major}
-            {price.minor ? `.${price.minor}` : ''}
-          </p>
-          <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden">
-            <p className="text-[#888] text-xs leading-snug mt-1 line-clamp-2">{description}</p>
-            <div className="mt-2 rounded-lg border border-[#e5e5e5] bg-white/60 py-2 px-2.5 text-left">
-              <div className="flex justify-between text-xs">
-                <span className="text-[#999]">Origin</span>
-                <span className="text-[#555] font-medium">{product.origin || 'China'}</span>
-              </div>
-              <div className="flex justify-between text-xs mt-1">
-                <span className="text-[#999]">Type</span>
-                <span className="text-[#555] font-medium">{product.wineType || product.category || ''}</span>
-              </div>
-              <div className="flex justify-between text-xs mt-1">
-                <span className="text-[#999]">AWG Rating:</span>
-                <span className="text-[#555] font-medium">{product.alcohol || '18w'}</span>
-              </div>
-            </div>
-          </div>
-          <span className="shrink-0 mt-2 w-full py-2 rounded-lg border border-[#1658a1] bg-[#dae3ef] text-[#1658a1] font-medium text-xs uppercase tracking-wide text-center block">
-            Buy Now
-          </span>
-        </div>
-      </Link>
-    </div>
+      {/* MORE INFO button – gradient */}
+      <div className="flex justify-center pb-4 pt-2">
+        <GradientButton asSpan>MORE INFO</GradientButton>
+      </div>
+    </Link>
   );
 }
 
 const PARENT_SLUG_GPS = 'gps-tracker-accessories';
 
+const staticDisplayProducts: DisplayProduct[] = valueOfDayProducts.map(toDisplayProduct);
+
 export default function ValueOfDaySection() {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const [apiProducts, setApiProducts] = useState<DisplayProduct[]>([]);
   const gpsSubCategories = getGpsSubCategories();
 
-  const toggleCategory = (title: string) => {
-    setOpenCategory((prev) => (prev === title ? null : title));
+  useEffect(() => {
+    let cancelled = false;
+    fetchProducts()
+      .then((list) => {
+        if (!cancelled) setApiProducts(list.map(apiProductToDisplay));
+      })
+      .catch(() => {
+        if (!cancelled) setApiProducts([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const allProducts = useMemo(
+    () => [...staticDisplayProducts, ...apiProducts],
+    [apiProducts]
+  );
+
+  const toggleCategory = (key: string) => {
+    setOpenCategory((prev) => (prev === key ? null : key));
   };
 
   return (
     <section className="bg-white min-h-[60vh]">
       <div className="container mx-auto px-4 pt-24 pb-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Left: Assortment sidebar – click to open/close dropdown */}
-          <aside className="lg:w-66 shrink-0 relative rounded-lg overflow-hidden min-h-[280px] z-20 border border-gray-100">
-            {/* Lantern – fixed left position + fixed width so open/close looks same; only height changes */}
-            <div
-              className={`absolute left-0 top-0 z-0 w-80 min-w-80 max-w-80 overflow-hidden rounded-br-lg transition-[height] duration-300 ease-out ${
-                openCategory ? 'h-[1020px] left-[-10]' : 'h-[780px] left-0'
-              }`}
-            >
-              <img
-                src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1770723919/pngggggg_winawv.png"
-                alt=""
-                className="h-full w-full object-cover object-top pointer-events-none select-none"
-              />
-            </div>
-
-            <div className="relative z-10 p-4">
-            <h2 className="text-lg font-semibold text-[#1658a1] mb-4">Categories</h2>
-            
-            <ul className="space-y-1 mb-8">
-              {categoryLinks.map((cat) => (
-                <li key={cat.title}>
-                  <button
-                    type="button"
-                    onClick={() => toggleCategory(cat.title)}
-                    className="w-full text-left text-sm font-medium text-[#1658a1] hover:underline flex items-center justify-between py-1.5"
-                  >
-                    <span>{cat.title}</span>
-                    {cat.subTypes.length > 0 && (
-                      <svg
-                        className={`w-4 h-4 shrink-0 transition-transform ${openCategory === cat.title ? 'rotate-180' : ''}`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    )}
-                  </button>
-                  {cat.subTypes.length > 0 && openCategory === cat.title && (
-                    <ul className="mt-1 ml-3 space-y-1 border-l border-gray-200 pl-3 pb-2">
-                      {cat.title === 'Gps Tracker & Accessories'
-                        ? gpsSubCategories.map((sub) => (
-                            <li key={sub.slug}>
-                              <Link
-                                href={`/category/${PARENT_SLUG_GPS}/${sub.slug}`}
-                                className="text-xs text-gray-600 hover:text-[#1658a1] block py-0.5"
-                              >
-                                {sub.label}
-                              </Link>
-                            </li>
-                          ))
-                        : cat.subTypes.map((sub) => (
-                            <li key={sub}>
-                              <a href="#" className="text-xs text-gray-600 hover:text-[#1658a1] block py-0.5">
-                                {sub}
-                              </a>
-                            </li>
-                          ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
-            </ul>
-            </div>
-          </aside>
-
-          {/* Right: Value of the Day grid */}
           <div className="flex-1 min-w-0">
-            <h2 className="text-lg font-semibold text-gray-800 pb-2 border-b-2 border-[#db1f26] w-fit mb-6">
-                Products
-            </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {valueOfDayProducts.map((product, idx) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+              {allProducts.map((product, idx) => (
                 <ValueOfDayCard key={`${product.id}-${idx}`} product={product} />
               ))}
             </div>

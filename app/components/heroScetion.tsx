@@ -1,38 +1,66 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
-const bannerImages = [
- "https://res.cloudinary.com/dstnwi5iq/image/upload/v1770037000/Screenshot_2026-02-02_at_4.52.57_pm_d8frvj.png",
- "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769509009/ban-2_tu7ej8.png",  
- "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769509010/ban-4_s7vpzo.png",
- "https://res.cloudinary.com/dstnwi5iq/image/upload/v1769494739/Screenshot_2026-01-23_at_2.45.31_pm_puqpxg.png",
+type HeroBannerItem = {
+  id?: number | string;
+  image_url?: string;
+  image?: string;
+  link?: string;
+  title?: string;
+  sort_order?: number;
+};
 
- "https://res.cloudinary.com/dstnwi5iq/image/upload/v1770038687/Screenshot_2026-02-02_at_5.17.00_pm_eldbp5.png",
- "https://res.cloudinary.com/dstnwi5iq/image/upload/v1770036267/Screenshot_2026-02-02_at_4.43.14_pm_q7t9ue.png",
+function normalizeHeroBanners(raw: unknown): HeroBannerItem[] {
+  if (Array.isArray(raw)) return raw as HeroBannerItem[];
+  if (raw && typeof raw === 'object') {
+    const obj = raw as Record<string, unknown>;
+    const arr = obj.data as unknown[] | undefined;
+    if (Array.isArray(arr)) return arr as HeroBannerItem[];
+  }
+  return [];
+}
 
-];
+function getBannerImageUrl(b: HeroBannerItem): string | null {
+  const url = b.image_url ?? b.image;
+  if (typeof url === 'string' && (url.startsWith('http') || url.startsWith('/'))) return url;
+  return null;
+}
 
 export default function HeroSection() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [banners, setBanners] = useState<HeroBannerItem[]>([]);
+
+  useEffect(() => {
+    fetch('/api/banners')
+      .then((res) => res.json())
+      .then((json) => {
+        const list = normalizeHeroBanners(json?.data ?? json);
+        const withImage = list.filter((b) => getBannerImageUrl(b));
+        const sorted = [...withImage].sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
+        setBanners(sorted);
+      })
+      .catch(() => setBanners([]));
+  }, []);
 
   return (
     <section className="relative w-full  text-white overflow-visible">
       {/* Hero Background Image – limited to top ~70% so promo cards sit half outside */}
-      <div className="absolute top-0 left-0 right-0 z-0 h-[107vh] min-h-[440px] max-h-[740px] overflow-hidden bg-layered-gradient">
+      <div className="absolute top-0 left-0 right-0 z-0 h-[107vh] min-h-[440px] max-h-[780px] overflow-hidden ">
         <img
-          src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1770193976/chinese-new-year-dragon-element-background-with-empty-copy-space.jpg_1_a6t4n3.jpg"
+          src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1769668522/abstract-blurred-blue-purple-colorful-rays-moving-opposite-each-other.jpg_cemgvf.jpg"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover object-center blur-[2px] scale-105"
+          className="absolute w-full h-full object-cover object-center"
         />
         {/* Overlay: left + right dono side, with blur layer */}
-        <div
+        {/* <div
           className="absolute inset-0 pointer-events-none backdrop-blur-[1px]"
           style={{
             background: 'linear-gradient(to right, rgba(9, 18, 43, 0.7) 0%, rgba(50, 59, 85, 0.45) 25%, rgba(9, 18, 43, 0.25) 50%, rgba(50, 59, 85, 0.45) 75%, rgba(9, 18, 43, 0.65) 100%)',
           }}
-        />
+        /> */}
       </div>
 
       {/* Theme Toggle - Left Side */}
@@ -65,15 +93,15 @@ export default function HeroSection() {
         </div>
       </div> */}
 
-      <div className="container mx-auto px-4 py-12 relative z-[1]">
+      <div className="container mx-auto px-4 py-12 relative ">
         {/* Top Section: Hero Text + Hot Products */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 ">
           {/* Left: Hero Text and Search */}
           <div className="flex flex-col justify-center">
-            <h1 className="text-6xl md:text-7xl lg:text-4xl font-bold mb-4 leading-tight pt-10">
-            Go global with  <span className="text-[#1658a1]">SHENZHEN</span>  exports Your business deserves it!
+            <h1 className="text-6xl md:text-7xl lg:text-4xl font-medium mb-4 leading-tight pt-10 font-helvetica">
+            Go global with  <span className="text-red-500">SHENZHEN</span>  exports Your business deserves it!
             </h1>
-            <p className="text-xl font-medium md:text-2xl text-white mb-8">
+            <p className="text-xl font-medium md:text-2xl text-white mb-8 font-helvetica">
               {/* OF COOL CSE AND TECH GADGETS OUT THERE. */}
             </p>
             
@@ -141,174 +169,101 @@ export default function HeroSection() {
         </div>
 
     
-        <div className="relative z-[1] mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-[-5rem] md:mb-[-6rem]">
-          
-          {bannerImages.map((imageSrc, index) => (
-            <PromoBannerDouble
-              key={index}
-              imageSrc={imageSrc}
-            />
-          ))}
-        
-
-         
+        <div className="relative  mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-[-5rem] md:mb-[-6rem]">
+          {banners.map((banner, index) => {
+            const src = getBannerImageUrl(banner);
+            if (!src) return null;
+            return (
+              <PromoBannerDouble
+                key={banner.id ?? index}
+                imageSrc={src}
+                link={banner.link}
+                title={banner.title}
+              />
+            );
+          })}
         </div>
+
+       
       </div>
+
+        {/* Features bar – Free shipping, Fast delivery, Free returns */}
+      <div className="relative z-[1] mt-14 border-t-2 border-amber-200/80 bg-[#faf8f5] rounded-b-lg overflow-hidden">
+          <div className="py-5 flex flex-col sm:flex-row items-center justify-between px-[12%]">
+            <div className="flex items-center gap-3 text-[#5c4a3d]">
+              <span className="shrink-0 text-[#5c4a3d]">
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
+                  <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
+                </svg>
+              </span>
+              <div>
+                <p className="font-semibold text-[#5c4a3d]">Free shipping<span className="text-xs text-[#5c4a3d]/90"> On all Choice items</span></p>
+                
+              </div>
+            </div>
+            <div className="flex items-center gap-3 text-[#5c4a3d]">
+              <span className="shrink-0 text-[#5c4a3d]">
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
+                  <path d="M20 8h-2V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v4H4c-1.1 0-2 .9-2 2v10h16V10c0-1.1-.9-2-2-2zm-6 10H6v-2h8v2zm4-4H6v-2h12v2zm0-4H8V4h8v6z" />
+                </svg>
+              </span>
+              <div>
+                <p className="font-semibold text-[#5c4a3d]">Fast delivery  <span className="text-xs text-[#5c4a3d]/90">Get refunds for any issues</span></p>
+               
+              </div>
+            </div>
+            <div className="flex items-center gap-3 text-[#5c4a3d]">
+              <span className="shrink-0 text-[#5c4a3d]">
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
+                  <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" />
+                </svg>
+              </span>
+              <div>
+                <p className="font-semibold text-[#5c4a3d]">Free returns     <span className="text-xs text-[#5c4a3d]/90">Within 90 days</span></p>
+            
+              </div>
+            </div>
+          </div>
+        </div>
     </section>
   );
 }
 
-// Product Card Component – white card, top icons, centered image/name/price, pill Add to Cart (our red #db1f26)
-function ProductCard({
-  category,
-  name,
-  imageSrc,
-  price,
-  originalPrice,
-  icon,
-  description,
-}: {
-  category: string;
-  name: string;
-  imageSrc: string;
-  price: string;
-  originalPrice: string;
-  icon: 'cart' | 'arrow';
-  description?: string;
-}) {
-  const fallbackSrc = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="120" height="120"%3E%3Crect width="120" height="120" fill="%23f3f4f6"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%239ca3af" font-size="12"%3EImage%3C/text%3E%3C/svg%3E';
 
-  return (
-    <div className="relative rounded-xl bg-white shadow-xl overflow-visible flex flex-col max-w-[200px] sm:max-w-[290px] border border-gray-100 hover:shadow-2xl hover:border-gray-200 transition-all duration-300">
-      {/* Top: quick actions */}
-    
 
-      {/* Product image – bada, card ke upar bahar */}
-      <div className="relative w-full min-h-24 flex items-end justify-center pb-0 pt-12 overflow-visible">
-        <div className="absolute left-1/2 -translate-x-1/2 -top-12 w-40 h-40 sm:w-48 sm:h-48 z-[1] drop-shadow-xl ">
-          <Image
-            src={imageSrc}
-            alt={name}
-            width={220}
-            height={220}
-            className="object-contain object-center w-full h-full"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = fallbackSrc;
-            }}
-          />
-        </div>
-      </div>
 
-      {/* Product name + price */}
-      <div className="flex-1 px-3 py-4 text-center pt-10">
-        {category && (
-          <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5 font-medium">{category}</p>
-        )}
-        <h3 className="text-gray-900 font-bold text-sm leading-tight mb-1.5 line-clamp-2">{name}</h3>
-        {description && (
-          <p className="text-gray-500 text-[10px] leading-tight line-clamp-2 mb-1">{description}</p>
-        )}
-        <p className="text-[#db1f26] font-bold text-base">{price}</p>
-        {originalPrice && (
-          <p className="text-gray-400 text-xs line-through mt-0.5">{originalPrice}</p>
-        )}
-      </div>
 
-      {/* Add to Cart – thora niche bahar */}
-      <div className="px-3 pt-0 -mb-4">
-        <button
-          type="button"
-          className="w-full bg-[#123a55] text-white font-bold text-xs uppercase tracking-wide py-2.5 rounded-full shadow-lg hover:bg-[#c41e24] hover:shadow-xl transition-all duration-200"
-        >
-          Add to cart
-        </button>
-      </div>
-    </div>
-  );
-}
 
-// Helper to render title with optional bold part
-function renderTitle(title: string, boldPart?: string, boldClass = 'font-bold') {
-  if (!boldPart || !title.includes(boldPart)) {
-    return <>{title}</>;
-  }
-  const i = title.indexOf(boldPart);
-  return (
-    <>
-      {title.slice(0, i)}
-      <span className={boldClass}>{boldPart}</span>
-      {title.slice(i + boldPart.length)}
-    </>
-  );
-}
-
-// Promotional Banner Component – replace imageSrc with your image URL
-function PromoBanner({
-  imageSrc,
-  imagePosition,
-  title,
-
-  gradientClass = 'bg-white',
-}: {
-  imageSrc: string;
-  imagePosition: 'left' | 'right';
-  title: string;
-  titleBold?: string;
-  titleBoldClass?: string;
-  price?: string;
-  pricePrefix?: string;
-  discount?: string;
-  gradientClass?: string;
-}) {
-  const imgPlaceholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="120" height="120"%3E%3Crect width="120" height="120" fill="%23e5e7eb"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%239ca3af" font-size="10"%3EImage%3C/text%3E%3C/svg%3E';
-  const imageBox = (
-    <div className="shrink-0 min-w-[280px] sm:min-w-[360px] w-full max-w-[420px]">
-      <Image
-        src={imageSrc as string}
-        alt={title}
-        width={520}
-        height={186}
-        className="object-contain w-full h-auto"
-        onError={(e) => { (e.target as HTMLImageElement).src = imgPlaceholder; }}
-      />
-    </div>
-  );
-
-  return (
-    <div
-      className={`rounded-2xl overflow-hidden p-5 shadow-lg grid items-center gap-4 ${gradientClass}`}
-      style={{ gridTemplateColumns: imagePosition === 'left' ? 'auto 1fr' : '1fr auto' }}
-    >
-      {imagePosition === 'left' && imageBox}
-      <div>
-      
-
-       
-       
-      {imagePosition === 'right' && imageBox}
-    </div>
-    </div>
-  );
-}
 
 // Banner 6: double CTA – left “Hottest” + “Shop now”, right “Tablets…” + “UP TO 70%”. Replace imageSrc with your collage URL.
 function PromoBannerDouble({
   imageSrc,
-  
+  link,
+  title,
 }: {
-
   imageSrc: string;
-  
+  link?: string;
+  title?: string;
 }) {
   const imgPlaceholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="160" height="100"%3E%3Crect width="160" height="100" fill="%23e5e7eb"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%239ca3af" font-size="10"%3ECollage%3C/text%3E%3C/svg%3E';
-  return (
-    <div className="rounded-2xl shadow-lg"> 
-
-      
-          <Image src={imageSrc as string} alt="" className="object-cover w-full h-full rounded-2xl" width={160} height={100} onError={(e) => { (e.target as HTMLImageElement).src = imgPlaceholder; }} />
-      
-     
-      
-    </div>
+  const content = (
+    <Image
+      src={imageSrc}
+      alt={title ?? ''}
+      className="object-cover w-full h-full rounded-2xl"
+      width={400}
+      height={240}
+      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      onError={(e) => { (e.target as HTMLImageElement).src = imgPlaceholder; }}
+    />
   );
+  const wrapperClass = "rounded-2xl shadow-lg overflow-hidden bg-white";
+  if (link && (link.startsWith('http') || link.startsWith('/'))) {
+    return (
+      <Link href={link} className={wrapperClass} target={link.startsWith('http') ? '_blank' : undefined} rel={link.startsWith('http') ? 'noopener noreferrer' : undefined}>
+        {content}
+      </Link>
+    );
+  }
+  return <div className={wrapperClass}>{content}</div>;
 }
