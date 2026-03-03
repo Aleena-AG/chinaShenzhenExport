@@ -168,21 +168,22 @@ export default function HeroSection() {
           </div> */}
         </div>
 
-    
-        <div className="relative  mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-[-5rem] md:mb-[-6rem]">
-          {banners.map((banner, index) => {
-            const src = getBannerImageUrl(banner);
-            if (!src) return null;
-            return (
-              <PromoBannerDouble
-                key={banner.id ?? index}
-                imageSrc={src}
-                link={banner.link}
-                title={banner.title}
-              />
-            );
-          })}
-        </div>
+        {banners.length > 0 && (
+          <div className="relative mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-[-5rem] md:mb-[-6rem]">
+            {banners.map((banner, index) => {
+              const src = getBannerImageUrl(banner);
+              if (!src) return null;
+              return (
+                <PromoBannerDouble
+                  key={banner.id ?? index}
+                  imageSrc={src}
+                  link={banner.link}
+                  title={banner.title}
+                />
+              );
+            })}
+          </div>
+        )}
 
        
       </div>
