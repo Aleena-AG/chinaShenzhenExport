@@ -13,27 +13,55 @@ export type DiscountCoupon = {
   discount_value?: number | string;
   description?: string;
   valid_until?: string;
+  start_date?: string;
+  end_date?: string;
+  min_order_value?: string;
+  max_uses?: number | null;
+  used_count?: number;
+  status?: string;
   [key: string]: unknown;
 };
 
+function parseDate(d: string): number {
+  const n = new Date(d).getTime();
+  return isNaN(n) ? 0 : n;
+}
+
+function isCouponValid(c: DiscountCoupon): boolean {
+  if (c.status && c.status !== 'Active') return false;
+  const now = Date.now();
+  if (c.start_date && parseDate(c.start_date) > now) return false;
+  if (c.end_date && parseDate(c.end_date) < now) return false;
+  if (c.max_uses != null && (c.used_count ?? 0) >= c.max_uses) return false;
+  return true;
+}
+
 function normalizeCoupons(raw: unknown): DiscountCoupon[] {
-  if (Array.isArray(raw)) return raw as DiscountCoupon[];
-  if (raw && typeof raw === 'object') {
+  let list: DiscountCoupon[] = [];
+  if (Array.isArray(raw)) list = raw as DiscountCoupon[];
+  else if (raw && typeof raw === 'object') {
     const obj = raw as Record<string, unknown>;
-    if (Array.isArray(obj.data)) return obj.data as DiscountCoupon[];
-    if (Array.isArray(obj.coupons)) return obj.coupons as DiscountCoupon[];
+    if (Array.isArray(obj.data)) list = obj.data as DiscountCoupon[];
+    else if (Array.isArray(obj.coupons)) list = obj.coupons as DiscountCoupon[];
   }
-  return [];
+  return list.filter(isCouponValid);
 }
 
 function getCouponCode(c: DiscountCoupon): string {
   return (c.code ?? c.coupon_code ?? 'COUPON') as string;
 }
 
+function formatDiscountValue(v: number | string): string {
+  const s = String(v);
+  return s.replace(/\.?0+$/, '') || s;
+}
+
 function getDiscountText(c: DiscountCoupon): string {
-  if (c.discount) return String(c.discount);
-  if (c.discount_type === 'percent' && c.discount_value != null) return `${c.discount_value}% off`;
-  if (c.discount_value != null) return `${c.discount_value}`;
+  if (c.discount) return String(c.discount).replace(/\s*off\s*$/i, '').trim();
+  const isPercent = c.discount_type === 'percent' || c.discount_type === 'percentage';
+  if (isPercent && c.discount_value != null) return `${formatDiscountValue(c.discount_value)}%`;
+  if (c.discount_type === 'fixed' && c.discount_value != null) return `AED ${formatDiscountValue(c.discount_value)}`;
+  if (c.discount_value != null) return formatDiscountValue(c.discount_value);
   return 'Discount';
 }
 

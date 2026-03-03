@@ -155,6 +155,10 @@ export default function ProductPage() {
       <div className="min-h-screen bg-white">
         <ProductDetail
           productName={name}
+          productId={idFromSlug ?? undefined}
+          productPrice={p.price ? String(p.price) : undefined}
+          categorySlug={categorySlug}
+          productSlug={productSlug}
           mainImage={mainImage}
           thumbnailImages={allImages.length > 0 ? allImages : undefined}
           backHref="/"
@@ -325,6 +329,10 @@ const valueProductItem = !isGps ? (r.product as ProductItem) : null;
     <div className="min-h-screen bg-white">
       <ProductDetail
         productName={productName}
+        productId={productId}
+        productPrice={productPrice}
+        categorySlug={categorySlug}
+        productSlug={productSlug}
         mainImage={galleryImages[0] || productImageSrc}
         thumbnailImages={galleryImages}
         backHref="/"

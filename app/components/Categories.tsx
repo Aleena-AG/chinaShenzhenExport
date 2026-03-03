@@ -75,7 +75,7 @@ export default function Categories() {
     const product = products.find((p) => String(p.id) === productId);
     if (product && categorySlug) {
       const productSlug = `${slugify(product.name)}-${product.id}`;
-      router.push(`/product/${categorySlug}/${productSlug}`);
+      router.push(`/product/${categorySlug}/${productSlug}/order`);
     }
   };
 

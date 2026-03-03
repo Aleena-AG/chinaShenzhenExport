@@ -4,11 +4,15 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getCartCount, getCartTotal, CART_UPDATED_EVENT } from '../lib/cart';
+import { getWishlistCount, getCompareCount, WISHLIST_UPDATED_EVENT, COMPARE_UPDATED_EVENT } from '../lib/wishlist';
+import WishlistModal from './WishlistModal';
 
 export default function Header() {
   const [cartCount, setCartCount] = useState(0);
   const [cartTotal, setCartTotal] = useState('0.00');
-  const [compareCount] = useState(0);
+  const [compareCount, setCompareCount] = useState(0);
+  const [wishlistCount, setWishlistCount] = useState(0);
+  const [showWishlistModal, setShowWishlistModal] = useState(false);
 
   const refreshCart = () => {
     if (typeof window !== 'undefined') {
@@ -17,15 +21,37 @@ export default function Header() {
     }
   };
 
+  const refreshWishlist = () => {
+    if (typeof window !== 'undefined') {
+      setWishlistCount(getWishlistCount());
+    }
+  };
+
+  const refreshCompare = () => {
+    if (typeof window !== 'undefined') {
+      setCompareCount(getCompareCount());
+    }
+  };
+
   useEffect(() => {
     refreshCart();
+    refreshWishlist();
+    refreshCompare();
     window.addEventListener(CART_UPDATED_EVENT, refreshCart);
-    return () => window.removeEventListener(CART_UPDATED_EVENT, refreshCart);
+    window.addEventListener(WISHLIST_UPDATED_EVENT, refreshWishlist);
+    window.addEventListener(COMPARE_UPDATED_EVENT, refreshCompare);
+    return () => {
+      window.removeEventListener(CART_UPDATED_EVENT, refreshCart);
+      window.removeEventListener(WISHLIST_UPDATED_EVENT, refreshWishlist);
+      window.removeEventListener(COMPARE_UPDATED_EVENT, refreshCompare);
+    };
   }, []);
 
   return (
-    <header className="w-full text-[#1658a1]">
-      {/* Top Utility Bar - white bg, red text */}
+    <>
+      <WishlistModal isOpen={showWishlistModal} onClose={() => setShowWishlistModal(false)} />
+      <header className="w-full text-[#1658a1]">
+        {/* Top Utility Bar - white bg, red text */}
       <div className="bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 py-2 flex items-center justify-between text-sm text-[#1658a1]">
           {/* Left: Welcome Message */}
@@ -67,7 +93,9 @@ export default function Header() {
             {/* Right: Action Icons & Cart */}
             <div className="flex items-center gap-4 sm:gap-6">
               <IconButton icon="refresh" badge={compareCount} variant="blue" />
-              <IconButton icon="heart" variant="blue" />
+              <button type="button" onClick={() => setShowWishlistModal(true)}>
+                <IconButton icon="heart" badge={wishlistCount} variant="blue" />
+              </button>
               <IconButton icon="user" variant="blue" />
               <Link href="/cart" className="flex items-center gap-2">
                 <IconButton icon="cart" badge={cartCount} variant="blue" />
@@ -80,6 +108,7 @@ export default function Header() {
         </div>
       </div>
     </header>
+    </>
   );
 }
 

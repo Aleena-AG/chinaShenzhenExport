@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import GradientButton from './GradientButton';
+import WishlistModal from './WishlistModal';
+import { addToWishlist, removeFromWishlist, isInWishlist, addToCompare, isInCompare, WISHLIST_UPDATED_EVENT } from '../lib/wishlist';
 
 
 export type ProductDetailTabId =
@@ -30,6 +32,10 @@ export type DynamicTab =
 
 export type ProductDetailProps = {
   productName: string;
+  productId?: string;
+  productPrice?: string;
+  categorySlug?: string;
+  productSlug?: string;
   mainImage: string;
   thumbnailImages?: string[];
   backHref: string;
@@ -111,6 +117,10 @@ const TAB_HEADINGS: Record<ProductDetailTabId, string> = {
 
 export default function ProductDetail({
   productName,
+  productId,
+  productPrice,
+  categorySlug,
+  productSlug,
   mainImage,
   thumbnailImages = [],
   backHref,
@@ -124,6 +134,54 @@ export default function ProductDetail({
   const [activeTab, setActiveTab] = useState<ProductDetailTabId>('features');
   const [activeDynamicIndex, setActiveDynamicIndex] = useState(0);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [inWishlist, setInWishlist] = useState(false);
+  const [inCompare, setInCompare] = useState(false);
+  const [showWishlistModal, setShowWishlistModal] = useState(false);
+
+  const pid = productId || productSlug || productName;
+
+  useEffect(() => {
+    setInWishlist(isInWishlist(pid));
+    setInCompare(isInCompare(pid));
+    const handler = () => setInWishlist(isInWishlist(pid));
+    window.addEventListener(WISHLIST_UPDATED_EVENT, handler);
+    return () => window.removeEventListener(WISHLIST_UPDATED_EVENT, handler);
+  }, [pid]);
+
+  const handleWishlistClick = () => {
+    if (inWishlist) {
+      removeFromWishlist(pid);
+      setInWishlist(false);
+    } else {
+      const added = addToWishlist({
+        productId: pid,
+        name: productName,
+        price: productPrice,
+        imageSrc: mainImage,
+        categorySlug,
+        productSlug,
+      });
+      if (added) {
+        setInWishlist(true);
+        setShowWishlistModal(true);
+      }
+    }
+  };
+
+  const handleCompareClick = () => {
+    if (inCompare) {
+      return;
+    }
+    const added = addToCompare({
+      productId: pid,
+      name: productName,
+      price: productPrice,
+      imageSrc: mainImage,
+      categorySlug,
+      productSlug,
+    });
+    if (added) setInCompare(true);
+  };
   const thumbs = thumbnailImages.length ? thumbnailImages : [mainImage];
   const mainSrc = thumbs[selectedImageIndex] ?? mainImage;
   const mainImageValid = mainSrc?.startsWith('http') || mainSrc?.startsWith('/');
@@ -184,8 +242,10 @@ export default function ProductDetail({
   };
 
   return (
-    <div className="bg-white min-h-screen">
-      <div className="container mx-auto px-4 py-6">
+    <>
+      <WishlistModal isOpen={showWishlistModal} onClose={() => setShowWishlistModal(false)} />
+      <div className="bg-white min-h-screen">
+        <div className="container mx-auto px-4 py-6">
         {/* Back + Product name */}
         <div className="flex items-center gap-2 mb-6">
           <Link
@@ -212,6 +272,30 @@ export default function ProductDetail({
               priority
               unoptimized={!mainImageValid}
             />
+            {/* Wishlist & Compare buttons */}
+            <div className="absolute top-3 right-3 flex gap-2">
+              <button
+                type="button"
+                onClick={handleWishlistClick}
+                className="w-10 h-10 rounded-full bg-white/95 backdrop-blur-sm shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+                aria-label={inWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
+              >
+                <svg className={`w-6 h-6 ${inWishlist ? 'text-red-600 fill-red-600' : 'text-gray-700'}`} fill={inWishlist ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={inWishlist ? 0 : 2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={handleCompareClick}
+                className={`w-10 h-10 rounded-full bg-white/95 backdrop-blur-sm shadow-lg flex items-center justify-center transition-all ${inCompare ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110'}`}
+                aria-label={inCompare ? 'Already in compare' : 'Add to compare'}
+                disabled={inCompare}
+              >
+                <svg className={`w-5 h-5 ${inCompare ? 'text-blue-600' : 'text-gray-700'}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </button>
+            </div>
           </div>
           {thumbs.length > 1 && (
             <div className="mt-3 w-full">
@@ -317,5 +401,6 @@ export default function ProductDetail({
         )}
       </div>
     </div>
+    </>
   );
 }
