@@ -47,8 +47,8 @@ export default function HeroSection() {
 
   return (
     <section className="relative w-full  text-white overflow-visible">
-      {/* Hero Background Image – limited to top ~70% so promo cards sit half outside */}
-      <div className="absolute top-0 left-0 right-0 z-0 h-[107vh] min-h-[440px] max-h-[780px] overflow-hidden ">
+      {/* Hero Background – taller when banners present, compact when no banners so layout stays in place */}
+      <div className={`absolute top-0 left-0 right-0 z-0 overflow-hidden ${banners.length > 0 ? 'h-[107vh] min-h-[440px] max-h-[780px]' : 'h-[52vh] min-h-[420px]'}`}>
         <img
           src="https://res.cloudinary.com/dstnwi5iq/image/upload/v1769668522/abstract-blurred-blue-purple-colorful-rays-moving-opposite-each-other.jpg_cemgvf.jpg"
           alt=""
@@ -189,7 +189,7 @@ export default function HeroSection() {
       </div>
 
         {/* Features bar – Free shipping, Fast delivery, Free returns */}
-      <div className="relative z-[1] mt-14 border-t-2 border-amber-200/80 bg-[#faf8f5] rounded-b-lg overflow-hidden">
+      <div className={`relative z-[1] border-t-2 border-amber-200/80 bg-[#faf8f5] rounded-b-lg overflow-hidden ${banners.length > 0 ? 'mt-14' : 'mt-6'}`}>
           <div className="py-5 flex flex-col sm:flex-row items-center justify-between px-[12%]">
             <div className="flex items-center gap-3 text-[#5c4a3d]">
               <span className="shrink-0 text-[#5c4a3d]">
