@@ -126,10 +126,7 @@ export default function CompareModal({ isOpen, onClose }: { isOpen: boolean; onC
                   <tr>
                     <th className="text-left py-3 pr-4 text-gray-500 font-medium w-36 align-top" />
                     {items.map((item) => {
-                      const productUrl =
-                        item.categorySlug && item.productSlug
-                          ? `/product/${item.categorySlug}/${item.productSlug}`
-                          : '#';
+                      const productUrl = item.productId ? `/product/${item.productId}` : '#';
                       return (
                         <th key={item.productId} className="text-center py-3 px-2 align-top w-40 min-w-[140px]">
                           <div className="flex flex-col items-center">

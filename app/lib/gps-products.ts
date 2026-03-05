@@ -43,8 +43,8 @@ export function getGpsProductSlug(product: GpsProduct): string {
   return `${slugify(product.name)}-${product.id}`;
 }
 
-export function getGpsProductUrl(subSlug: string, product: GpsProduct): string {
-  return `/product/${subSlug}/${getGpsProductSlug(product)}`;
+export function getGpsProductUrl(_subSlug: string, product: GpsProduct): string {
+  return `/product/${product.id}`;
 }
 
 export function getGpsProductBySlug(subSlug: string, productSlug: string): GpsProduct | undefined {

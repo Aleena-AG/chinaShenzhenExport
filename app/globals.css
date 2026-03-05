@@ -188,3 +188,11 @@ body label, body input, body button, body select, body textarea {
   width: 0 !important;
   height: 0 !important;
 }
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}

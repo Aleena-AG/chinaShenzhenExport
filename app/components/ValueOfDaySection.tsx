@@ -100,11 +100,9 @@ export function slugify(str: string): string {
     .replace(/[^a-z0-9-]/g, '');
 }
 
-/** Product URL path: /product/[category]/[slug] */
+/** Product URL path: /product/[id] */
 export function getProductUrl(product: ProductItem): string {
-  const categorySlug = slugify(product.category);
-  const productSlug = `${slugify(product.name)}-${product.id}`;
-  return `/product/${categorySlug}/${productSlug}`;
+  return `/product/${product.id}`;
 }
 
 /** Map static ProductItem to DisplayProduct for the card grid */
@@ -147,7 +145,7 @@ export function apiProductToDisplay(p: ApiProduct, categorySlugOverride?: string
   const catSlug = categorySlugOverride ?? (p.category_slug ?? (category ? slugify(category) : '')).toString().trim();
   const productSlug = (p.slug ?? `${slugify(name)}-${id}`).toString().trim();
   const numericId = typeof p.id === 'number' ? p.id : (p.id && /^\d+$/.test(String(p.id)) ? Number(p.id) : null);
-  const productUrl = numericId != null ? `/product/${numericId}` : (catSlug ? `/product/${catSlug}/${productSlug}` : `/#product-${id}`);
+  const productUrl = numericId != null ? `/product/${numericId}` : (id ? `/product/${id}` : '/');
   return {
     id,
     name,

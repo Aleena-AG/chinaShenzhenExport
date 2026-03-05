@@ -74,9 +74,8 @@ export default function Categories() {
   const handleProductChange = (productId: string) => {
     setSelectedProductId(productId);
     const product = products.find((p) => String(p.id) === productId);
-    if (product && categorySlug) {
-      const productSlug = `${slugify(product.name)}-${product.id}`;
-      router.push(`/product/${categorySlug}/${productSlug}/order`);
+    if (product) {
+      router.push(`/product/${product.id}/order`);
     }
   };
 

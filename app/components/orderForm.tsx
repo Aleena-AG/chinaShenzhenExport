@@ -71,6 +71,13 @@ export type OrderInquiryPayload = {
   categorySlug?: string;
 };
 
+export type OrderFormPrefill = Partial<OrderFormValues> & {
+  model?: string;
+  productSlug?: string;
+  categorySlug?: string;
+  productImage?: string;
+};
+
 export type OrderFormProps = {
   productName: string;
   productImage?: string;
@@ -79,6 +86,10 @@ export type OrderFormProps = {
   variant?: 'modal' | 'page';
   onClose?: () => void;
   bannerTitle?: string;
+  /** Pre-fill form from an existing order (e.g. Order Again). Overrides productName/productSlug/categorySlug when model/productSlug/categorySlug are set. */
+  prefill?: OrderFormPrefill;
+  /** Override "View more" link (e.g. /product/5 when ordering by product id). */
+  viewMoreHref?: string;
 };
 
 const COUNTRY_OPTIONS = [
@@ -228,6 +239,19 @@ const onPasteLettersOnly = (e: React.ClipboardEvent) => {
   if (!/^[a-zA-Z\s.'\-]+$/.test(pasted)) e.preventDefault();
 };
 
+const defaultFormValues: OrderFormValues = {
+  estimatedQuantity: '',
+  country: '',
+  companyName: '',
+  contactPerson: '',
+  email: '',
+  countryCode: '+971',
+  phoneNumber: '',
+  additionalInfo: '',
+  coupon: '',
+  robotChecked: false,
+};
+
 export default function OrderForm({
   productName,
   productImage,
@@ -235,12 +259,18 @@ export default function OrderForm({
   categorySlug,
   variant = 'modal',
   onClose,
-
+  prefill,
+  viewMoreHref: viewMoreHrefProp,
 }: OrderFormProps) {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [availableCoupons, setAvailableCoupons] = useState<OrderFormCoupon[]>([]);
+
+  const displayName = (prefill?.model != null && prefill.model !== '') ? prefill.model : productName;
+  const displaySlug = prefill?.productSlug != null && prefill.productSlug !== '' ? prefill.productSlug : productSlug;
+  const displayCategorySlug = prefill?.categorySlug != null && prefill.categorySlug !== '' ? prefill.categorySlug : categorySlug;
+  const displayImage = prefill?.productImage ?? productImage;
 
   useEffect(() => {
     fetch('/api/discount-coupons')
@@ -254,22 +284,42 @@ export default function OrderForm({
     handleSubmit,
     watch,
     formState: { errors },
+    reset,
   } = useForm<OrderFormValues>({
     resolver: zodResolver(orderFormSchema),
     mode: 'onTouched',
     defaultValues: {
-      estimatedQuantity: '',
-      country: '',
-      companyName: '',
-      contactPerson: '',
-      email: '',
-      countryCode: '+971',
-      phoneNumber: '',
-      additionalInfo: '',
-      coupon: '',
-      robotChecked: false,
+      ...defaultFormValues,
+      ...(prefill && {
+        estimatedQuantity: prefill.estimatedQuantity ?? '',
+        country: prefill.country ?? '',
+        companyName: prefill.companyName ?? '',
+        contactPerson: prefill.contactPerson ?? '',
+        email: prefill.email ?? '',
+        countryCode: prefill.countryCode ?? '+971',
+        phoneNumber: prefill.phoneNumber ?? '',
+        additionalInfo: prefill.additionalInfo ?? '',
+        coupon: prefill.coupon ?? '',
+      }),
     },
   });
+
+  useEffect(() => {
+    if (prefill) {
+      reset({
+        ...defaultFormValues,
+        estimatedQuantity: prefill.estimatedQuantity ?? '',
+        country: prefill.country ?? '',
+        companyName: prefill.companyName ?? '',
+        contactPerson: prefill.contactPerson ?? '',
+        email: prefill.email ?? '',
+        countryCode: prefill.countryCode ?? '+971',
+        phoneNumber: prefill.phoneNumber ?? '',
+        additionalInfo: prefill.additionalInfo ?? '',
+        coupon: prefill.coupon ?? '',
+      });
+    }
+  }, [prefill, reset]);
 
   const selectedCouponCode = watch('coupon');
   const selectedCoupon = selectedCouponCode
@@ -278,23 +328,26 @@ export default function OrderForm({
       )
     : null;
 
-  const viewMoreHref =
-    categorySlug && productSlug ? `/product/${categorySlug}/${productSlug}` : '#';
-  const backHref = viewMoreHref !== '#' ? viewMoreHref : '/';
+  const productIdFromSlug = displaySlug?.match(/-(\d+)$/)?.[1] ?? displaySlug;
+  const productPageHref =
+    viewMoreHrefProp ??
+    (productIdFromSlug ? `/product/${productIdFromSlug}` : undefined);
+  const viewMoreHref = productPageHref && productPageHref !== '#' ? productPageHref : '/';
+  const backHref = productPageHref && productPageHref !== '#' ? productPageHref : (prefill ? '/customer/profile' : '/');
 
   const onSubmit = async (data: OrderFormValues) => {
     setSubmitting(true);
     try {
       const payload: OrderInquiryPayload = {
-        model: productName,
+        model: displayName,
         estimatedQuantity: data.estimatedQuantity.trim(),
         country: data.country,
         companyName: data.companyName?.trim() || '-',
         contactPerson: data.contactPerson.trim(),
         email: data.email.trim(),
         phone: [data.countryCode, data.phoneNumber].filter(Boolean).join(' ').trim(),
-        productSlug: productSlug?.trim() || '-',
-        categorySlug: categorySlug?.trim() || 'general',
+        productSlug: displaySlug?.trim() || '-',
+        categorySlug: displayCategorySlug?.trim() || 'general',
       };
       if (data.additionalInfo?.trim()) payload.additionalInfo = data.additionalInfo.trim();
       if (data.coupon?.trim()) payload.coupon = data.coupon.trim();
@@ -322,9 +375,9 @@ export default function OrderForm({
   };
 
   const imageSrc =
-    productImage && (productImage.startsWith('http') || productImage.startsWith('/'))
-      ? productImage
-      : `https://via.placeholder.com/320x240?text=${encodeURIComponent(productName)}`;
+    displayImage && (displayImage.startsWith('http') || displayImage.startsWith('/'))
+      ? displayImage
+      : `https://via.placeholder.com/320x240?text=${encodeURIComponent(displayName)}`;
 
   const content = (
     <div
@@ -368,7 +421,7 @@ export default function OrderForm({
               </div>
               <h2 className="text-2xl font-bold text-gray-800 mb-3">Order Request Submitted</h2>
               <p className="text-gray-600 mb-6">
-                Thank you for your order request for <strong>{productName}</strong>. Our regional partners will get in touch with you shortly.
+                Thank you for your order request for <strong>{displayName}</strong>. Our regional partners will get in touch with you shortly.
               </p>
               <GradientButton href="/" variant="primary" size="lg">
                 Go to Dashboard
@@ -385,7 +438,7 @@ export default function OrderForm({
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
-                Back to product
+                {prefill ? 'Back to profile' : 'Back to product'}
               </Link>
             ) : null}
             {variant === 'modal' && onClose ? (
@@ -411,12 +464,12 @@ export default function OrderForm({
               <h3
                 className={`text-lg font-semibold mb-4 ${variant === 'page' ? 'text-[#282A4D]' : 'text-white'}`}
               >
-                {productName}
+                {displayName}
               </h3>
               <div className="relative w-full max-w-[280px] aspect-[4/3] rounded-lg overflow-hidden bg-white/10 mb-4">
                 <Image
                   src={imageSrc}
-                  alt={productName}
+                  alt={displayName}
                   fill
                   className="object-contain"
                   sizes="280px"
@@ -537,7 +590,7 @@ export default function OrderForm({
                 in touch with you.
               </p>
               <p className="text-black/80 text-sm mb-4">
-                <span className="font-bold text-md">Model:</span> {productName}
+                <span className="font-bold text-md">Model:</span> {displayName}
               </p>
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

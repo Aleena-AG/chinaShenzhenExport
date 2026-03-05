@@ -20,7 +20,7 @@ function getWishlistShareText(items: WishlistItem[]): string {
 function getWishlistShareTextWithLinks(items: WishlistItem[]): string {
   const base = typeof window === 'undefined' ? '' : window.location.origin;
   const lines = items.map((item) => {
-    const url = item.categorySlug && item.productSlug ? `${base}/product/${item.categorySlug}/${item.productSlug}` : base;
+    const url = item.productId ? `${base}/product/${item.productId}` : base;
     return `${item.name} ${url}`;
   });
   return `My wishlist from ${SITE_NAME}:\n\n` + lines.join('\n');
@@ -121,8 +121,8 @@ export default function WishlistModal({ isOpen, onClose }: { isOpen: boolean; on
           ) : (
             <div className="space-y-3">
               {items.map((item) => {
-                const productUrl = item.categorySlug && item.productSlug
-                  ? `/product/${item.categorySlug}/${item.productSlug}`
+                const productUrl = item.productId
+                  ? `/product/${item.productId}`
                   : '#';
                 return (
                   <div

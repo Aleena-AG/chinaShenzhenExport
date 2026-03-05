@@ -150,7 +150,7 @@ export default function ProductPage() {
     const tabContent = buildApiTabContent(description, apiTabs);
     const sortedTabs = [...apiTabs].sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
     const dynamicTabs = sortedTabs.length > 0 ? sortedTabs.map((t) => ({ tab_title: t.tab_title ?? '', content: t.content ?? '' })) : undefined;
-    const orderHref = `/product/${categorySlug}/${productSlug}/order`;
+    const orderHref = `/product/${idFromSlug}/order`;
     const pAny = p as Record<string, unknown>;
     const apiSpecs = (pAny.specs ?? pAny.attributes ?? pAny.meta ?? {}) as Record<string, unknown>;
     const mergedSpecs = { ...apiSpecs };
@@ -338,7 +338,7 @@ const valueProductItem = !isGps ? (r.product as ProductItem) : null;
     ),
   };
 
-  const orderPageHref = `/product/${categorySlug}/${productSlug}/order`;
+  const orderPageHref = `/product/${productId}/order`;
   const origPrice = valueProductItem?.originalPrice;
   const productSpecs = isGps && gpsProductData?.specs
     ? gpsProductData.specs as Record<string, unknown>

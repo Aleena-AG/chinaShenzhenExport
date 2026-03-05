@@ -15,6 +15,7 @@ export default function OrderProductByCategoryOrIdPage() {
   const id = isNumericId ? categoryParam : '';
   const [productName, setProductName] = useState<string>('');
   const [productImage, setProductImage] = useState<string | undefined>(undefined);
+  const [productSlug, setProductSlug] = useState<string>(id);
   const [categorySlug, setCategorySlug] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -41,8 +42,10 @@ export default function OrderProductByCategoryOrIdPage() {
           : (p.category_name ?? p.category)
             ? slugify(String(p.category_name ?? p.category).trim())
             : '';
+        const slug = (p as { slug?: string }).slug ? String((p as { slug?: string }).slug).trim() : id;
         setProductName(name);
         setProductImage(img);
+        setProductSlug(slug);
         setCategorySlug(catSlug);
       })
       .finally(() => {
@@ -91,10 +94,10 @@ export default function OrderProductByCategoryOrIdPage() {
     <OrderForm
       productName={productName}
       productImage={productImage}
-      productSlug={id}
+      productSlug={productSlug}
       categorySlug={categorySlug}
       variant="page"
-     
+      viewMoreHref={`/product/${id}`}
     />
   );
 }

@@ -1,13 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { getCartCount, getCartTotal, CART_UPDATED_EVENT } from '../lib/cart';
 import { getWishlistCount, getCompareCount, WISHLIST_UPDATED_EVENT, COMPARE_UPDATED_EVENT } from '../lib/wishlist';
 import WishlistModal from './WishlistModal';
 import CompareModal from './CompareModal';
 import TrackOrderModal from './TrackOrderModal';
+import AuthModal from './AuthModal';
+import AccountDrawer from './AccountDrawer';
+import { useAuth } from '../context/AuthContext';
 
 export default function Header() {
   const [cartCount, setCartCount] = useState(0);
@@ -17,6 +21,23 @@ export default function Header() {
   const [showWishlistModal, setShowWishlistModal] = useState(false);
   const [showCompareModal, setShowCompareModal] = useState(false);
   const [showTrackOrderModal, setShowTrackOrderModal] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showAccountDrawer, setShowAccountDrawer] = useState(false);
+  const [accountDrawerTab, setAccountDrawerTab] = useState<'profile' | 'orders'>('profile');
+  const [showAccountDropdown, setShowAccountDropdown] = useState(false);
+  const accountDropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const { isAuthenticated, customer, logout } = useAuth();
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (accountDropdownRef.current && !accountDropdownRef.current.contains(e.target as Node)) {
+        setShowAccountDropdown(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
 
   const refreshCart = () => {
     if (typeof window !== 'undefined') {
@@ -56,6 +77,19 @@ export default function Header() {
       <WishlistModal isOpen={showWishlistModal} onClose={() => setShowWishlistModal(false)} />
       <CompareModal isOpen={showCompareModal} onClose={() => setShowCompareModal(false)} />
       <TrackOrderModal isOpen={showTrackOrderModal} onClose={() => setShowTrackOrderModal(false)} />
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onSuccess={() => {
+          setShowAuthModal(false);
+          router.push('/customer/profile');
+        }}
+      />
+      <AccountDrawer
+        isOpen={showAccountDrawer}
+        onClose={() => setShowAccountDrawer(false)}
+        initialTab={accountDrawerTab}
+      />
       <header className="w-full text-[#1658a1]">
         {/* Top Utility Bar - white bg, red text */}
       <div className="bg-white border-b border-gray-200">
@@ -73,7 +107,64 @@ export default function Header() {
             <Divider isLight />
             <UtilityLink icon="bag" text="Shop" isMailBar href="/shop" />
             <Divider isLight />
-            <UtilityLink icon="user" text="My Account" isMailBar />
+            {isAuthenticated && customer ? (
+              <div className="relative" ref={accountDropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setShowAccountDropdown((v) => !v)}
+                  className="flex items-center gap-2 px-3 py-1 text-[#1658a1] hover:opacity-90 transition-colors text-xs sm:text-sm font-medium bg-transparent border-0 cursor-pointer"
+                  aria-haspopup="true"
+                  aria-expanded={showAccountDropdown}
+                  aria-label="Account menu"
+                >
+                  <span className="w-7 h-7 rounded-full bg-[#1658a1]/20 flex items-center justify-center text-[#1658a1] font-semibold text-sm shrink-0">
+                    {(customer.name || customer.email)[0].toUpperCase()}
+                  </span>
+                  <span className="hidden sm:inline truncate max-w-[120px]" title={customer.name || customer.email}>
+                    {customer.name || customer.email}
+                  </span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {showAccountDropdown && (
+                  <div className="absolute right-0 top-full mt-1 py-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                    <button
+                      type="button"
+                      onClick={() => { setAccountDrawerTab('profile'); setShowAccountDrawer(true); setShowAccountDropdown(false); }}
+                      className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4 text-[#1658a1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      Profile
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setAccountDrawerTab('orders'); setShowAccountDrawer(true); setShowAccountDropdown(false); }}
+                      className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4 text-[#1658a1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                      </svg>
+                      Orders
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { logout(); setShowAccountDropdown(false); }}
+                      className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      </svg>
+                      Log Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <UtilityLink icon="user" text="My Account" isMailBar onClick={() => setShowAuthModal(true)} />
+            )}
           </div>
         </div>
       </div>
