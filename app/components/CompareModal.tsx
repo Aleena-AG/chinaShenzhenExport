@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getCompareItems, removeFromCompare, COMPARE_UPDATED_EVENT, type CompareItem } from '../lib/wishlist';
+import { clearCompare, getCompareItems, removeFromCompare, COMPARE_UPDATED_EVENT, type CompareItem } from '../lib/wishlist';
 
 function formatLabel(key: string): string {
   return key
@@ -48,6 +48,10 @@ export default function CompareModal({ isOpen, onClose }: { isOpen: boolean; onC
 
   const handleRemove = (productId: string) => {
     removeFromCompare(productId);
+  };
+
+  const handleClearAll = () => {
+    clearCompare();
   };
 
   const getValue = (item: CompareItem, rowKey: string): React.ReactNode => {
@@ -97,16 +101,27 @@ export default function CompareModal({ isOpen, onClose }: { isOpen: boolean; onC
                 {items.length} {items.length === 1 ? 'product' : 'products'} – using your product details
               </p>
             </div>
-            <button
-              type="button"
-              onClick={onClose}
-              className="w-8 h-8 rounded-full bg-white/20 text-white hover:bg-white/30 flex items-center justify-center transition-colors"
-              aria-label="Close"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+            <div className="flex items-center gap-2">
+              {items.length > 0 ? (
+                <button
+                  type="button"
+                  onClick={handleClearAll}
+                  className="px-3 py-1.5 rounded-lg bg-white/20 text-white hover:bg-white/30 transition-colors text-xs font-semibold uppercase tracking-wide"
+                >
+                  Clear all
+                </button>
+              ) : null}
+              <button
+                type="button"
+                onClick={onClose}
+                className="w-8 h-8 rounded-full bg-white/20 text-white hover:bg-white/30 flex items-center justify-center transition-colors"
+                aria-label="Close"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
 

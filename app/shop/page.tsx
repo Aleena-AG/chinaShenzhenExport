@@ -6,17 +6,14 @@ import ShopProductGrid from '../components/ShopProductGrid';
 export default function ShopPage() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero */}
+      {/* Hero – background image */}
       <section
-        className="relative py-20 sm:py-28 overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #003a91 0%, #1e5bb8 40%, #9c0303 100%)' }}
+        className="relative py-20 sm:py-28 overflow-hidden bg-cover bg-center"
+        style={{
+          backgroundImage: "url('https://res.cloudinary.com/dstnwi5iq/image/upload/v1769668522/abstract-blurred-blue-purple-colorful-rays-moving-opposite-each-other.jpg_cemgvf.jpg')",
+        }}
       >
-        <div
-          className="absolute inset-0 opacity-20 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('https://res.cloudinary.com/dstnwi5iq/image/upload/v1769668522/abstract-blurred-blue-purple-colorful-rays-moving-opposite-each-other.jpg_cemgvf.jpg')",
-          }}
-        />
+        <div className="absolute inset-0 bg-black/40 z-0" aria-hidden />
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-2xl">
             <p className="text-white/90 text-sm font-medium uppercase tracking-wider mb-2">

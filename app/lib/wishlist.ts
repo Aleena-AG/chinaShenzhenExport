@@ -127,3 +127,7 @@ export function getCompareItems(): CompareItem[] {
 export function getCompareCount(): number {
   return getCompare().length;
 }
+
+export function clearCompare() {
+  setCompare([]);
+}

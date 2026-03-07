@@ -181,8 +181,7 @@ export default function Header() {
             {/* Center: Navigation Menu */}
             <nav className="hidden font-semibold text-lg lg:flex items-center gap-10 hover:text-[#1658a1] transition-colors">
               <NavLink text="Home" href="/" />
-              <NavLink text="About Us" />
-              
+              <NavLink text="New Arrival" href="/new-arrival" />
               <NavLink text="Shop" href="/shop" />
               <NavLink text="Contact Us" href="/contact" />
             </nav>

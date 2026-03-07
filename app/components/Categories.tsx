@@ -75,7 +75,7 @@ export default function Categories() {
     setSelectedProductId(productId);
     const product = products.find((p) => String(p.id) === productId);
     if (product) {
-      router.push(`/product/${product.id}/order`);
+      router.push(`/product/${product.id}`);
     }
   };
 
