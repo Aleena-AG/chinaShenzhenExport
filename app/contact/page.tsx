@@ -13,6 +13,9 @@ const SOCIAL_LINKS = [
   { name: 'YouTube', href: 'https://www.youtube.com/ChinaShenzhenExport', Icon: FaYoutube },
 ];
 
+const cardClassName =
+  'flex items-start gap-4 p-6 rounded-2xl bg-white border-2 border-gray-100 hover:border-[#1658a1]/30 hover:shadow-lg transition-all duration-300';
+
 function ContactCard({
   icon,
   title,
@@ -24,13 +27,8 @@ function ContactCard({
   content: string;
   href?: string;
 }) {
-  const Wrapper = href ? Link : 'div';
-  const wrapperProps = href ? { href } : {};
-  return (
-    <Wrapper
-      {...wrapperProps}
-      className={`flex items-start gap-4 p-6 rounded-2xl bg-white border-2 border-gray-100 hover:border-[#1658a1]/30 hover:shadow-lg transition-all duration-300 ${href ? 'cursor-pointer' : ''}`}
-    >
+  const inner = (
+    <>
       <span
         className="shrink-0 w-14 h-14 rounded-xl flex items-center justify-center text-white"
         style={{ background: GRADIENT }}
@@ -41,8 +39,17 @@ function ContactCard({
         <h3 className="font-bold text-gray-800">{title}</h3>
         <p className="text-gray-600 text-sm mt-1">{content}</p>
       </div>
-    </Wrapper>
+    </>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className={`${cardClassName} cursor-pointer`}>
+        {inner}
+      </Link>
+    );
+  }
+  return <div className={cardClassName}>{inner}</div>;
 }
 
 export default function ContactPage() {

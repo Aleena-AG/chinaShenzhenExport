@@ -22,6 +22,12 @@ type OrderItem = {
   [key: string]: unknown;
 };
 
+type ProfileApiResponse = {
+  orders?: OrderItem[];
+  data?: OrderItem[] | { orders?: OrderItem[] };
+  success?: boolean;
+};
+
 function formatDate(iso: string | undefined): string {
   if (!iso) return '—';
   try {
@@ -74,8 +80,12 @@ export default function CustomerProfilePage() {
         }
         return res.json();
       })
-      .then((json) => {
-        const list = json?.orders ?? json?.data?.orders ?? json?.data;
+      .then((json: ProfileApiResponse) => {
+        const data = json?.data;
+        const list =
+          json?.orders ??
+          (data != null && !Array.isArray(data) ? data.orders : undefined) ??
+          (Array.isArray(data) ? data : undefined);
         if (Array.isArray(list)) {
           setOrders(list);
         } else if (json?.success && Array.isArray(json?.data)) {
