@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getGpsSubCategories } from '../lib/gps-products';
@@ -240,9 +241,18 @@ export function ValueOfDayCard({ product }: { product: DisplayProduct }) {
 
 const PARENT_SLUG_GPS = 'gps-tracker-accessories';
 
-const staticDisplayProducts: DisplayProduct[] = valueOfDayProducts.map(toDisplayProduct);
+function matchesSearch(p: DisplayProduct, q: string): boolean {
+  if (!q.trim()) return true;
+  const lower = q.toLowerCase().trim();
+  const name = (p.name ?? '').toLowerCase();
+  const desc = (p.description ?? '').toLowerCase();
+  const cat = (p.category ?? '').toLowerCase();
+  return name.includes(lower) || desc.includes(lower) || cat.includes(lower);
+}
 
 export default function ValueOfDaySection() {
+  const searchParams = useSearchParams();
+  const searchQ = searchParams.get('q') ?? '';
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [apiProducts, setApiProducts] = useState<DisplayProduct[]>([]);
   const gpsSubCategories = getGpsSubCategories();
@@ -261,10 +271,10 @@ export default function ValueOfDaySection() {
     };
   }, []);
 
-  const allProducts = useMemo(
-    () => [...staticDisplayProducts, ...apiProducts],
-    [apiProducts]
-  );
+  const displayProducts = useMemo(() => {
+    if (!searchQ.trim()) return apiProducts;
+    return apiProducts.filter((p) => matchesSearch(p, searchQ));
+  }, [apiProducts, searchQ]);
 
   const toggleCategory = (key: string) => {
     setOpenCategory((prev) => (prev === key ? null : key));
@@ -273,10 +283,18 @@ export default function ValueOfDaySection() {
   return (
     <section className="bg-white min-h-[60vh]">
       <div className="container mx-auto px-4 pt-24 pb-8">
+        {searchQ.trim() && (
+          <p className="text-center text-sm text-gray-600 mb-6">
+            Results for &quot;<span className="font-semibold">{searchQ}</span>&quot;
+            {displayProducts.length === 0 && ' – no products match'}
+            {' '}
+            <Link href="/" className="text-[#1658a1] font-medium hover:underline">Clear</Link>
+          </p>
+        )}
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1 min-w-0">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-              {allProducts.map((product, idx) => (
+              {displayProducts.map((product, idx) => (
                 <ValueOfDayCard key={`${product.id}-${idx}`} product={product} />
               ))}
             </div>

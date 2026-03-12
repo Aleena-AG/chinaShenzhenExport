@@ -1,13 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { slugify } from './ValueOfDaySection';
 import { fetchCategories, fetchProductsByCategory, groupCategories, type ApiCategory } from '../lib/api';
 import type { ApiProductByName } from '../lib/api';
 
 export default function Categories() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [categories, setCategories] = useState<ApiCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -16,6 +17,18 @@ export default function Categories() {
   const [products, setProducts] = useState<ApiProductByName[]>([]);
   const [productsLoading, setProductsLoading] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    const q = searchParams.get('q') ?? '';
+    setSearchQuery(q);
+  }, [searchParams]);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = searchQuery.trim();
+    if (q) router.push(`/?q=${encodeURIComponent(q)}`);
+  };
 
   const { main, byParent } = groupCategories(categories);
   const selectedMain = main.find((m) => m.id === selectedMainId) ?? main[0] ?? null;
@@ -191,6 +204,36 @@ export default function Categories() {
               </select>
             </div>
           </div>
+
+          <form onSubmit={handleSearch} className="mt-6 max-w-2xl mx-auto">
+            <label htmlFor="categories-search" className="sr-only">
+              Search products
+            </label>
+            <div className="flex gap-2">
+              <input
+                id="categories-search"
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search products..."
+                className="flex-1 px-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1658a1] focus:border-[#1658a1]"
+              />
+              <button
+                type="button"
+                onClick={() => { setSearchQuery(''); router.push('/'); }}
+                className="px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-[#1658a1] focus:ring-offset-2"
+              >
+                Clear
+              </button>
+              <button
+                type="submit"
+                className="px-6 py-3 rounded-lg font-semibold text-white transition-colors hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#1658a1] focus:ring-offset-2"
+                style={{ background: 'linear-gradient(90deg, #003a91 24%, #9c0303 100%)' }}
+              >
+                Search
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </section>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 type HeroBannerItem = {
   id?: number | string;
@@ -32,6 +33,14 @@ function getBannerImageUrl(b: HeroBannerItem): string | null {
 export default function HeroSection() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [banners, setBanners] = useState<HeroBannerItem[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = searchQuery.trim();
+    if (q) router.push(`/shop?q=${encodeURIComponent(q)}`);
+  };
 
   useEffect(() => {
     fetch('/api/banners')
@@ -106,11 +115,13 @@ export default function HeroSection() {
             </p>
             
             {/* Search Bar */}
-            <div className="flex gap-2">
+            <form onSubmit={handleSearch} className="flex gap-2">
               <input
                 type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search products..."
-                className="flex-1 bg-transparent border-2 border-white rounded-lg px-4 py-3 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-[#db1f26] focus:border-[#db1f26]"
+                className="flex-1 bg-white/10 border-2 border-white rounded-lg px-4 py-3 text-white placeholder-white/80 focus:outline-none focus:ring-2 focus:ring-[#db1f26] focus:border-[#db1f26]"
               />
               <button className="bg-white text-[#1658a1] px-6 py-3 rounded-lg transition-colors flex items-center justify-center">
                 <svg
@@ -127,7 +138,7 @@ export default function HeroSection() {
                   />
                 </svg>
               </button>
-            </div>
+            </form>
           </div>
 
           {/* Right: Hot Products Today – improved block */}

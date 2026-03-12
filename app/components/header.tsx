@@ -96,7 +96,7 @@ export default function Header() {
         <div className="container mx-auto px-4 py-2 flex items-center justify-between text-sm text-[#1658a1]">
           {/* Left: Welcome Message */}
           <div className="text-[#1658a1] text-xs sm:text-sm font-medium">
-            Welcome to Worldwide CSE Store
+            Welcome to Worldwide China Shenzhen Export Store
           </div>
 
           {/* Right: Utility Links */}

@@ -4,29 +4,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { fetchProducts, type ApiProduct } from '../lib/api';
 import { ValueOfDayCard, apiProductToDisplay, type DisplayProduct } from '../components/ValueOfDaySection';
 
-/** Get sortable date/order from API product (created_at, updated_at, or id as fallback) */
-function getSortKey(p: ApiProduct): number {
-  const created = (p.created_at ?? p.createdAt ?? p.date_created ?? p.date_added) as string | number | undefined;
-  if (typeof created === 'number' && !Number.isNaN(created)) return created;
-  if (typeof created === 'string') {
-    const t = new Date(created).getTime();
-    if (!Number.isNaN(t)) return t;
-  }
-  const updated = (p.updated_at ?? p.updatedAt) as string | number | undefined;
-  if (typeof updated === 'number' && !Number.isNaN(updated)) return updated;
-  if (typeof updated === 'string') {
-    const t = new Date(updated).getTime();
-    if (!Number.isNaN(t)) return t;
-  }
-  const id = typeof p.id === 'number' ? p.id : parseInt(String(p.id), 10);
-  return Number.isNaN(id) ? 0 : id;
-}
-
-/** Sort products: newest / recently added first */
-function sortByRecentFirst(products: ApiProduct[]): ApiProduct[] {
-  return [...products].sort((a, b) => getSortKey(b) - getSortKey(a));
-}
-
 const NEW_ARRIVAL_TOP_COUNT = 24;
 
 export default function NewArrivalPage() {
@@ -53,9 +30,8 @@ export default function NewArrivalPage() {
   }, []);
 
   const { newArrivalProducts, allProducts } = useMemo(() => {
-    const sorted = sortByRecentFirst(apiProducts);
-    const newArrival = sorted.slice(0, NEW_ARRIVAL_TOP_COUNT).map((p) => apiProductToDisplay(p));
-    const all = sorted.map((p) => apiProductToDisplay(p));
+    const newArrival = apiProducts.slice(0, NEW_ARRIVAL_TOP_COUNT).map((p) => apiProductToDisplay(p));
+    const all = apiProducts.map((p) => apiProductToDisplay(p));
     return { newArrivalProducts: newArrival, allProducts: all };
   }, [apiProducts]);
 

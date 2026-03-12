@@ -1,9 +1,20 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { slugify, ValueOfDayCard, apiProductToDisplay, type DisplayProduct } from './ValueOfDaySection';
 import { fetchCategories, fetchProducts, groupCategories, type ApiCategory } from '../lib/api';
 import type { ApiProduct } from '../lib/api';
+
+function matchesSearch(p: ApiProduct, q: string): boolean {
+  if (!q.trim()) return true;
+  const lower = q.toLowerCase().trim();
+  const name = (p.name ?? p.title ?? '').toString().toLowerCase();
+  const desc = (p.description ?? p.short_description ?? '').toString().toLowerCase();
+  const cat = (p.category ?? p.category_name ?? '').toString().toLowerCase();
+  return name.includes(lower) || desc.includes(lower) || cat.includes(lower);
+}
 
 function matchesCategory(p: ApiProduct, mainSlug: string, mainId: number, subSlug: string): boolean {
   const r = p as Record<string, unknown>;
@@ -20,6 +31,8 @@ function matchesCategory(p: ApiProduct, mainSlug: string, mainId: number, subSlu
 }
 
 export default function ShopProductGrid() {
+  const searchParams = useSearchParams();
+  const searchQ = searchParams.get('q') ?? '';
   const [categories, setCategories] = useState<ApiCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -78,12 +91,14 @@ export default function ShopProductGrid() {
   };
 
   const filteredProducts = useMemo((): ApiProduct[] => {
-    if (showAll) return allProducts;
-    if (!selectedMain) return [];
-    const mainSlug = selectedMain.slug || '';
-    const mainId = selectedMain.id;
-    return allProducts.filter((p) => matchesCategory(p, mainSlug, mainId, selectedSubSlug));
-  }, [allProducts, showAll, selectedMain, selectedSubSlug]);
+    let list = showAll ? allProducts : selectedMain
+      ? allProducts.filter((p) => matchesCategory(p, selectedMain.slug || '', selectedMain.id, selectedSubSlug))
+      : [];
+    if (searchQ.trim()) {
+      list = list.filter((p) => matchesSearch(p, searchQ));
+    }
+    return list;
+  }, [allProducts, showAll, selectedMain, selectedSubSlug, searchQ]);
 
   const displayProducts = useMemo((): DisplayProduct[] => {
     return filteredProducts.map((p) => apiProductToDisplay(p, categorySlug || undefined));
@@ -197,6 +212,14 @@ export default function ShopProductGrid() {
 
       {/* Product cards grid */}
       <div className="container mx-auto px-4 py-10 sm:py-12">
+        {searchQ.trim() && (
+          <p className="text-center text-sm text-gray-600 mb-4">
+            Results for &quot;<span className="font-semibold">{searchQ}</span>&quot;
+            {displayProducts.length === 0 && !productsLoading && ' – no products match'}
+            {' '}
+            <Link href="/shop" className="text-[#1658a1] font-medium hover:underline">Clear</Link>
+          </p>
+        )}
         {productsLoading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (

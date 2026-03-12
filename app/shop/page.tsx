@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import Link from 'next/link';
 import ShopProductGrid from '../components/ShopProductGrid';
 
@@ -17,7 +18,7 @@ export default function ShopPage() {
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-2xl">
             <p className="text-white/90 text-sm font-medium uppercase tracking-wider mb-2">
-              Worldwide CSE Store
+              Worldwide China Shenzhen Export Store
             </p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight">
               Shop
@@ -30,7 +31,9 @@ export default function ShopPage() {
       </section>
 
       {/* Category tabs, subcategory filter, product cards */}
-      <ShopProductGrid />
+      <Suspense fallback={<div className="container mx-auto px-4 py-10 text-center text-gray-500">Loading…</div>}>
+        <ShopProductGrid />
+      </Suspense>
 
       {/* CTA strip */}
       <section className="py-12 bg-gray-50 border-t border-gray-100">

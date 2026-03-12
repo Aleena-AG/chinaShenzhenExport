@@ -100,6 +100,29 @@ export type ApiProduct = {
 /**
  * Fetch products. Uses Next.js proxy /api/products in the browser to avoid CORS.
  */
+/** Get sortable key (date or id) – for "first added first" ordering */
+function getProductSortKey(p: ApiProduct): number {
+  const created = (p.created_at ?? p.createdAt ?? p.date_created ?? p.date_added) as string | number | undefined;
+  if (typeof created === 'number' && !Number.isNaN(created)) return created;
+  if (typeof created === 'string') {
+    const t = new Date(created).getTime();
+    if (!Number.isNaN(t)) return t;
+  }
+  const updated = (p.updated_at ?? p.updatedAt) as string | number | undefined;
+  if (typeof updated === 'number' && !Number.isNaN(updated)) return updated;
+  if (typeof updated === 'string') {
+    const t = new Date(updated).getTime();
+    if (!Number.isNaN(t)) return t;
+  }
+  const id = typeof p.id === 'number' ? p.id : parseInt(String(p.id), 10);
+  return Number.isNaN(id) ? 0 : id;
+}
+
+/** Sort products: first added first (oldest first, ascending) */
+export function sortProductsByAddedFirst(products: ApiProduct[]): ApiProduct[] {
+  return [...products].sort((a, b) => getProductSortKey(a) - getProductSortKey(b));
+}
+
 export async function fetchProducts(): Promise<ApiProduct[]> {
   const url =
     typeof window === 'undefined'
@@ -110,7 +133,7 @@ export async function fetchProducts(): Promise<ApiProduct[]> {
   if (!res.ok) throw new Error(json?.message || res.statusText || 'Failed to fetch');
   const data = json?.data ?? json?.products ?? json;
   if (!Array.isArray(data)) return [];
-  return data;
+  return sortProductsByAddedFirst(data);
 }
 
 /** Single product from API (e.g. GET /api/products/4) */
